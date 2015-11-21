@@ -28,19 +28,10 @@ namespace MelonSlice
         }
         string meloneSpliter(int weightKg)
         {
-            if (weightKg < 4)
-            {
-                return "NU";
-            }
-            string answer = weightKg % 2 == 0 ? "DA" : "NU";
-            return answer;
+            if (weightKg < 4 || weightKg % 2 != 0)            
+                return "NU";            
+            else            
+                return "DA";           
         }
     }
 }
-// x / 2
-// 1  nu
-// 2  nu
-// 3  nu
-// 4  da
-// 5  nu
-// 6  da
