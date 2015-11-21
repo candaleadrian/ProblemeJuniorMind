@@ -11,13 +11,18 @@ namespace MelonSlice
         {
             Assert.AreEqual ("NU", meloneSpliter(1));
         }
+        [TestMethod]
+        public void Testpt4Kg()
+        {
+            Assert.AreEqual("DA", meloneSpliter(4));
+        }
         string meloneSpliter(int weightKg)
         {
             if (weightKg < 4)
             {
                 return "NU";
             }
-            return "DA";
+            return "Test";
         }
     }
 }
