@@ -23,8 +23,7 @@ namespace FizzBuzz
         }
         string FizzOrBuzz(int number)
         {
-            string b = number % 3 == 0 && number % 5 == 0 ? "FizzBuzz" : number % 3 == 0 ? "Fizz" : number % 5 == 0 ? "Buzz" : "indivizibilcu 3 si 5";
-            return b;
+            return number % 3 == 0 && number % 5 == 0 ? "FizzBuzz" : number % 3 == 0 ? "Fizz" : number % 5 == 0 ? "Buzz" : "indivizibilcu 3 si 5";
         }
     }
 }
