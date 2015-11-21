@@ -16,8 +16,17 @@ namespace FizzBuzz
         {
             Assert.AreEqual("Buzz", FizzOrBuzz(5));
         }
+        [TestMethod]
+        public void TestNr15()
+        {
+            Assert.AreEqual("FizzBuzz", FizzOrBuzz(15));
+        }
         string FizzOrBuzz(int number)
         {
+            if (number % 3 == 0 && number % 5 == 0)
+            {
+                return "FizzBuzz";
+            }
             if (number % 3 == 0)
             {
                 return "Fizz";
@@ -26,7 +35,6 @@ namespace FizzBuzz
             {
                 return "Buzz";
             }
-
             else
             {
                 return "not multiple of 3";
