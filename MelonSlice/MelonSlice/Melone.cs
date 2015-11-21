@@ -22,7 +22,8 @@ namespace MelonSlice
             {
                 return "NU";
             }
-            return "Test";
+            string answer = weightKg % 2 == 0 ? "DA" : "NU";
+            return answer;
         }
     }
 }
