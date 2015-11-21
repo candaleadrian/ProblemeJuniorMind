@@ -1,0 +1,6 @@
+D:\Programare\ProblemeJuniorMind\MelonSlice\MelonSlice\bin\Debug\MelonSlice.dll
+D:\Programare\ProblemeJuniorMind\MelonSlice\MelonSlice\bin\Debug\MelonSlice.pdb
+D:\Programare\ProblemeJuniorMind\MelonSlice\MelonSlice\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+D:\Programare\ProblemeJuniorMind\MelonSlice\MelonSlice\obj\Debug\MelonSlice.csprojResolveAssemblyReference.cache
+D:\Programare\ProblemeJuniorMind\MelonSlice\MelonSlice\obj\Debug\MelonSlice.dll
+D:\Programare\ProblemeJuniorMind\MelonSlice\MelonSlice\obj\Debug\MelonSlice.pdb
