@@ -11,9 +11,13 @@ namespace MelonSlice
         {
             Assert.AreEqual ("NU", meloneSpliter(1));
         }
-        int meloneSpliter(int weightKg)
+        string meloneSpliter(int weightKg)
         {
-            return 7;
+            if (weightKg < 4)
+            {
+                return "NU";
+            }
+            return "DA";
         }
     }
 }
