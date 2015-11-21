@@ -24,7 +24,7 @@ namespace FizzBuzz
             }
             if (number % 5 == 0)
             {
-                return "FFFFFizz";
+                return "Buzz";
             }
 
             else
