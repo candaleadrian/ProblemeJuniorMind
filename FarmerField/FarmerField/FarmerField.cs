@@ -11,6 +11,16 @@ namespace FarmerField
         {
             Assert.AreEqual(1,initialSquareFinder(1,2));
         }
+        [TestMethod]
+        public void LaturaPatratuluiTest2()
+        {
+            Assert.AreEqual(70, initialSquareFinder(10, 5600));
+        }
+        [TestMethod]
+        public void TestDateProblema()
+        {
+            Assert.AreEqual(770, initialSquareFinder(230, 770000));
+        }
         double initialSquareFinder(int aditionalLength, int totalArea)
         {
             double  Delta = aditionalLength * aditionalLength + 4 * totalArea;
