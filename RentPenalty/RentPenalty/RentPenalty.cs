@@ -9,11 +9,12 @@ namespace RentPenalty
         [TestMethod]
         public void oneToTenDays()
         {
-            Assert.AreEqual(2, calculatePenalty(2, 1));
+            Assert.AreEqual(102, calculatePenalty(100, 1));
         }
         decimal calculatePenalty(int rent, int daysDelay)
         {
-            return 0;
+            decimal penalty = rent * 2 / 100;
+            return rent + penalty ;
         }
     }
 }
