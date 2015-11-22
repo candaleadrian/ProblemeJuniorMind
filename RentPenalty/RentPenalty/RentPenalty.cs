@@ -21,11 +21,20 @@ namespace RentPenalty
         {
             Assert.AreEqual(155, calculatePenalty(100, 11));
         }
+        [TestMethod]
+        public void ThirtyToFourtyDays31()
+        {
+            Assert.AreEqual(410, calculatePenalty(100, 31));
+        }
         decimal calculatePenalty(int rent, int daysDelay)
         {
-            decimal penaltyPercent = daysDelay <= 10 ? 2 : 5;
-            decimal penalty = rent * penaltyPercent / 100;
-            return rent + penalty * daysDelay ;
+            decimal penalty = rent * penaltyPercent(daysDelay) / 100;
+            return rent + penalty * daysDelay;
+        }
+
+        private static decimal penaltyPercent(int daysDelay)
+        {
+            return daysDelay <= 10 ? 2 : daysDelay <= 30 ? 5 : 10;
         }
     }
 }
