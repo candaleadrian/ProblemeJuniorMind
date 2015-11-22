@@ -28,13 +28,9 @@ namespace RentPenalty
         }
         decimal calculatePenalty(int rent, int daysDelay)
         {
-            decimal penalty = rent * penaltyPercent(daysDelay) / 100;
+            decimal penaltyPercent = daysDelay <= 10 ? 2 : daysDelay <= 30 ? 5 : 10;
+            decimal penalty = rent * penaltyPercent / 100;
             return rent + penalty * daysDelay;
-        }
-
-        private static decimal penaltyPercent(int daysDelay)
-        {
-            return daysDelay <= 10 ? 2 : daysDelay <= 30 ? 5 : 10;
         }
     }
 }
