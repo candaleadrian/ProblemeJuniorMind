@@ -16,10 +16,15 @@ namespace RentPenalty
         {
             Assert.AreEqual(114, calculatePenalty(100, 7));
         }
+        [TestMethod]
+        public void tenToThirtyDays11()
+        {
+            Assert.AreEqual(155, calculatePenalty(100, 11));
+        }
         decimal calculatePenalty(int rent, int daysDelay)
         {
             decimal penalty = rent * 2 / 100;
-            return rent + penalty;
+            return rent + penalty * daysDelay ;
         }
     }
 }
