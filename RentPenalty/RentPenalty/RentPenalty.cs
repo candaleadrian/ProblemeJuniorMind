@@ -7,9 +7,13 @@ namespace RentPenalty
     public class RentPenalty
     {
         [TestMethod]
-        public void TestMethod1()
+        public void oneToTenDays()
         {
+            Assert.AreEqual(2, calculatePenalty(2, 1));
         }
-
+        decimal calculatePenalty(int rent, int daysDelay)
+        {
+            return 0;
+        }
     }
 }
