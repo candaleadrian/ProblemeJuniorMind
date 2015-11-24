@@ -11,9 +11,15 @@ namespace TaxiFare
         {
             Assert.AreEqual(5, CalculateTaxiFare(1, 8));
         }
+        [TestMethod]
+        public void TestDayFareMediumDistance()
+        {
+            Assert.AreEqual(168, CalculateTaxiFare(21, 8));
+        }
         decimal CalculateTaxiFare(int distanceInKm, int hour)
         {
-            return distanceInKm * 5;
+            int price = distanceInKm < 21 ? 5 : 8;
+            return distanceInKm * price ;
         }
     }
 }
