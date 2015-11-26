@@ -11,9 +11,25 @@ namespace ArabicToRoman
         {
             Assert.AreEqual ("I", TransformArabicToRoman(1));
         }
+        [TestMethod]
+        public void Transform2toRoman()
+        {
+            Assert.AreEqual("II", TransformArabicToRoman(2));
+        }
         string TransformArabicToRoman(int number)
         {
-            return "I";
+            int remainder = number % 10;
+            switch (remainder)
+            {
+                case 1:
+                    return "I";
+                    break;
+                case 2:
+                    return "II";
+                    break;
+                default:
+                    return "0";
+            }
         }
     }
 }
