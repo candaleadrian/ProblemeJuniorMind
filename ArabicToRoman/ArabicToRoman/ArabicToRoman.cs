@@ -61,6 +61,16 @@ namespace ArabicToRoman
         {
             Assert.AreEqual("XI", TransformArabicToRoman(11));
         }
+        [TestMethod]
+        public void Transform15toRoman()
+        {
+            Assert.AreEqual("XV", TransformArabicToRoman(15));
+        }
+        [TestMethod]
+        public void Transform19toRoman()
+        {
+            Assert.AreEqual("XIX", TransformArabicToRoman(19));
+        }
         string TransformArabicToRoman(int number)
         {
             int remainder = number % 10;
