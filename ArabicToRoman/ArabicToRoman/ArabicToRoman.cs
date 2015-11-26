@@ -94,14 +94,23 @@ namespace ArabicToRoman
         [TestMethod]
         public void Transform40toRoman()
         {
-            Assert.AreEqual("XXXX", TransformArabicToRoman(40));
+            Assert.AreEqual("XL", TransformArabicToRoman(40));
+        }
+        [TestMethod]
+        public void Transform49toRoman()
+        {
+            Assert.AreEqual("XLIX", TransformArabicToRoman(49));
         }
         string TransformArabicToRoman(int number)
         {
             int remainder = number % 10;
             string additionalNumber = RomanNumberLessThenTen(remainder);
             string DousensRoman = "";
-            if ((number / 10) > 0)
+            if ((number / 10) == 4)
+            {
+                DousensRoman = "XL";
+            }
+            else if ((number / 10) > 0)
             {
                 for (int i = 0; i < (number / 10); i++)
                 {
