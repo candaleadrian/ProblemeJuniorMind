@@ -56,12 +56,30 @@ namespace ArabicToRoman
         {
             Assert.AreEqual("X", TransformArabicToRoman(10));
         }
+        [TestMethod]
+        public void Transform11toRoman()
+        {
+            Assert.AreEqual("XI", TransformArabicToRoman(11));
+        }
         string TransformArabicToRoman(int number)
         {
             int remainder = number % 10;
-            return RomanNumberLessThenTen(remainder);
+            string additionalNumber = RomanNumberLessThenTen(remainder);
+            string DousensRoman = "";
+            if ((number / 10) > 0 && number != 10)
+            {
+                DousensRoman = "X";
+            }
+            string romanNumber = DousensRoman + additionalNumber ;
+            return romanNumber ;
+        }
 
-         //   return "X";
+        private static void dousens(int number)
+        {
+            if (number > 10)
+            {
+                int dousen = number / 10;
+            }
         }
 
         private static string RomanNumberLessThenTen(int remainder)
