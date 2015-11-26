@@ -71,14 +71,23 @@ namespace ArabicToRoman
         {
             Assert.AreEqual("XIX", TransformArabicToRoman(19));
         }
+        [TestMethod]
+        public void Transform20toRoman()
+        {
+            Assert.AreEqual("XX", TransformArabicToRoman(20));
+        }
         string TransformArabicToRoman(int number)
         {
             int remainder = number % 10;
             string additionalNumber = RomanNumberLessThenTen(remainder);
             string DousensRoman = "";
-            if ((number / 10) > 0 && number != 10)
+            if ((number / 10) > 0)
             {
-                DousensRoman = "X";
+                for (int i = 0; i < (number / 10); i++)
+                {
+                    DousensRoman = DousensRoman + "X";
+                }
+               
             }
             string romanNumber = DousensRoman + additionalNumber ;
             return romanNumber ;
@@ -123,11 +132,8 @@ namespace ArabicToRoman
                 case 9:
                     return "IX";
                     break;
-                case 0:
-                    return "X";
-                    break;
                 default:
-                    return "0";
+                    return "";
             }
         }
     }
