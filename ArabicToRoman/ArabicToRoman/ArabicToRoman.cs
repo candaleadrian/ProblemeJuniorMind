@@ -116,16 +116,31 @@ namespace ArabicToRoman
         {
             Assert.AreEqual("LXXXIX", TransformArabicToRoman(89));
         }
+        [TestMethod]
+        public void Transform90toRoman()
+        {
+            Assert.AreEqual("XC", TransformArabicToRoman(90));
+        }
+        [TestMethod]
+        public void Transform99toRoman()
+        {
+            Assert.AreEqual("XCIX", TransformArabicToRoman(99));
+        }
         string TransformArabicToRoman(int number)
         {
             int remainder = number % 10;
             string additionalNumber = RomanNumberLessThenTen(remainder);
             string DousensRoman = "";
-            string fifty = "";
-            if (number >= 50)
+            string fiftyOrNinety = "";
+            if (number >= 50 && number < 90)
             {
                 number = number - 50;
-                fifty = "L";
+                fiftyOrNinety = "L";
+            }
+            if (number >= 90)
+            {
+                number = number - 90;
+                fiftyOrNinety = "XC";
             }
             if ((number / 10) == 4 && (number / 10) <5)
             {
@@ -139,7 +154,7 @@ namespace ArabicToRoman
                 }
                
             }
-            string romanNumber = fifty + DousensRoman + additionalNumber ;
+            string romanNumber = fiftyOrNinety + DousensRoman + additionalNumber ;
             return romanNumber ;
         }
 
