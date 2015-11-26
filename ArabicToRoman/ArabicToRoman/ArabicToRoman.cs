@@ -126,6 +126,11 @@ namespace ArabicToRoman
         {
             Assert.AreEqual("XCIX", TransformArabicToRoman(99));
         }
+        [TestMethod]
+        public void Transform100toRoman()
+        {
+            Assert.AreEqual("C", TransformArabicToRoman(100));
+        }
         string TransformArabicToRoman(int number)
         {
             int remainder = number % 10;
@@ -137,10 +142,14 @@ namespace ArabicToRoman
                 number = number - 50;
                 fiftyOrNinety = "L";
             }
-            if (number >= 90)
+            if (number >= 90 && number < 100)
             {
                 number = number - 90;
                 fiftyOrNinety = "XC";
+            }
+            if (number == 100)
+            {
+                DousensRoman = "C";
             }
             if ((number / 10) == 4 && (number / 10) <5)
             {
