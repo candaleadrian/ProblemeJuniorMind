@@ -7,8 +7,13 @@ namespace ArabicToRoman
     public class ArabicToRoman
     {
         [TestMethod]
-        public void TestMethod1()
+        public void Transform1toRoman()
         {
+            Assert.AreEqual("I", 1);
+        }
+        string TransformArabicToRoman(int number)
+        {
+            return "O";
         }
     }
 }
