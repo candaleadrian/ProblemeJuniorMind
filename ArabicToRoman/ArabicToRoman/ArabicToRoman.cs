@@ -9,11 +9,11 @@ namespace ArabicToRoman
         [TestMethod]
         public void Transform1toRoman()
         {
-            Assert.AreEqual("I", 1);
+            Assert.AreEqual ("I", TransformArabicToRoman(1));
         }
         string TransformArabicToRoman(int number)
         {
-            return "O";
+            return "I";
         }
     }
 }
