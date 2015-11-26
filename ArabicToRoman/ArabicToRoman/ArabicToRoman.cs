@@ -101,16 +101,37 @@ namespace ArabicToRoman
         {
             Assert.AreEqual("XLIX", TransformArabicToRoman(49));
         }
+        [TestMethod]
+        public void Transform50toRoman()
+        {
+            Assert.AreEqual("L", TransformArabicToRoman(50));
+        }
+        [TestMethod]
+        public void Transform59toRoman()
+        {
+            Assert.AreEqual("LIX", TransformArabicToRoman(59));
+        }
+        [TestMethod]
+        public void Transform89toRoman()
+        {
+            Assert.AreEqual("LXXXIX", TransformArabicToRoman(89));
+        }
         string TransformArabicToRoman(int number)
         {
             int remainder = number % 10;
             string additionalNumber = RomanNumberLessThenTen(remainder);
             string DousensRoman = "";
-            if ((number / 10) == 4)
+            string fifty = "";
+            if (number >= 50)
+            {
+                number = number - 50;
+                fifty = "L";
+            }
+            if ((number / 10) == 4 && (number / 10) <5)
             {
                 DousensRoman = "XL";
             }
-            else if ((number / 10) > 0)
+            else if ((number / 10) > 0 && (number / 10) < 5)
             {
                 for (int i = 0; i < (number / 10); i++)
                 {
@@ -118,7 +139,7 @@ namespace ArabicToRoman
                 }
                
             }
-            string romanNumber = DousensRoman + additionalNumber ;
+            string romanNumber = fifty + DousensRoman + additionalNumber ;
             return romanNumber ;
         }
 
