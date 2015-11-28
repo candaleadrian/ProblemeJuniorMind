@@ -178,37 +178,25 @@ namespace ArabicToRoman
         private static string RomanNumberLessThenTen(int remainder)
         {
             string romanRemainder = "";
+            if (remainder >4 && remainder < 9)
+            {
+                romanRemainder = "V";
+                remainder = remainder - 5;
+            }
             if (remainder < 4 && remainder >0)
             {
                 for (int i = 0; i < remainder; i++)
                 {
                     romanRemainder = romanRemainder + "I";
-                }
-                return romanRemainder;
+                }              
             }
-            switch (remainder)
-            {
-                case 4:
-                    return "IV";
-                    break;
-                case 5:
-                    return "V";
-                    break;
-                case 6:
-                    return "VI";
-                    break;
-                case 7:
-                    return "VII";
-                    break;
-                case 8:
-                    return "VIII";
-                    break;
-                case 9:
-                    return "IX";
-                    break;
-                default:
-                    return "";
-            }
+            if (remainder == 4)
+                romanRemainder = "IV";
+            if (remainder == 9)
+                romanRemainder = "IX";
+            if (remainder == 0)
+                romanRemainder = romanRemainder + "";
+            return romanRemainder;      
         }
     }
 }
