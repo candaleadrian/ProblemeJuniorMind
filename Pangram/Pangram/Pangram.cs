@@ -10,7 +10,12 @@ namespace Pangram
         [TestMethod]
         public void PangramTest1()
         {
-            Assert.AreEqual("a", decideIfIsAPangram("a", "ab"));
+            Assert.AreEqual("YES", decideIfIsAPangram("a", "ab"));
+        }
+        [TestMethod]
+        public void PangramTest2()
+        {
+            Assert.AreEqual("YES", decideIfIsAPangram("ab", "ab"));
         }
         string decideIfIsAPangram(string alfabet, string text)
         {
@@ -18,10 +23,13 @@ namespace Pangram
             {
                 if (text.Contains(alfabet[i]))
                 {
-                    return "a";
+                    if (i == (alfabet.Length - 1))
+                    {
+                        return "YES";
+                    }
                 }
             }
-            return "";
+            return "NO";
         }
     }
 }
