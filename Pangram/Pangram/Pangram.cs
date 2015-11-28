@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace Pangram
 {
@@ -13,6 +14,13 @@ namespace Pangram
         }
         string decideIfIsAPangram(string alfabet, string text)
         {
+            for (int i = 0; i < alfabet.Length; i++)
+            {
+                if (text.Contains(alfabet[i]))
+                {
+                    return "a";
+                }
+            }
             return "";
         }
     }
