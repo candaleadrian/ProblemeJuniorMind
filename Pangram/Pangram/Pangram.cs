@@ -17,6 +17,11 @@ namespace Pangram
         {
             Assert.AreEqual("YES", decideIfIsAPangram("ab", "ab"));
         }
+        [TestMethod]
+        public void PangramTestNO()
+        {
+            Assert.AreEqual("NO", decideIfIsAPangram("ab", "cdefg"));
+        }
         string decideIfIsAPangram(string alfabet, string text)
         {
             for (int i = 0; i < alfabet.Length; i++)
