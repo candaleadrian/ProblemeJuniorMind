@@ -19,7 +19,7 @@ namespace Prefix
         string findComunPrefix(string firstWord, string secondWord)
         {
             string prefix = "";
-            for (int i = 0; i<3; i++)
+            for (int i = 0; i < Math.Min(firstWord.Length,secondWord.Length); i++)
             {
                 if (firstWord[i] == secondWord[i])
                 {
