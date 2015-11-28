@@ -22,6 +22,11 @@ namespace Pangram
         {
             Assert.AreEqual("NO", decideIfIsAPangram("ab", "cdefg"));
         }
+        [TestMethod]
+        public void PangramTestFinal()
+        {
+            Assert.AreEqual("YES", decideIfIsAPangram("abcdefghijklmnopqrstuvwxyz", "The quick brown fox jumps over the lazy dog"));
+        }
         string decideIfIsAPangram(string alfabet, string text)
         {
             for (int i = 0; i < alfabet.Length; i++)
