@@ -30,6 +30,8 @@ namespace Prefix
                 {
                     prefix = prefix + firstWord[i];
                 }
+                else
+                    break;
             }
             return prefix;
         }
