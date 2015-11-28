@@ -177,17 +177,17 @@ namespace ArabicToRoman
 
         private static string RomanNumberLessThenTen(int remainder)
         {
+            string romanRemainder = "";
+            if (remainder < 4 && remainder >0)
+            {
+                for (int i = 0; i < remainder; i++)
+                {
+                    romanRemainder = romanRemainder + "I";
+                }
+                return romanRemainder;
+            }
             switch (remainder)
             {
-                case 1:
-                    return "I";
-                    break;
-                case 2:
-                    return "II";
-                    break;
-                case 3:
-                    return "III";
-                    break;
                 case 4:
                     return "IV";
                     break;
