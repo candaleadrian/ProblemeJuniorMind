@@ -37,6 +37,21 @@ namespace Columns
         {
             Assert.AreEqual("ba", generateColumnName(53));
         }
+        [TestMethod]
+        public void ColumnBB()
+        {
+            Assert.AreEqual("bb", generateColumnName(54));
+        }
+        [TestMethod]
+        public void ColumnBZ()
+        {
+            Assert.AreEqual("bz", generateColumnName(78));
+        }
+        [TestMethod]
+        public void ColumnCA()
+        {
+            Assert.AreEqual("ca", generateColumnName(79));
+        }
         string generateColumnName (int number)
         {
             string alfabet = "abcdefghijklmnopqrstuvwxyz";
