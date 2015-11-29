@@ -27,6 +27,11 @@ namespace Columns
         {
             Assert.AreEqual("ab", generateColumnName(28));
         }
+        [TestMethod]
+        public void ColumnAZ()
+        {
+            Assert.AreEqual("az", generateColumnName(52));
+        }
         string generateColumnName (int number)
         {
             string alfabet = "abcdefghijklmnopqrstuvwxyz";
@@ -35,6 +40,8 @@ namespace Columns
             while(y != 0)
             {
                 int i = (number % 26)-1;
+                if (i == -1)
+                    i = 25;
                 y = number / 26;
                 column =alfabet[i] + column;
                 number = number - 26 - i;
