@@ -52,6 +52,7 @@ namespace Columns
                 {
                     i = number / 26;
                     column = alfabet[i] + column;
+                    return column;
                 }
                 if (y==0)
                 {
