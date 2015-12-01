@@ -18,13 +18,8 @@ namespace Loto
         }
         double WinProbability(double  range, double  drawingsNumber)
         {
-            double  FactorialRange = 1;
-            for (int i = 1; i < range+1; i++)
-            {
-                FactorialRange = FactorialRange * i; 
-            }
-            double probability = drawingsNumber / FactorialRange;
-            return probability;
+             double probability = drawingsNumber / range;
+             return probability;
         }
     }
 }
