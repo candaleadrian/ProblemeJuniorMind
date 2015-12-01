@@ -21,6 +21,11 @@ namespace Loto
         {
             Assert.AreEqual(0.33, WinProbability(3, 2),0.01);
         }
+        [TestMethod]
+        public void TestProbability6from49()
+        {
+            Assert.AreEqual(0.00000007151123842018516, WinProbability(49, 6), 0.00000001);
+        }
         double WinProbability(double  range, double  drawingsNumber)
         {
             double probability = 1;
