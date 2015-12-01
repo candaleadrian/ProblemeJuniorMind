@@ -11,12 +11,22 @@ namespace Anagrams
         {
             Assert.AreEqual(2, CalculateAnagramsNumber("ab"));
         }
+        [TestMethod]
+        public void Test3CharTest()
+        {
+            Assert.AreEqual(6, CalculateAnagramsNumber("abc"));
+        }
+        [TestMethod]
+        public void Test4CharTest()
+        {
+            Assert.AreEqual(24, CalculateAnagramsNumber("abcd"));
+        }
         int CalculateAnagramsNumber(string text)
         {
-            int anagramNumber = 0;
-            for (int i = 1; i < text.Length; i++)
+            int anagramNumber = 1;
+            for (int i = 0; i < text.Length; i++)
             {
-                anagramNumber = text.Length * (text.Length - i) / (text.Length - 1);
+                anagramNumber = anagramNumber * (text.Length - i); 
             }
             return anagramNumber ;
         }
