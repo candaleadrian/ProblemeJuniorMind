@@ -13,7 +13,13 @@ namespace Loto
         }
         double WinProbability(int range, int drawingsNumber)
         {
-            return 0;
+            int FactorialRange = 1;
+            for (int i = 1; i == range; i++)
+            {
+                FactorialRange = FactorialRange * i; 
+            }
+            double probability = drawingsNumber / FactorialRange;
+            return probability;
         }
     }
 }
