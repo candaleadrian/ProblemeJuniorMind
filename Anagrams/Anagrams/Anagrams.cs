@@ -9,11 +9,16 @@ namespace Anagrams
         [TestMethod]
         public void TestMethod1()
         {
-            Assert.AreEqual(2, "ab");
+            Assert.AreEqual(2, CalculateAnagramsNumber("ab"));
         }
-        int CalculateAnagramsNumber(string Text)
+        int CalculateAnagramsNumber(string text)
         {
-            return 0;
+            int anagramNumber = 0;
+            for (int i = 1; i < text.Length; i++)
+            {
+                anagramNumber = text.Length * (text.Length - i) / (text.Length - 1);
+            }
+            return anagramNumber ;
         }
     }
 }
