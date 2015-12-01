@@ -52,25 +52,30 @@ namespace Columns
         {
             Assert.AreEqual("ca", generateColumnName(79));
         }
+        [TestMethod]
+        public void ColumnAAA()
+        {
+            Assert.AreEqual("aaa", generateColumnName(703));
+        }
         string generateColumnName (int number)
         {
             string alfabet = "abcdefghijklmnopqrstuvwxyz";
-            int y = 1;
             string column = "";
-            while(y != 0)
+            while(number > 0)
             {
                 int i = ((number-1) % 26);
-                y = number / 26;
-                column =alfabet[i] + column;
-                number = number - 26 - i;
-                if (number / 26 < 26 && number / 26 > 0)
-                {
-                    i = number / 26;
-                    column = alfabet[i] + column;
+                if (number < 26)
+                { 
+                    column =  alfabet[i] + column;
                     return column;
                 }
-                if (y==0)
+                number = number - i;
+                column = alfabet[i] + column;
+               // number = number - 26;
+                if (number / 26 < 26 && number / 26 > 0)
                 {
+                    i = (number-1) / 26;
+                    column = alfabet[i] + column;
                     return column;
                 }
             }
