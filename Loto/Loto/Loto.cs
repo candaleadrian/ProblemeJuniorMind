@@ -7,14 +7,19 @@ namespace Loto
     public class Loto
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestProbability1()
         {
             Assert.AreEqual(1, WinProbability(1, 1));
         }
-        double WinProbability(int range, int drawingsNumber)
+        [TestMethod]
+        public void TestProbability0p5()
         {
-            int FactorialRange = 1;
-            for (int i = 1; i == range; i++)
+            Assert.AreEqual(0.5, WinProbability(2, 1));
+        }
+        double WinProbability(double  range, double  drawingsNumber)
+        {
+            double  FactorialRange = 1;
+            for (int i = 1; i < range+1; i++)
             {
                 FactorialRange = FactorialRange * i; 
             }
