@@ -28,13 +28,26 @@ namespace Anagrams
         }
         int CalculateAnagramsNumber(string text)
         {
-            int[] charactersArray = { };
+            char[] charactersArray = { };
             int anagramNumber = 1;
-            for (int i = 0; i < text.Length; i++)
+            foreach (char character in text)
             {
-                anagramNumber = anagramNumber * (text.Length - i); 
+                if (charactersArray.(character) )
+                {
+                    
+                }
             }
-            return anagramNumber ;
+//            for (int i = 0; i < text.Length; i++)
+//            {
+//                Array.Resize(ref charactersArray, charactersArray.Length + 1);
+//                if (char text[i] included inn chararr)
+//                {
+//                    charactersArray[charactersArray.Length - 1] = text[i];
+//                return 1;
+//                }
+//                anagramNumber = anagramNumber * (text.Length - i); 
+//            }
+            return 1;
         }
     }
 }
