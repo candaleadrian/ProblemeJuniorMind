@@ -21,8 +21,14 @@ namespace Anagrams
         {
             Assert.AreEqual(24, CalculateAnagramsNumber("abcd"));
         }
+        [TestMethod]
+        public void Test3CharTestAAB()
+        {
+            Assert.AreEqual(3, CalculateAnagramsNumber("aab"));
+        }
         int CalculateAnagramsNumber(string text)
         {
+            int[] charactersArray = { };
             int anagramNumber = 1;
             for (int i = 0; i < text.Length; i++)
             {
