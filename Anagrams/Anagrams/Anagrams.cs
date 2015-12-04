@@ -28,30 +28,36 @@ namespace Anagrams
         }
         int CalculateAnagramsNumber(string text)
         {
-            char[]characterArray= new char[0];
-            foreach (char c in characterArray)
+            int anagramNumber = 1;
+            int counter = 1;
+            for (int i = 0; i < text.Length; i++)
             {
-                
+                for (int j = i+1; j < text.Length; j++)
+                {
+                    if (text[i] == text[j])
+                    {
+                        counter++;
+                    }
+                    j++;
+                }
+                i++;
             }
-//            char[] charactersArray = { };
-//            int anagramNumber = 1;
-//            foreach (char character in text)
-//            {
-//                if (charactersArray.(character) )
-//                {
-//                    
-//                }
-//            }
-//            for (int i = 0; i < text.Length; i++)
-//            {
-//                Array.Resize(ref charactersArray, charactersArray.Length + 1);
-//                if (char text[i] included inn chararr)
-//                {
-//                    charactersArray[charactersArray.Length - 1] = text[i];
-//                return 1;
-//                }
-//                anagramNumber = anagramNumber * (text.Length - i); 
-//            }
+            for (int i = 0; i < text.Length; i++)
+                anagramNumber = anagramNumber * (text.Length - i);
+            int anagramFinal = anagramNumber/duplicateFactorial(counter); 
+            return anagramFinal;
+        }
+
+        public  int duplicateFactorial(int number)
+        {
+            if (number   > 1)
+            {
+                for (int i = 1; i < number  ; i++)
+                {
+                    number= number * i;      
+                }
+                return number;
+            }
             return 1;
         }
     }
