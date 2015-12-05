@@ -11,9 +11,20 @@ namespace CubedNumber
         {
             Assert.AreEqual(192, CalcuateCubedNumber(1));
         }
-        decimal CalcuateCubedNumber(decimal number)
+        decimal CalcuateCubedNumber(int number)
         {
-            return 0;
+            int counter = 0;
+            for (int i = 1;; i++)
+            {
+                if (i*i*i % 1000 == 888)
+                {
+                    counter++;
+                    if (counter == number)
+                    {
+                        return i;
+                    }
+                }
+            }            
         }
     }
 }
