@@ -14,7 +14,7 @@ namespace CubedNumber
         [TestMethod]
         public void Test5()
         {
-            Assert.AreEqual(192, CalcuateCubedNumber(5));
+            Assert.AreEqual(1192, CalcuateCubedNumber(5));
         }
         decimal CalcuateCubedNumber(int number)
         {
