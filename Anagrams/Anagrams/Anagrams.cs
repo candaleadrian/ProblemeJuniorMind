@@ -35,25 +35,42 @@ namespace Anagrams
         {
             int anagramNumber = 1;
             int counter = 1;
+            string newString = "";
             for (int i = 0; i < text.Length; i++)
             {
-                for (int j = i+1; j < text.Length; j++)
+                if (GoThroughText(text,text[i])>=1)
                 {
-                    if (text[i] == text[j])
+                    if (GoThroughText(newString, text[i])<1)
                     {
-                        counter++;
+                        newString = newString + text[i];
                     }
-                    j++;
                 }
-                i++;
             }
+            if (newString.Length != text.Length)
+            {
+                counter = newString.Length;
+            }
+            
             for (int i = 0; i < text.Length; i++)
                 anagramNumber = anagramNumber * (text.Length - i);
             int anagramFinal = anagramNumber/duplicateFactorial(counter); 
             return anagramFinal;
         }
 
-        public  int duplicateFactorial(int number)
+        private static int GoThroughText(string text, char charToCheck)
+        {
+            int contained = 0;
+            for (int i = 0; i < text.Length; i++)
+            {
+                if (text[i]==charToCheck)
+                {
+                    contained++;
+                }
+            }
+                return contained;
+        }
+
+        public int duplicateFactorial(int number)
         {
             if (number   > 1)
             {
