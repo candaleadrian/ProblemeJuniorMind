@@ -36,6 +36,7 @@ namespace Anagrams
             int anagramNumber = 1;
             int counter = 1;
             string newString = "";
+            int b = 0;
             for (int i = 0; i < text.Length; i++)
             {
                 if (GoThroughText(text,text[i])>=1)
@@ -43,12 +44,13 @@ namespace Anagrams
                     if (GoThroughText(newString, text[i])<1)
                     {
                         newString = newString + text[i];
+                        b = b + GoThroughText(text, text[i]);
                     }
                 }
             }
             if (newString.Length != text.Length)
             {
-                counter = newString.Length;
+                counter = b;
             }
             
             for (int i = 0; i < text.Length; i++)
@@ -76,7 +78,7 @@ namespace Anagrams
             {
                 for (int i = 1; i < number  ; i++)
                 {
-                    number= number * i;      
+                    number= number * (number-i);      
                 }
                 return number;
             }
