@@ -39,9 +39,9 @@ namespace Anagrams
             int b = 0;
             for (int i = 0; i < text.Length; i++)
             {
-                if (GoThroughText(text,text[i])>=1)
+                if (GoThroughText(text, text[i]) >= 1)
                 {
-                    if (GoThroughText(newString, text[i])<1)
+                    if (GoThroughText(newString, text[i]) < 1)
                     {
                         newString = newString + text[i];
                         b = b + GoThroughText(text, text[i]);
@@ -71,18 +71,24 @@ namespace Anagrams
             }
                 return contained;
         }
-
-        public int duplicateFactorial(int number)
+        [TestMethod]
+        public void FactorialTestForNumber2()
         {
-            if (number   > 1)
+            Assert.AreEqual(2, duplicateFactorial(2));
+        }
+        [TestMethod]
+        public void FactorialTestForNumber3()
+        {
+            Assert.AreEqual(6, duplicateFactorial(3));
+        }
+        public int duplicateFactorial(int numFactor)
+        {
+            int factorial = 1;
+            for (int i = 1; i <= numFactor; i++)
             {
-                for (int i = 1; i < number  ; i++)
-                {
-                    number= number * (number-i);      
-                }
-                return number;
+                factorial *= i;
             }
-            return 1;
+            return factorial;
         }
     }
 }
