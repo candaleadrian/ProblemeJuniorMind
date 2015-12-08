@@ -31,6 +31,11 @@ namespace Anagrams
         {
             Assert.AreEqual(4, CalculateAnagramsNumber("aaab"));
         }
+        [TestMethod]
+        public void Test3CharTestAAAA()
+        {
+            Assert.AreEqual(1, CalculateAnagramsNumber("aaaa"));
+        }
         int CalculateAnagramsNumber(string text)
         {
             int anagramNumber = 1;
@@ -56,8 +61,8 @@ namespace Anagrams
                 counter = b;
             }
             
-            for (int i = 0; i < text.Length; i++)
-                anagramNumber = anagramNumber * (text.Length - i);
+            for (int i = 1; i <= text.Length; i++)
+                anagramNumber *= i;
             int anagramFinal = anagramNumber/duplicateFactorial(counter); 
             return anagramFinal;
         }
