@@ -59,14 +59,10 @@ namespace Anagrams
             if (newString.Length != text.Length)
             {
                 counter = b;
-            }
-            
-            for (int i = 1; i <= text.Length; i++)
-                anagramNumber *= i;
-            int anagramFinal = anagramNumber/duplicateFactorial(counter); 
+            }            
+            int anagramFinal = duplicateFactorial(text.Length)/duplicateFactorial(counter); 
             return anagramFinal;
         }
-
         private static int GoThroughText(string text, char charToCheck)
         {
             int contained = 0;
