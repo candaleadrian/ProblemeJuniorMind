@@ -44,7 +44,10 @@ namespace Anagrams
                     if (GoThroughText(newString, text[i]) < 1)
                     {
                         newString = newString + text[i];
+                        if (GoThroughText(text, text[i])>1)
+                        {
                         b = b + GoThroughText(text, text[i]);
+                        }
                     }
                 }
             }
