@@ -38,29 +38,21 @@ namespace Anagrams
         }
         int CalculateAnagramsNumber(string text)
         {
-            int anagramNumber = 1;
-            int counter = 1;
-            string newString = "";
-            int b = 0;
+            int counterRepetition = 0;
+            string stringWithoutDuplicates = "";
             for (int i = 0; i < text.Length; i++)
             {
                 if (GoThroughText(text, text[i]) >= 1)
                 {
-                    if (GoThroughText(newString, text[i]) < 1)
+                    if (GoThroughText(stringWithoutDuplicates, text[i]) < 1)
                     {
-                        newString = newString + text[i];
+                        stringWithoutDuplicates = stringWithoutDuplicates + text[i];
                         if (GoThroughText(text, text[i])>1)
-                        {
-                        b = b + GoThroughText(text, text[i]);
-                        }
+                        counterRepetition = counterRepetition + GoThroughText(text, text[i]);
                     }
                 }
             }
-            if (newString.Length != text.Length)
-            {
-                counter = b;
-            }            
-            int anagramFinal = duplicateFactorial(text.Length)/duplicateFactorial(counter); 
+            int anagramFinal = duplicateFactorial(text.Length)/duplicateFactorial(counterRepetition); 
             return anagramFinal;
         }
         private static int GoThroughText(string text, char charToCheck)
@@ -69,9 +61,7 @@ namespace Anagrams
             for (int i = 0; i < text.Length; i++)
             {
                 if (text[i]==charToCheck)
-                {
                     contained++;
-                }
             }
                 return contained;
         }
@@ -89,9 +79,7 @@ namespace Anagrams
         {
             int factorial = 1;
             for (int i = 1; i <= numFactor; i++)
-            {
                 factorial *= i;
-            }
             return factorial;
         }
     }
