@@ -18,6 +18,11 @@ namespace Columns
             Assert.AreEqual("p", generateColumnName(16));
         }
         [TestMethod]
+        public void ColumnZ()
+        {
+            Assert.AreEqual("z", generateColumnName(26));
+        }
+        [TestMethod]
         public void ColumnAA()
         {
             Assert.AreEqual("aa", generateColumnName(27));
@@ -63,23 +68,20 @@ namespace Columns
             string column = "";
             while(number > 0)
             {
-                int i = ((number-1) % 26);
-                if (number < 26)
-                { 
-                    column =  alfabet[i] + column;
-                    return column;
-                }
-                number = number - i;
-                column = alfabet[i] + column;
-               // number = number - 26;
-                if (number / 26 < 26 && number / 26 > 0)
+                int remainder = number % 26;
+                if (remainder < 26 && remainder != 0)
                 {
-                    i = (number-1) / 26;
-                    column = alfabet[i] + column;
-                    return column;
+                    column = alfabet[remainder - 1] + column;
+                    number = number - remainder;
+                }                
+                if (remainder == 0)
+                {                    
+                    column = alfabet[25] + column;
+                    number = number - 26;
                 }
+                number = number / 26;
             }
-            return "";
+            return column;
         }
     }
 }
