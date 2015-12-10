@@ -28,7 +28,6 @@ namespace Lunch
                 if (i%number1==0 && i%number2 == 0)
                 {
                     return  i;
-                    break;
                 }
 
             }
