@@ -20,9 +20,29 @@ namespace BaseOperations
 
         int[] Transform1FromBase10ToBase2(int number)
         {    
-            int[] base2Array = { 0};
-            base2Array[0] = number % 2;
-            return base2Array;
+            int[] base2Array = {};
+            Array.Resize(ref base2Array, base2Array.Length + 1);
+            while (number > 0)
+            {
+            base2Array[base2Array.Length-1] = number % 2;
+                number = number / 2;
+            }
+            return InvertArray(base2Array);
+        }
+        [TestMethod]
+        public void InvertArray123()
+        {
+            CollectionAssert.AreEqual(new int[] { 3,2,1 },InvertArray({1,2,3}));
+        }
+
+        public int[] InvertArray(int[] array)
+        {
+            int[] invertedArray = new int[array.Length];
+            for (int i = 0; i < array.Length; i++)
+            {
+                invertedArray[i] = array[array.Length-1-i];
+            }
+            return invertedArray;
         }
     }
 }
