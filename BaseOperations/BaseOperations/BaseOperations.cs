@@ -10,15 +10,20 @@ namespace BaseOperations
         [TestMethod]
         public void Transform1FromBase10ToBase2()
         {
-            CollectionAssert.AreEqual(new int[] { 1 },Transform1FromBase10ToBase2(1));
+            CollectionAssert.AreEqual(new int[] { 1 },TransformFromBaseTenToBaseTwo(1));
         }
         [TestMethod]
         public void Transform2FromBase10ToBase2()
         {
-            CollectionAssert.AreEqual(new int[] { 1 , 0 }, Transform1FromBase10ToBase2(2));
+            CollectionAssert.AreEqual(new int[] { 1 , 0 }, TransformFromBaseTenToBaseTwo(2));
+        }
+        [TestMethod]
+        public void Transform15FromBase10ToBase2()
+        {
+            CollectionAssert.AreEqual(new int[] { 1, 0,0,0,0 }, TransformFromBaseTenToBaseTwo(16));
         }
 
-        int[] Transform1FromBase10ToBase2(int number)
+        int[] TransformFromBaseTenToBaseTwo(int number)
         {    
             int[] base2Array = {};
             while (number > 0)
@@ -29,11 +34,11 @@ namespace BaseOperations
             }
             return InvertArray(base2Array);
         }
-        //[TestMethod]
-        //public void InvertArray123()
-        //{
-        //    CollectionAssert.AreEqual(new int[] { 3,2,1 },InvertArray({1,2,3}));
-        //}
+        [TestMethod]
+        public void InvertArray123()
+        {
+            CollectionAssert.AreEqual(new int[] { 3, 2, 1 }, InvertArray(new int[] { 1,2,3}));
+        }
 
         public int[] InvertArray(int[] array)
         {
