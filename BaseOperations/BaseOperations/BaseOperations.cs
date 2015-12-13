@@ -54,6 +54,11 @@ namespace BaseOperations
         {
             CollectionAssert.AreEqual(new int[] {1,1}, ORBitOperarion(TransformFromBaseTenToBaseTwo(1),TransformFromBaseTenToBaseTwo(2)));
         }
+        [TestMethod]
+        public void OROperationSevenAndNine()
+        {
+            CollectionAssert.AreEqual(new int[] { 1, 1,1,1 }, ORBitOperarion(TransformFromBaseTenToBaseTwo(7), TransformFromBaseTenToBaseTwo(9)));
+        }
 
         public int[] ORBitOperarion(int[] v1, int[] v2)
         {
