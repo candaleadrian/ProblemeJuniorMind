@@ -59,6 +59,11 @@ namespace BaseOperations
         {
             CollectionAssert.AreEqual(new int[] { 1, 1,1,1 }, BitOperarion(TransformFromBaseTenToBaseTwo(7), TransformFromBaseTenToBaseTwo(9), "OR"));
         }
+        [TestMethod]
+        public void ANDOperation()
+        {
+            CollectionAssert.AreEqual(new int[] { 0, 0 }, BitOperarion(TransformFromBaseTenToBaseTwo(1), TransformFromBaseTenToBaseTwo(2), "AND"));
+        }
 
         public int[] BitOperarion(int[] v1, int[] v2, string Operation)
         {
@@ -77,6 +82,15 @@ namespace BaseOperations
                 if (Operation == "OR")
                 {
                     if (v1[i] == 1 || v2[i] == 1)
+                    {
+                        orResult[i] = 1;
+                    }
+                    else
+                        orResult[i] = 0;
+                }
+                if (Operation == "AND")
+                {
+                    if (v1[i] == 1 && v2[i] == 1)
                     {
                         orResult[i] = 1;
                     }
