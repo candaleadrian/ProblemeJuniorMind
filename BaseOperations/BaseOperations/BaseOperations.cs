@@ -69,10 +69,21 @@ namespace BaseOperations
         {
             CollectionAssert.AreEqual(new int[] { 0, 1 }, AddZeroValuesToArrayUntilSpecifiedLength(new int[] { 1}, 2 ));
         }
-
-        private int[] AddZeroValuesToArrayUntilSpecifiedLength(object arrayToModify, int arrayDesiredLength)
+        [TestMethod]
+        public void AddFiveZeroValueToOneElementArray()
         {
-            return new int[] {};
+            CollectionAssert.AreEqual(new int[] { 0,0,0,0,0, 1 }, AddZeroValuesToArrayUntilSpecifiedLength(new int[] { 1 }, 6));
+        }
+
+        private int[] AddZeroValuesToArrayUntilSpecifiedLength(int[] arrayToModify, int arrayDesiredLength)
+        {
+            int[] invertedArray = InvertArray(arrayToModify);
+            while (invertedArray.Length < arrayDesiredLength)
+            {
+                Array.Resize(ref invertedArray, invertedArray.Length + 1);
+                invertedArray[invertedArray.Length - 1] = 0;
+            }
+            return InvertArray(invertedArray);
         }
     }
 }
