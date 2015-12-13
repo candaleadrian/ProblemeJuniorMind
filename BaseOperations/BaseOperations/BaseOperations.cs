@@ -57,7 +57,22 @@ namespace BaseOperations
 
         public int[] ORBitOperarion(int[] v1, int[] v2)
         {
-           return new int[] {};
+            int arrayLength = Math.Max(v1.Length, v2.Length);
+            for (int i = 0; i < arrayLength; i++)
+            {
+
+            }
+            return new int[] {};
+        }
+        [TestMethod]
+        public void AddZeroValueToOneElementArray()
+        {
+            CollectionAssert.AreEqual(new int[] { 0, 1 }, AddZeroValuesToArrayUntilSpecifiedLength(new int[] { 1}, 2 ));
+        }
+
+        private int[] AddZeroValuesToArrayUntilSpecifiedLength(object arrayToModify, int arrayDesiredLength)
+        {
+            return new int[] {};
         }
     }
 }
