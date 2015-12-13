@@ -52,15 +52,15 @@ namespace BaseOperations
         [TestMethod]
         public void OROperation()
         {
-            CollectionAssert.AreEqual(new int[] {1,1}, ORBitOperarion(TransformFromBaseTenToBaseTwo(1),TransformFromBaseTenToBaseTwo(2)));
+            CollectionAssert.AreEqual(new int[] {1,1}, BitOperarion(TransformFromBaseTenToBaseTwo(1),TransformFromBaseTenToBaseTwo(2),"OR"));
         }
         [TestMethod]
         public void OROperationSevenAndNine()
         {
-            CollectionAssert.AreEqual(new int[] { 1, 1,1,1 }, ORBitOperarion(TransformFromBaseTenToBaseTwo(7), TransformFromBaseTenToBaseTwo(9)));
+            CollectionAssert.AreEqual(new int[] { 1, 1,1,1 }, BitOperarion(TransformFromBaseTenToBaseTwo(7), TransformFromBaseTenToBaseTwo(9), "OR"));
         }
 
-        public int[] ORBitOperarion(int[] v1, int[] v2)
+        public int[] BitOperarion(int[] v1, int[] v2, string Operation)
         {
             int orArrayLength = Math.Max(v1.Length, v2.Length);
             if (v1.Length > v2.Length)
@@ -74,12 +74,15 @@ namespace BaseOperations
             int[] orResult = new int[orArrayLength];
             for (int i = 0; i < orArrayLength; i++)
             {
-                if (v1[i] == 1 || v2[i] == 1)
+                if (Operation == "OR")
                 {
-                    orResult[i] = 1;
+                    if (v1[i] == 1 || v2[i] == 1)
+                    {
+                        orResult[i] = 1;
+                    }
+                    else
+                        orResult[i] = 0;
                 }
-                else
-                    orResult[i] = 0;
             }
             return orResult;
         }
