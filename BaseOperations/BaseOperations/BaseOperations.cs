@@ -49,5 +49,15 @@ namespace BaseOperations
             }
             return invertedArray;
         }
+        [TestMethod]
+        public void OROperation()
+        {
+            CollectionAssert.AreEqual(new int[] {1,1}, ORBitOperarion(TransformFromBaseTenToBaseTwo(1),TransformFromBaseTenToBaseTwo(2)));
+        }
+
+        public int[] ORBitOperarion(int[] v1, int[] v2)
+        {
+           return new int[] {};
+        }
     }
 }
