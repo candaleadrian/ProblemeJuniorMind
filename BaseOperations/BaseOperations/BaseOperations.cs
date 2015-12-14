@@ -170,5 +170,30 @@ namespace BaseOperations
             }
             return InvertArray(invertedArray);
         }
+        [TestMethod]
+        public void ShiftToLeftTwoValueArray()
+        {
+            CollectionAssert.AreEqual(new int[] { 0, 0, 0, 0, 1, 0, 0, 0 }, ShiftToLeft(TransformFromBaseTenToBaseTwo(2),2));
+        }
+        int[] ShiftToLeft(int[] toBeShifted, int stepsToTheLeft)
+        {
+            if (toBeShifted.Length < 8)
+            {
+                toBeShifted = AddZeroValuesToArrayUntilSpecifiedLength(toBeShifted, 8);
+            }
+            int[] shiftedResult = new int[8];
+            while (stepsToTheLeft > 0)
+            {
+                for (int i = 0; i < (toBeShifted.Length-2); i++)
+                {
+                    shiftedResult[i] = toBeShifted[i + 1];
+                }
+                    shiftedResult[7]=0;
+                toBeShifted = shiftedResult;
+                stepsToTheLeft--;
+            }
+            return shiftedResult;
+        }
+
     }
 }
