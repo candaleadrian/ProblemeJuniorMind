@@ -123,6 +123,16 @@ namespace BaseOperations
             return orResult;
         }
         [TestMethod]
+        public void NOTOperation()
+        {
+            CollectionAssert.AreEqual(new int[] { 1,1,1,1,1,1,0, 1 }, NotOperation(TransformFromBaseTenToBaseTwo(2)));
+        }
+        int[] NotOperation(int[] notArray)
+        {
+            return new int[] { };
+        }
+
+        [TestMethod]
         public void AddZeroValueToOneElementArray()
         {
             CollectionAssert.AreEqual(new int[] { 0, 1 }, AddZeroValuesToArrayUntilSpecifiedLength(new int[] { 1}, 2 ));
