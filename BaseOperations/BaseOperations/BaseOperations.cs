@@ -129,7 +129,19 @@ namespace BaseOperations
         }
         int[] NotOperation(int[] notArray)
         {
-            return new int[] { };
+            if (notArray.Length < 8)
+            {
+               notArray = AddZeroValuesToArrayUntilSpecifiedLength(notArray,8);
+            }
+            int[] notResult = new int[8];
+            for (int i = 0; i < notArray.Length; i++)
+            {
+                if (notArray[i] == 1)
+                    notResult[i] = 0;
+                else
+                    notResult[i] = 1;
+            }
+            return notResult;
         }
 
         [TestMethod]
@@ -141,6 +153,11 @@ namespace BaseOperations
         public void AddFiveZeroValueToOneElementArray()
         {
             CollectionAssert.AreEqual(new int[] { 0,0,0,0,0, 1 }, AddZeroValuesToArrayUntilSpecifiedLength(new int[] { 1 }, 6));
+        }
+        [TestMethod]
+        public void AddZeroValueTotwoElementArray()
+        {
+            CollectionAssert.AreEqual(new int[] {0, 0, 0, 0, 0, 0, 1, 0 }, AddZeroValuesToArrayUntilSpecifiedLength(TransformFromBaseTenToBaseTwo(2), 8));
         }
 
         private int[] AddZeroValuesToArrayUntilSpecifiedLength(int[] arrayToModify, int arrayDesiredLength)
