@@ -7,6 +7,8 @@ namespace BaseOperations
     [TestClass]
     public class BaseOperations
     {
+        private object nrBase;
+
         [TestMethod]
         public void Transform1FromBase10ToBase2()
         {
@@ -227,6 +229,15 @@ namespace BaseOperations
                 stepsToTheRight--;
             }
             return shiftedResult;
+        }
+        [TestMethod]
+        public void AddBaseTwoNumbers()
+        {
+            CollectionAssert.AreEqual(new int[] { 1,1},AddBaseTwoNumbers(new int[] { 1},new int[] { 1,0}, 2));
+        }
+        int [] AddBaseTwoNumbers(int[] firstNumber, int[] secondNumber, int nrBase)
+        {
+            return new int[] { };
         }
 
     }
