@@ -233,11 +233,21 @@ namespace BaseOperations
         [TestMethod]
         public void AddBaseTwoNumbers()
         {
-            CollectionAssert.AreEqual(new int[] { 1,1},AddBaseTwoNumbers(new int[] { 1},new int[] { 1,0}, 2));
+            CollectionAssert.AreEqual(new int[] {0,0,0,0,0,0, 1,1},AddBaseTwoNumbers(new int[] { 1},new int[] { 1,0}, 2));
         }
         int [] AddBaseTwoNumbers(int[] firstNumber, int[] secondNumber, int nrBase)
         {
-            return new int[] { };
+            firstNumber = AddZeroValuesToArrayUntilSpecifiedLength(firstNumber, 8);
+            secondNumber = AddZeroValuesToArrayUntilSpecifiedLength(secondNumber, 8);
+            int remainder = 0;
+            int[] resultArray = new int[8];
+            for (int i = 7; i >= 0; i--)
+            {
+                int summ = firstNumber[i] + secondNumber[i] + remainder;
+                remainder = summ / nrBase;
+                resultArray[i] = summ % nrBase;
+            }
+            return resultArray;
         }
 
     }
