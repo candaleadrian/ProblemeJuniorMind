@@ -175,6 +175,11 @@ namespace BaseOperations
         {
             CollectionAssert.AreEqual(new int[] { 0, 0, 0, 0, 1, 0, 0, 0 }, ShiftToLeft(TransformFromBaseTenToBaseTwo(2),2));
         }
+        [TestMethod]
+        public void ShiftToLeftFourValuesArray()
+        {
+            CollectionAssert.AreEqual(new int[] { 0, 1, 0, 1, 0, 0, 0, 0 }, ShiftToLeft(new int[]{1,0,1,0 }, 3));
+        }
         int[] ShiftToLeft(int[] toBeShifted, int stepsToTheLeft)
         {
             if (toBeShifted.Length < 8)
@@ -191,6 +196,35 @@ namespace BaseOperations
                     shiftedResult[7]=0;
                 toBeShifted = shiftedResult;
                 stepsToTheLeft--;
+            }
+            return shiftedResult;
+        }
+        [TestMethod]
+        public void ShiftToRightTwoValueArray()
+        {
+            CollectionAssert.AreEqual(new int[] { 0, 0, 0, 0, 0, 0, 0, 1 }, ShiftToRight(TransformFromBaseTenToBaseTwo(2), 1));
+        }
+        [TestMethod]
+        public void ShiftToRightFourValuesArray()
+        {
+            CollectionAssert.AreEqual(new int[] { 0, 0, 0, 0, 0, 0, 0, 1 }, ShiftToRight(new int[] { 1, 0, 1, 0 }, 3));
+        }
+        int[] ShiftToRight(int[] toBeShifted, int stepsToTheRight)
+        {
+            if (toBeShifted.Length < 8)
+            {
+                toBeShifted = AddZeroValuesToArrayUntilSpecifiedLength(toBeShifted, 8);
+            }
+            int[] shiftedResult = new int[8];
+            while (stepsToTheRight > 0)
+            {
+                for (int i = (toBeShifted.Length - 1); i > 0; i--)
+                {
+                    shiftedResult[i] = toBeShifted[i - 1];
+                }
+                shiftedResult[0] = 0;
+                toBeShifted = shiftedResult;
+                stepsToTheRight--;
             }
             return shiftedResult;
         }
