@@ -235,7 +235,17 @@ namespace BaseOperations
         {
             CollectionAssert.AreEqual(new int[] {0,0,0,0,0,0, 1,1},AddBaseTwoNumbers(new int[] { 1},new int[] { 1,0}, 2));
         }
-        int [] AddBaseTwoNumbers(int[] firstNumber, int[] secondNumber, int nrBase)
+        [TestMethod]
+        public void AddBaseTenNumbers()
+        {
+            CollectionAssert.AreEqual(new int[] { 0, 0, 0, 0, 0, 0, 4, 2 }, AddBaseTwoNumbers(new int[] { 7 }, new int[] { 3, 5 }, 10));
+        }
+        [TestMethod]
+        public void AddBaseSixNumbers()
+        {
+            CollectionAssert.AreEqual(new int[] { 0, 0, 0, 3, 5, 3, 3, 4 }, AddBaseTwoNumbers(new int[] { 3,4,5,2,1 }, new int[] { 4,1,3 }, 6));
+        }
+        int[] AddBaseTwoNumbers(int[] firstNumber, int[] secondNumber, int nrBase)
         {
             firstNumber = AddZeroValuesToArrayUntilSpecifiedLength(firstNumber, 8);
             secondNumber = AddZeroValuesToArrayUntilSpecifiedLength(secondNumber, 8);
