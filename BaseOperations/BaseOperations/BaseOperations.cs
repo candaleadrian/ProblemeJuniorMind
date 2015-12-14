@@ -7,8 +7,6 @@ namespace BaseOperations
     [TestClass]
     public class BaseOperations
     {
-        private object nrBase;
-
         [TestMethod]
         public void Transform1FromBase10ToBase2()
         {
@@ -233,19 +231,19 @@ namespace BaseOperations
         [TestMethod]
         public void AddBaseTwoNumbers()
         {
-            CollectionAssert.AreEqual(new int[] {0,0,0,0,0,0, 1,1},AddBaseTwoNumbers(new int[] { 1},new int[] { 1,0}, 2));
+            CollectionAssert.AreEqual(new int[] {0,0,0,0,0,0, 1,1},AddingNumbersInBaseX(new int[] { 1},new int[] { 1,0}, 2));
         }
         [TestMethod]
         public void AddBaseTenNumbers()
         {
-            CollectionAssert.AreEqual(new int[] { 0, 0, 0, 0, 0, 0, 4, 2 }, AddBaseTwoNumbers(new int[] { 7 }, new int[] { 3, 5 }, 10));
+            CollectionAssert.AreEqual(new int[] { 0, 0, 0, 0, 0, 0, 4, 2 }, AddingNumbersInBaseX(new int[] { 7 }, new int[] { 3, 5 }, 10));
         }
         [TestMethod]
         public void AddBaseSixNumbers()
         {
-            CollectionAssert.AreEqual(new int[] { 0, 0, 0, 3, 5, 3, 3, 4 }, AddBaseTwoNumbers(new int[] { 3,4,5,2,1 }, new int[] { 4,1,3 }, 6));
+            CollectionAssert.AreEqual(new int[] { 0, 0, 0, 3, 5, 3, 3, 4 }, AddingNumbersInBaseX(new int[] { 3,4,5,2,1 }, new int[] { 4,1,3 }, 6));
         }
-        int[] AddBaseTwoNumbers(int[] firstNumber, int[] secondNumber, int nrBase)
+        int[] AddingNumbersInBaseX(int[] firstNumber, int[] secondNumber, int nrBase)
         {
             firstNumber = AddZeroValuesToArrayUntilSpecifiedLength(firstNumber, 8);
             secondNumber = AddZeroValuesToArrayUntilSpecifiedLength(secondNumber, 8);
@@ -256,6 +254,35 @@ namespace BaseOperations
                 int summ = firstNumber[i] + secondNumber[i] + remainder;
                 remainder = summ / nrBase;
                 resultArray[i] = summ % nrBase;
+            }
+            return resultArray;
+        }
+        [TestMethod]
+        public void SubstractBaseTwoNumbers()
+        {
+            CollectionAssert.AreEqual(new int[] { 0, 0, 0, 0, 0, 0, 0, 1 }, AddingNumbersInBaseX(new int[] { 1,0 }, new int[] { 1 }, 2));
+        }
+        int[] SubstractionNumbersInBaseX(int[] firstNumber, int[] secondNumber, int nrBase)
+        {
+            firstNumber = AddZeroValuesToArrayUntilSpecifiedLength(firstNumber, 8);
+            secondNumber = AddZeroValuesToArrayUntilSpecifiedLength(secondNumber, 8);
+            int remainder = 0;
+            int[] resultArray = new int[8];
+            int summ = 0;
+            for (int i = 7; i >= 0; i--)
+            {
+                summ = 0;
+                if (firstNumber[i] - remainder < secondNumber[i])
+                {
+                    summ = firstNumber[i] + nrBase - secondNumber[i];
+                    remainder = 1;
+                }
+                else
+                {
+                    summ = firstNumber[i] - secondNumber[i]- remainder;
+                    remainder = 0;
+                }                
+                resultArray[i] = summ;
             }
             return resultArray;
         }
