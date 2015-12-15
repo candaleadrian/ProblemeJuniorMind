@@ -132,6 +132,11 @@ namespace BaseOperations
             //    }
             return result;
         }
+        [TestMethod]
+        public void AddNulltoATwoElementsArrayIfIIsFive()
+        {
+            Assert.AreEqual(0, GetNullIfOutOfArrayRange(new int[] {1,0 },5));
+        }
         int GetNullIfOutOfArrayRange(int[] array, int i)
         {
             if (i<array.Length-1)            
