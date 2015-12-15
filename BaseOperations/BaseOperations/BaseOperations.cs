@@ -31,7 +31,7 @@ namespace BaseOperations
             Array.Resize(ref base2Array, base2Array.Length + 1);
             base2Array[base2Array.Length-1] = number % 2;
                 number = number / 2;
-            }
+            }       
             return InvertArray(base2Array);
         }
         [TestMethod]
@@ -83,45 +83,63 @@ namespace BaseOperations
         public int[] BitOperarion(int[] v1, int[] v2, string Operation)
         {
             int orArrayLength = Math.Max(v1.Length, v2.Length);
-            if (v1.Length > v2.Length)
+            int[] result = new int[orArrayLength];
+            for (int i = 0; i < orArrayLength-1; i++)
             {
-                v2 = AddZeroValuesToArrayUntilSpecifiedLength(v2, v1.Length);
-            }
-            if (v1.Length < v2.Length)
-            {
-                v1 = AddZeroValuesToArrayUntilSpecifiedLength(v1, v2.Length);
-            }
-            int[] orResult = new int[orArrayLength];
-            for (int i = 0; i < orArrayLength; i++)
-            {
-                if (Operation == "OR")
+                switch (Operation)
                 {
-                    if (v1[i] == 1 || v2[i] == 1)
-                    {
-                        orResult[i] = 1;
-                    }
-                    else
-                        orResult[i] = 0;
-                }
-                if (Operation == "AND")
-                {
-                    if (v1[i] == 1 && v2[i] == 1)
-                    {
-                        orResult[i] = 1;
-                    }
-                    else
-                        orResult[i] = 0;
-                }
-                if (Operation == "XOR")
-                {
-                    if (v1[i] == v2[i])                    
-                        orResult[i] = 0;
-                    else
-                        orResult[i] = 1;
+                    case "OR":
+                        result[i] = (GetNullIfOutOfArrayRange(v1,i) == 1 || GetNullIfOutOfArrayRange(v2, i) == 1) ? 1 : 0;
+                        break;
                 }
             }
-            return orResult;
+            //    if (v1.Length > v2.Length)
+            //    {
+            //        v2 = AddZeroValuesToArrayUntilSpecifiedLength(v2, v1.Length);
+            //    }
+            //    if (v1.Length < v2.Length)
+            //    {
+            //        v1 = AddZeroValuesToArrayUntilSpecifiedLength(v1, v2.Length);
+            //    }
+            //    int[] orResult = new int[orArrayLength];
+            //    for (int i = 0; i < orArrayLength; i++)
+            //    {
+            //        if (Operation == "OR")
+            //        {
+            //            if (v1[i] == 1 || v2[i] == 1)
+            //            {
+            //                orResult[i] = 1;
+            //            }
+            //            else
+            //                orResult[i] = 0;
+            //        }
+            //        if (Operation == "AND")
+            //        {
+            //            if (v1[i] == 1 && v2[i] == 1)
+            //            {
+            //                orResult[i] = 1;
+            //            }
+            //            else
+            //                orResult[i] = 0;
+            //        }
+            //        if (Operation == "XOR")
+            //        {
+            //            if (v1[i] == v2[i])                    
+            //                orResult[i] = 0;
+            //            else
+            //                orResult[i] = 1;
+            //        }
+            //    }
+            return result;
         }
+        int GetNullIfOutOfArrayRange(int[] array, int i)
+        {
+            if (i<array.Length-1)            
+                return array[i];
+            else
+                return 0;
+        }
+
         [TestMethod]
         public void NOTOperation()
         {
