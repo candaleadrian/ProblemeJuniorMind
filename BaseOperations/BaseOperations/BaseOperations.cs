@@ -263,20 +263,12 @@ namespace BaseOperations
         private int[] CutFirstNullValues(int[] array)
         {
             int resultLength = CountFirstNullValues(array);
-            int counter = 0;
-            int[] result = new int[0];
-            for (int i = 0; i < array.Length; i++)
+            int[] result = new int[resultLength];
+            for (int i = 0 + resultLength; i < array.Length; i++)
             {
-                if (array[i] != 0)
-                {
-                    counter = 1;
-                }
-                //while (counter == 1)
-                //{
-                    
-                //}
+                result[i - resultLength] = array[i];
             }
-            return new int[] { };
+            return result;
         }
 
         [TestMethod]
