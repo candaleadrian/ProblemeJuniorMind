@@ -247,8 +247,24 @@ namespace BaseOperations
         }
         bool CompareIfAGreaterThenB(int[] first, int[] secod)
         {
+            first = CutFirstNullValues(first);
+            if (first.Length > secod.Length)
+            {
+                return true;
+            }
             return true;
         }
+        [TestMethod]
+        public void ReduceArrayByDeletingFirstTwoNullValues()
+        {
+            CollectionAssert.AreEqual(new int[] { 1, 0 }, CutFirstNullValues(new int[] { 0, 0, 1, 0 }));
+        }
+
+        private int[] CutFirstNullValues(int[] array)
+        {
+            return new int[] { };
+        }
+
         [TestMethod]
         public void AddBaseTwoNumbers()
         {
