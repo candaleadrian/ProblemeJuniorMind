@@ -52,90 +52,80 @@ namespace BaseOperations
         [TestMethod]
         public void OROperation()
         {
-            CollectionAssert.AreEqual(new int[] {1,1}, BitOperarion(TransformFromBaseTenToBaseTwo(1),TransformFromBaseTenToBaseTwo(2),"OR"));
+            CollectionAssert.AreEqual(new int[] {1,1}, BitOperation(TransformFromBaseTenToBaseTwo(1),TransformFromBaseTenToBaseTwo(2),"OR"));
         }
         [TestMethod]
         public void OROperationSevenAndNine()
         {
-            CollectionAssert.AreEqual(new int[] { 1, 1,1,1 }, BitOperarion(TransformFromBaseTenToBaseTwo(7), TransformFromBaseTenToBaseTwo(9), "OR"));
+            CollectionAssert.AreEqual(new int[] { 1, 1,1,1 }, BitOperation(TransformFromBaseTenToBaseTwo(7), TransformFromBaseTenToBaseTwo(9), "OR"));
         }
         [TestMethod]
         public void ANDOperation()
         {
-            CollectionAssert.AreEqual(new int[] { 0, 0 }, BitOperarion(TransformFromBaseTenToBaseTwo(1), TransformFromBaseTenToBaseTwo(2), "AND"));
+            CollectionAssert.AreEqual(new int[] { 0, 0 }, BitOperation(TransformFromBaseTenToBaseTwo(1), TransformFromBaseTenToBaseTwo(2), "AND"));
         }
         [TestMethod]
         public void ANDOperationSevenAndNine()
         {
-            CollectionAssert.AreEqual(new int[] { 0, 0, 0, 1 }, BitOperarion(TransformFromBaseTenToBaseTwo(7), TransformFromBaseTenToBaseTwo(9), "AND"));
+            CollectionAssert.AreEqual(new int[] { 0, 0, 0, 1 }, BitOperation(TransformFromBaseTenToBaseTwo(7), TransformFromBaseTenToBaseTwo(9), "AND"));
         }
         [TestMethod]
         public void XOROperation()
         {
-            CollectionAssert.AreEqual(new int[] { 1, 1 }, BitOperarion(TransformFromBaseTenToBaseTwo(1), TransformFromBaseTenToBaseTwo(2), "XOR"));
+            CollectionAssert.AreEqual(new int[] { 1, 1 }, BitOperation(TransformFromBaseTenToBaseTwo(1), TransformFromBaseTenToBaseTwo(2), "XOR"));
         }
         [TestMethod]
         public void XOROperationSevenAndNine()
         {
-            CollectionAssert.AreEqual(new int[] { 1, 1, 1, 0 }, BitOperarion(TransformFromBaseTenToBaseTwo(7), TransformFromBaseTenToBaseTwo(9), "XOR"));
+            CollectionAssert.AreEqual(new int[] { 1, 1, 1, 0 }, BitOperation(TransformFromBaseTenToBaseTwo(7), TransformFromBaseTenToBaseTwo(9), "XOR"));
         }
 
-        public int[] BitOperarion(int[] v1, int[] v2, string Operation)
+        public int[] BitOperation(int[] v1, int[] v2, string Operation)
         {
-            int orArrayLength = Math.Max(v1.Length, v2.Length);
-            int[] result = new int[orArrayLength];
-            for (int i = 0; i < orArrayLength-1; i++)
+            int arrayLength = Math.Max(v1.Length, v2.Length);
+            int[] result = new int[arrayLength];
+            if (v1.Length > v2.Length)
+                v2 = AddZeroValuesToArrayUntilSpecifiedLength(v2, v1.Length);
+            if (v1.Length < v2.Length)
+                v1 = AddZeroValuesToArrayUntilSpecifiedLength(v1, v2.Length);        
+            for (int i = arrayLength-1; i >= 0; i--)
             {
-                switch (Operation)
-                {
-                    case "OR":
-                        result[i] = (GetNullIfOutOfArrayRange(v1,i) == 1 || GetNullIfOutOfArrayRange(v2, i) == 1) ? 1 : 0;
-                        break;
-                }
+               result[i] = WhichOperation(v1, v2, Operation, i);
             }
-            //    if (v1.Length > v2.Length)
-            //    {
-            //        v2 = AddZeroValuesToArrayUntilSpecifiedLength(v2, v1.Length);
-            //    }
-            //    if (v1.Length < v2.Length)
-            //    {
-            //        v1 = AddZeroValuesToArrayUntilSpecifiedLength(v1, v2.Length);
-            //    }
-            //    int[] orResult = new int[orArrayLength];
-            //    for (int i = 0; i < orArrayLength; i++)
-            //    {
-            //        if (Operation == "OR")
-            //        {
-            //            if (v1[i] == 1 || v2[i] == 1)
-            //            {
-            //                orResult[i] = 1;
-            //            }
-            //            else
-            //                orResult[i] = 0;
-            //        }
-            //        if (Operation == "AND")
-            //        {
-            //            if (v1[i] == 1 && v2[i] == 1)
-            //            {
-            //                orResult[i] = 1;
-            //            }
-            //            else
-            //                orResult[i] = 0;
-            //        }
-            //        if (Operation == "XOR")
-            //        {
-            //            if (v1[i] == v2[i])                    
-            //                orResult[i] = 0;
-            //            else
-            //                orResult[i] = 1;
-            //        }
-            //    }
             return result;
         }
+
+        int WhichOperation(int[] v1, int[] v2, string Operation, int i)
+        {
+            int result;
+            switch (Operation)
+            {
+                case "OR":
+                    return result = v1[i] == 1 || v2[i] == 1 ? 1 : 0;
+//                    return result = (GetNullIfOutOfArrayRange(v1, i) == 1 || GetNullIfOutOfArrayRange(v2, i) == 1) ? 1 : 0;
+                case "AND":
+                    return result = v1[i] == 1 && v2[i] == 1 ? 1 : 0;
+                case "XOR":
+                    return result = v1[i] == v2[i] ? 0 : 1;
+                default:
+                    return 0;
+            }
+        }
+
         [TestMethod]
         public void AddNulltoATwoElementsArrayIfIIsFive()
         {
             Assert.AreEqual(0, GetNullIfOutOfArrayRange(new int[] {1,0 },5));
+        }
+        [TestMethod]
+        public void AddNulltoAOneElementsArrayIfIIsOne()
+        {
+            Assert.AreEqual(0, GetNullIfOutOfArrayRange(new int[] { 1 }, 1));
+        }
+        [TestMethod]
+        public void AddValueToATwoElementsArrayIfIIsNull()
+        {
+            Assert.AreEqual(1, GetNullIfOutOfArrayRange(new int[] { 1, 0 }, 0));
         }
         int GetNullIfOutOfArrayRange(int[] array, int i)
         {
@@ -144,7 +134,6 @@ namespace BaseOperations
             else
                 return 0;
         }
-
         [TestMethod]
         public void NOTOperation()
         {
@@ -250,6 +239,15 @@ namespace BaseOperations
                 stepsToTheRight--;
             }
             return shiftedResult;
+        }
+        [TestMethod]
+        public void CompareIfOneBasetwoIsGreaterThenTwoBaseTwo()
+        {
+            Assert.IsFalse(CompareIfAGreaterThenB(new int[] { 1 }, new int[] { 1, 0 }));
+        }
+        bool CompareIfAGreaterThenB(int[] first, int[] secod)
+        {
+            return true;
         }
         [TestMethod]
         public void AddBaseTwoNumbers()
