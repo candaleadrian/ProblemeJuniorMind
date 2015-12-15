@@ -245,14 +245,22 @@ namespace BaseOperations
         {
             Assert.IsFalse(CompareIfAGreaterThenB(new int[] { 1 }, new int[] { 1, 0 }));
         }
-        bool CompareIfAGreaterThenB(int[] first, int[] secod)
+        bool CompareIfAGreaterThenB(int[] first, int[] second)
         {
             first = CutFirstNullValues(first);
-            if (first.Length > secod.Length)
-            {
+            second  = CutFirstNullValues(second);
+            if (first.Length > second.Length)
                 return true;
+            if (first.Length < second.Length)
+                return false;
+            for (int i = 0; i < first.Length; i++)
+            {
+                if (first[i] > second[i])
+                    return true;
+                else
+                    return false;
             }
-            return true;
+            return false;
         }
         [TestMethod]
         public void ReduceArrayByDeletingFirstTwoNullValues()
