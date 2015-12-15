@@ -262,7 +262,39 @@ namespace BaseOperations
 
         private int[] CutFirstNullValues(int[] array)
         {
+            int resultLength = CountFirstNullValues(array);
+            int counter = 0;
+            int[] result = new int[0];
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] != 0)
+                {
+                    counter = 1;
+                }
+                //while (counter == 1)
+                //{
+                    
+                //}
+            }
             return new int[] { };
+        }
+
+        [TestMethod]
+        public void AspectedTwoAfterCountingFirstNullValues()
+        {
+            Assert.AreEqual(2, CountFirstNullValues(new int[] { 0, 0, 1, 0 }));
+        }
+        private int CountFirstNullValues(int[] array)
+        {
+            int result = 0;
+            foreach (var item in array)
+            {
+                if (item == 0)
+                    result++;
+                else
+                    return result;
+            }
+            return result;
         }
 
         [TestMethod]
