@@ -383,7 +383,7 @@ namespace BaseOperations
             return resultArray;
         }
         [TestMethod]
-        public void CheckIfNumber()
+        public void CheckIfNumberTwoDevideWithTwo()
         {
             Assert.AreEqual(0, CheckIfNumberDevideWithBaseAndReturnNull(2, 2));
         }
@@ -393,6 +393,16 @@ namespace BaseOperations
                 return 0;
             else            
                 return numberToCheck;
+        }
+        [TestMethod]
+        public void CheckTwoMultipliedByTwo()
+        {
+            CollectionAssert.AreEqual(new int[] { 0, 0, 0, 0, 0, 1, 0, 0 }, MultiplyTwoNumbers(TransformFromBaseTenToBaseTwo(2), TransformFromBaseTenToBaseTwo(2), 2));
+        }
+
+        int [] MultiplyTwoNumbers(int[] v1, int[] v2, int baseNumber)
+        {
+            return new int[] { };
         }
     }
 }
