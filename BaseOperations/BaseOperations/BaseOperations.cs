@@ -356,17 +356,17 @@ namespace BaseOperations
             for (int i = 7; i >= 0; i--)
             {
                 int summ = 0;
-                if (biggerNumber[i] + nrBase - remainder - smallerNumber[i] < 0)
+                if (biggerNumber[i] - remainder - smallerNumber[i] < 0)
                 {
-                    summ = Math.Abs(biggerNumber[i] + nrBase - remainder - smallerNumber[i]);
-                    remainder = 1;
+                    summ = Math.Abs(biggerNumber[i] - remainder + smallerNumber[i] - nrBase);
+                    remainder = Math.Abs(summ - nrBase);
                 }
                 else
                 {
-                    summ = biggerNumber[i] + nrBase - remainder - smallerNumber[i];
+                    summ = biggerNumber[i] - remainder + smallerNumber[i];
+                    remainder = 0;
                 }
-                remainder = 0;
-                resultArray[i] = summ % nrBase;
+                resultArray[i] = summ;
             }
             return resultArray;
         }
