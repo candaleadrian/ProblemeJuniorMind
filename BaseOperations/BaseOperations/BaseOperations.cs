@@ -267,10 +267,9 @@ namespace BaseOperations
         {
             CollectionAssert.AreEqual(new int[] { 1, 0 }, CutFirstNullValues(new int[] { 0, 0, 1, 0 }));
         }
-
         private int[] CutFirstNullValues(int[] array)
         {
-            int resultLength = CountFirstNullValues(array);
+            int resultLength = array.Length - CountFirstNullValues(array);
             int[] result = new int[resultLength];
             for (int i = 0 + resultLength; i < array.Length; i++)
             {
