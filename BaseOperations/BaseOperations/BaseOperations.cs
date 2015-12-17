@@ -271,11 +271,16 @@ namespace BaseOperations
         {
             int resultLength = CountFirstNullValues(array);
             int[] result = new int[resultLength];
-            for (int i = resultLength; i < array.Length; i++)
+            if (resultLength > 0)
             {
-                result[i - resultLength] = array[i];
+                for (int i = resultLength; i < array.Length; i++)
+                {
+                    result[i - resultLength] = array[i];
+                }
+                return result;
             }
-            return result;
+            else
+                return array;
         }
 
         [TestMethod]
