@@ -269,9 +269,9 @@ namespace BaseOperations
         }
         private int[] CutFirstNullValues(int[] array)
         {
-            int resultLength = array.Length - CountFirstNullValues(array);
+            int resultLength = CountFirstNullValues(array);
             int[] result = new int[resultLength];
-            for (int i = 0 + resultLength; i < array.Length; i++)
+            for (int i = resultLength; i < array.Length; i++)
             {
                 result[i - resultLength] = array[i];
             }
@@ -328,29 +328,40 @@ namespace BaseOperations
         [TestMethod]
         public void SubstractBaseTwoNumbers()
         {
-            CollectionAssert.AreEqual(new int[] { 0, 0, 0, 0, 0, 0, 0, 1 }, AddingNumbersInBaseX(new int[] { 1,0 }, new int[] { 1 }, 2));
+            CollectionAssert.AreEqual(new int[] { 0, 0, 0, 0, 0, 0, 0, 1 }, SubstractionNumbersInBaseX(new int[] { 1,0 }, new int[] { 1 }, 2));
         }
         int[] SubstractionNumbersInBaseX(int[] firstNumber, int[] secondNumber, int nrBase)
         {
             firstNumber = AddZeroValuesToArrayUntilSpecifiedLength(firstNumber, 8);
             secondNumber = AddZeroValuesToArrayUntilSpecifiedLength(secondNumber, 8);
+            int[] biggerNumber = new int[8];
+            int[] smallerNumber = new int[8];
+            if (CompareIfAGreaterThenB(firstNumber, secondNumber) == true)
+            {
+                biggerNumber = firstNumber;
+                smallerNumber = secondNumber;
+            }
+            else
+            {
+                biggerNumber = firstNumber;
+                smallerNumber = secondNumber;
+            }
             int remainder = 0;
             int[] resultArray = new int[8];
-            int summ = 0;
             for (int i = 7; i >= 0; i--)
             {
-                summ = 0;
-                if (firstNumber[i] - remainder < secondNumber[i])
+                int summ = 0;
+                if (biggerNumber[i] + nrBase - remainder - smallerNumber[i] < 0)
                 {
-                    summ = firstNumber[i] + nrBase - secondNumber[i];
+                    summ = Math.Abs(biggerNumber[i] + nrBase - remainder - smallerNumber[i]);
                     remainder = 1;
                 }
                 else
                 {
-                    summ = firstNumber[i] - secondNumber[i]- remainder;
-                    remainder = 0;
-                }                
-                resultArray[i] = summ;
+                    summ = biggerNumber[i] + nrBase - remainder - smallerNumber[i];
+                }
+                remainder = 0;
+                resultArray[i] = summ % nrBase;
             }
             return resultArray;
         }
