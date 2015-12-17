@@ -270,7 +270,7 @@ namespace BaseOperations
         private int[] CutFirstNullValues(int[] array)
         {
             int resultLength = CountFirstNullValues(array);
-            int[] result = new int[resultLength];
+            int[] result = new int[array.Length-resultLength];
             if (resultLength > 0)
             {
                 for (int i = resultLength; i < array.Length; i++)
@@ -335,6 +335,16 @@ namespace BaseOperations
         {
             CollectionAssert.AreEqual(new int[] { 0, 0, 0, 0, 0, 0, 0, 1 }, SubstractionNumbersInBaseX(new int[] { 1,0 }, new int[] { 1 }, 2));
         }
+        [TestMethod]
+        public void SubstractSeventeenFromThirtysevenBaseTwo()
+        {
+            CollectionAssert.AreEqual(new int[] { 0, 0, 0, 1, 0, 1, 0, 0 }, SubstractionNumbersInBaseX(new int[] { 0,0,1,0,0,1,0,1 }, new int[] {0,0,0,1,0,0,0,1 }, 2));
+        }
+        [TestMethod]
+        public void SubstractSeventeenFromThirtysevenBaseTwoWithFunction()
+        {
+            CollectionAssert.AreEqual(new int[] { 0, 0, 0, 1, 0, 1, 0, 0 }, SubstractionNumbersInBaseX(TransformFromBaseTenToBaseTwo(37), TransformFromBaseTenToBaseTwo(17), 2));
+        }
         int[] SubstractionNumbersInBaseX(int[] firstNumber, int[] secondNumber, int nrBase)
         {
             firstNumber = AddZeroValuesToArrayUntilSpecifiedLength(firstNumber, 8);
@@ -360,16 +370,29 @@ namespace BaseOperations
                 {
                     summ = Math.Abs(biggerNumber[i] - remainder + smallerNumber[i] - nrBase);
                     remainder = Math.Abs(summ - nrBase);
+                    summ = CheckIfNumberDevideWithBaseAndReturnNull(summ, nrBase);
                 }
                 else
                 {
                     summ = biggerNumber[i] - remainder + smallerNumber[i];
                     remainder = 0;
+                    summ = CheckIfNumberDevideWithBaseAndReturnNull(summ, nrBase);
                 }
                 resultArray[i] = summ;
             }
             return resultArray;
         }
-
+        [TestMethod]
+        public void CheckIfNumber()
+        {
+            Assert.AreEqual(0, CheckIfNumberDevideWithBaseAndReturnNull(2, 2));
+        }
+        int CheckIfNumberDevideWithBaseAndReturnNull(int numberToCheck, int baseNumber)
+        {
+            if (numberToCheck % baseNumber == 0)            
+                return 0;
+            else            
+                return numberToCheck;
+        }
     }
 }
