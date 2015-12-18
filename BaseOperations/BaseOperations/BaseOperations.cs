@@ -22,6 +22,11 @@ namespace BaseOperations
         {
             CollectionAssert.AreEqual(new byte[] { 1, 0,0,0,0 }, TransformFromBaseTenToBaseTwo(16));
         }
+        [TestMethod]
+        public void Transform260FromBase10ToBase2()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1,0,0,0,0,0,1,0,0}, TransformFromBaseTenToBaseTwo(260));
+        }
 
         byte[] TransformFromBaseTenToBaseTwo(int number)
         {    
