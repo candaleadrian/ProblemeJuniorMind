@@ -126,6 +126,11 @@ namespace BaseOperations
         {
             Assert.AreEqual(0, GetNullIfOutOfArrayRange(new byte[] { 1, 0 }, 0));
         }
+        [TestMethod]
+        public void ShouldReturnThirdElementFromRightSideFromSixElementArray()
+        {
+            Assert.AreEqual(1, GetNullIfOutOfArrayRange(new byte[] { 1,0,0,1,0, 0 }, 2));
+        }
         byte GetNullIfOutOfArrayRange(byte[] array, int i)
         {
             return i < (array.Length) ? array[array.Length-1-i] : (byte)0;
@@ -133,21 +138,14 @@ namespace BaseOperations
         [TestMethod]
         public void NOTOperation()
         {
-            CollectionAssert.AreEqual(new byte[] { 1,1,1,1,1,1,0, 1 }, NotOperation(TransformFromBaseTenToBaseTwo(2)));
+            CollectionAssert.AreEqual(new byte[] {0, 1 }, NotOperation(TransformFromBaseTenToBaseTwo(2)));
         }
         byte[] NotOperation(byte[] notArray)
         {
-            if (notArray.Length < 8)
-            {
-               notArray = AddZeroValuesToArrayUntilSpecifiedLength(notArray,8);
-            }
-            byte[] notResult = new byte[8];
+            byte[] notResult = new byte[notArray.Length];
             for (int i = 0; i < notArray.Length; i++)
             {
-                if (notArray[i] == 1)
-                    notResult[i] = 0;
-                else
-                    notResult[i] = 1;
+                notResult[i] = notArray[i] == (byte)0 ? (byte)1 : (byte)0;
             }
             return notResult;
         }
