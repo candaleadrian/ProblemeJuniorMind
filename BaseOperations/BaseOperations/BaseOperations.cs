@@ -85,31 +85,27 @@ namespace BaseOperations
             CollectionAssert.AreEqual(new byte[] { 1, 1, 1, 0 }, BitOperation(TransformFromBaseTenToBaseTwo(7), TransformFromBaseTenToBaseTwo(9), "XOR"));
         }
 
-        public byte[] BitOperation(byte[] v1, byte[] v2, string Operation)
+        public byte[] BitOperation(byte[] v1, byte[] v2, string operation)
         {
             int arrayLength = Math.Max(v1.Length, v2.Length);
             byte[] result = new byte[arrayLength];
-            if (v1.Length > v2.Length)
-                v2 = AddZeroValuesToArrayUntilSpecifiedLength(v2, v1.Length);
-            if (v1.Length < v2.Length)
-                v1 = AddZeroValuesToArrayUntilSpecifiedLength(v1, v2.Length);        
             for (int i = arrayLength-1; i >= 0; i--)
             {
-               result[i] = WhichOperation(v1, v2, Operation, i);
+               result[i] = WhichOperation(GetNullIfOutOfArrayRange(v1,arrayLength - 1 - i),GetNullIfOutOfArrayRange(v2,arrayLength - 1 - i), operation, i);
             }
             return result;
         }
 
-        byte WhichOperation(byte[] v1, byte[] v2, string Operation, int i)
+        byte WhichOperation(byte v1, byte v2, string Operation, int i)
         {
             switch (Operation)
             {
                 case "OR":
-                    return v1[i] == (byte)1 || v2[i] == (byte)1 ? (byte)1 : (byte)0;
+                    return v1 == (byte)1 || v2 == (byte)1 ? (byte)1 : (byte)0;
                 case "AND":
-                    return v1[i] == (byte)1 && v2[i] == (byte)1 ? (byte)1 : (byte)0;
+                    return v1 == (byte)1 && v2 == (byte)1 ? (byte)1 : (byte)0;
                 case "XOR":
-                    return v1[i] == v2[i] ? (byte)0 : (byte)1;
+                    return v1 == v2 ? (byte)0 : (byte)1;
                 default:
                     return 0;
             }
@@ -118,24 +114,21 @@ namespace BaseOperations
         [TestMethod]
         public void AddNulltoATwoElementsArrayIfIIsFive()
         {
-            Assert.AreEqual(0, GetNullIfOutOfArrayRange(new int[] {1,0 },5));
+            Assert.AreEqual(0, GetNullIfOutOfArrayRange(new byte[] {1,0 },5));
         }
         [TestMethod]
         public void AddNulltoAOneElementsArrayIfIIsOne()
         {
-            Assert.AreEqual(0, GetNullIfOutOfArrayRange(new int[] { 1 }, 1));
+            Assert.AreEqual(0, GetNullIfOutOfArrayRange(new byte[] { 1 }, 1));
         }
         [TestMethod]
         public void AddValueToATwoElementsArrayIfIIsNull()
         {
-            Assert.AreEqual(1, GetNullIfOutOfArrayRange(new int[] { 1, 0 }, 0));
+            Assert.AreEqual(0, GetNullIfOutOfArrayRange(new byte[] { 1, 0 }, 0));
         }
-        int GetNullIfOutOfArrayRange(int[] array, int i)
+        byte GetNullIfOutOfArrayRange(byte[] array, int i)
         {
-            if (i<array.Length-1)            
-                return array[i];
-            else
-                return 0;
+            return i < (array.Length) ? array[array.Length-1-i] : (byte)0;
         }
         [TestMethod]
         public void NOTOperation()
