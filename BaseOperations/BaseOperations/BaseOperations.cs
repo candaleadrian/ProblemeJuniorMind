@@ -131,9 +131,14 @@ namespace BaseOperations
         {
             Assert.AreEqual(1, GetNullIfOutOfArrayRange(new byte[] { 1,0,0,1,0, 0 }, 2));
         }
+        [TestMethod]
+        public void ShouldReturnSecondElementFromRightSideFromFourElementArray()
+        {
+            Assert.AreEqual(1, GetNullIfOutOfArrayRange(new byte[] { 1, 0, 1, 0 }, 1));
+        }
         byte GetNullIfOutOfArrayRange(byte[] array, int i)
         {
-            return i < (array.Length) ? array[array.Length-1-i] : (byte)0;
+            return (i < (array.Length)) && i>= 0 ? array[array.Length-1-i] : (byte)0;
         }
         [TestMethod]
         public void NOTOperation()
@@ -179,32 +184,42 @@ namespace BaseOperations
         [TestMethod]
         public void ShiftToLeftTwoValueArray()
         {
-            CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 1, 0, 0, 0 }, ShiftToLeft(TransformFromBaseTenToBaseTwo(2),2));
+            CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 1, 0, 0, 0 }, ShiftToLeft(TransformFromBaseTenToBaseTwo(2), 2));
         }
         [TestMethod]
         public void ShiftToLeftFourValuesArray()
         {
-            CollectionAssert.AreEqual(new byte[] { 0, 1, 0, 1, 0, 0, 0, 0 }, ShiftToLeft(new byte[]{1,0,1,0 }, 3));
+            CollectionAssert.AreEqual(new byte[] { 0, 1, 0, 1, 0, 0, 0, 0 }, ShiftToLeft(new byte[] { 1, 0, 1, 0 }, 3));
         }
-        byte[] ShiftToLeft(byte[] toBeShifted, int stepsToTheLeft)
-        {
-            if (toBeShifted.Length < 8)
+        byte[] ShiftToLeft(byte[] toBeShifted, int steps)
+        {           
+            byte[] shiftedResult = new byte[ReturnArrayLengthEightSixteenThirtytwoAndSoOn(toBeShifted.Length)];
+            for (int i = shiftedResult.Length-1; i >= 0 ; i--)
             {
-                toBeShifted = AddZeroValuesToArrayUntilSpecifiedLength(toBeShifted, 8);
-            }
-            byte[] shiftedResult = new byte[8];
-            while (stepsToTheLeft > 0)
-            {
-                for (int i = 0; i < (toBeShifted.Length-2); i++)
-                {
-                    shiftedResult[i] = toBeShifted[i + 1];
-                }
-                    shiftedResult[7]=0;
-                toBeShifted = shiftedResult;
-                stepsToTheLeft--;
+                shiftedResult[i] = GetNullIfOutOfArrayRange(toBeShifted,shiftedResult.Length-1-i-steps);
             }
             return shiftedResult;
         }
+        [TestMethod]
+        public void ShouldReturnEightIfArrayLengthIsSmallerThenEight()
+        {
+            Assert.AreEqual(8, ReturnArrayLengthEightSixteenThirtytwoAndSoOn(3));
+        }
+        public void ShouldReturnSixteenIfArrayLengthIsBiggerThenEightAndSmallerThenSixteen()
+        {
+            Assert.AreEqual(16, ReturnArrayLengthEightSixteenThirtytwoAndSoOn(9));
+        }
+        int ReturnArrayLengthEightSixteenThirtytwoAndSoOn(int length)
+        {
+            for (int i = 3;; i++)
+            {
+                if (length <= Math.Pow(2,i))
+                {
+                    return (int)Math.Pow(2, i);
+                }
+            }
+        }
+
         [TestMethod]
         public void ShiftToRightTwoValueArray()
         {
