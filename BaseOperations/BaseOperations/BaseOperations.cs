@@ -196,6 +196,11 @@ namespace BaseOperations
         {
             CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 0, 0, 0, 0 }, ShiftArray(TransformFromBaseTenToBaseTwo(2), 2, "RIGHT"));
         }
+        [TestMethod]
+        public void ShiftToRightFourValuesArrayTwoSteps()
+        {
+            CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 0, 0, 1, 0 }, ShiftArray(new byte[] { 1, 0, 1, 0 },2, "RIGHT"));
+        }
         byte[] ShiftArray(byte[] toBeShifted, int steps, string direction)
         {           
             byte[] shiftedResult = new byte[ReturnArrayLengthEightSixteenThirtytwoAndSoOn(toBeShifted.Length)];
@@ -230,36 +235,6 @@ namespace BaseOperations
                 }
             }
         }
-
-        [TestMethod]
-        public void ShiftToRightTwoValueArray()
-        {
-            CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 0, 0, 0, 1 }, ShiftToRight(TransformFromBaseTenToBaseTwo(2), 1));
-        }
-        [TestMethod]
-        public void ShiftToRightFourValuesArray()
-        {
-            CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 0, 0, 0, 1 }, ShiftToRight(new byte[] { 1, 0, 1, 0 }, 3));
-        }
-        byte[] ShiftToRight(byte[] toBeShifted, int stepsToTheRight)
-        {
-            if (toBeShifted.Length < 8)
-            {
-                toBeShifted = AddZeroValuesToArrayUntilSpecifiedLength(toBeShifted, 8);
-            }
-            byte[] shiftedResult = new byte[8];
-            while (stepsToTheRight > 0)
-            {
-                for (int i = (toBeShifted.Length - 1); i > 0; i--)
-                {
-                    shiftedResult[i] = toBeShifted[i - 1];
-                }
-                shiftedResult[0] = 0;
-                toBeShifted = shiftedResult;
-                stepsToTheRight--;
-            }
-            return shiftedResult;
-        }
         [TestMethod]
         public void CompareIfOneBasetwoIsGreaterThenTwoBaseTwo()
         {
@@ -269,16 +244,12 @@ namespace BaseOperations
         {
             first = CutFirstNullValues(first);
             second  = CutFirstNullValues(second);
-            if (first.Length > second.Length)
+            if (first.Length != second.Length && first.Length > second.Length)
                 return true;
-            if (first.Length < second.Length)
-                return false;
             for (int i = 0; i < first.Length; i++)
             {
                 if (first[i] > second[i])
                     return true;
-                else
-                    return false;
             }
             return false;
         }
@@ -324,31 +295,29 @@ namespace BaseOperations
         [TestMethod]
         public void AddBaseTwoNumbers()
         {
-            CollectionAssert.AreEqual(new byte[] {0,0,0,0,0,0, 1,1},AddingNumbersInBaseX(new byte[] { 1},new byte[] { 1,0}, 2));
+            CollectionAssert.AreEqual(new byte[] {1,1},AddingNumbersInBaseX(new byte[] { 1},new byte[] { 1,0}, 2));
         }
         [TestMethod]
         public void AddBaseTenNumbers()
         {
-            CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 0, 0, 4, 2 }, AddingNumbersInBaseX(new byte[] { 7 }, new byte[] { 3, 5 }, 10));
+            CollectionAssert.AreEqual(new byte[] { 4, 2 }, AddingNumbersInBaseX(new byte[] { 7 }, new byte[] { 3, 5 }, 10));
         }
         [TestMethod]
         public void AddBaseSixNumbers()
         {
-            CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 3, 5, 3, 3, 4 }, AddingNumbersInBaseX(new byte[] { 3,4,5,2,1 }, new byte[] { 4,1,3 }, 6));
+            CollectionAssert.AreEqual(new byte[] { 3, 5, 3, 3, 4 }, AddingNumbersInBaseX(new byte[] { 3,4,5,2,1 }, new byte[] { 4,1,3 }, 6));
         }
         byte[] AddingNumbersInBaseX(byte[] firstNumber, byte[] secondNumber, int nrBase)
         {
-            firstNumber = AddZeroValuesToArrayUntilSpecifiedLength(firstNumber, 8);
-            secondNumber = AddZeroValuesToArrayUntilSpecifiedLength(secondNumber, 8);
             int remainder = 0;
-            byte[] resultArray = new byte[8];
-            for (int i = 7; i >= 0; i--)
+            byte[] resultArray = new byte[Math.Max(firstNumber.Length,secondNumber.Length)];
+            for (int i = resultArray.Length - 1; i >= 0; i--)
             {
-                int summ = firstNumber[i] + secondNumber[i] + remainder;
+                int summ = GetNullIfOutOfArrayRange(firstNumber, resultArray.Length - 1 - i) + GetNullIfOutOfArrayRange(secondNumber, resultArray.Length - 1 - i) + remainder;
                 remainder = summ / nrBase;
                 resultArray[i] = (byte) (summ % nrBase);
             }
-            return resultArray;
+            return CutFirstNullValues(resultArray);
         }
         [TestMethod]
         public void SubstractBaseTwoNumbers()
@@ -378,8 +347,8 @@ namespace BaseOperations
             }
             else
             {
-                biggerNumber = firstNumber;
-                smallerNumber = secondNumber;
+                biggerNumber = secondNumber;
+                smallerNumber = firstNumber;
             }
             int remainder = 0;
             byte[] resultArray = new byte[8];
