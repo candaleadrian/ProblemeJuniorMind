@@ -322,54 +322,47 @@ namespace BaseOperations
         [TestMethod]
         public void SubstractBaseTwoNumbers()
         {
-            CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 0, 0, 0, 1 }, SubstractionNumbersInBaseX(new byte[] { 1,0 }, new byte[] { 1 }, 2));
+            CollectionAssert.AreEqual(new byte[] { 1 }, SubstractionNumbersInBaseX(new byte[] { 1,0 }, new byte[] { 1 }, 2));
         }
         [TestMethod]
         public void SubstractSeventeenFromThirtysevenBaseTwo()
         {
-            CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 1, 0, 1, 0, 0 }, SubstractionNumbersInBaseX(new byte[] { 0,0,1,0,0,1,0,1 }, new byte[] {0,0,0,1,0,0,0,1 }, 2));
+            CollectionAssert.AreEqual(new byte[] { 1, 0, 1, 0, 0 }, SubstractionNumbersInBaseX(new byte[] { 0,0,1,0,0,1,0,1 }, new byte[] {0,0,0,1,0,0,0,1 }, 2));
         }
         [TestMethod]
         public void SubstractSeventeenFromThirtysevenBaseTwoWithFunction()
         {
-            CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 1, 0, 1, 0, 0 }, SubstractionNumbersInBaseX(TransformFromBaseTenToBaseTwo(37), TransformFromBaseTenToBaseTwo(17), 2));
+            CollectionAssert.AreEqual(new byte[] { 1, 0, 1, 0, 0 }, SubstractionNumbersInBaseX(TransformFromBaseTenToBaseTwo(37), TransformFromBaseTenToBaseTwo(17), 2));
         }
         byte[] SubstractionNumbersInBaseX(byte[] firstNumber, byte[] secondNumber, int nrBase)
         {
-            firstNumber = AddZeroValuesToArrayUntilSpecifiedLength(firstNumber, 8);
-            secondNumber = AddZeroValuesToArrayUntilSpecifiedLength(secondNumber, 8);
-            byte[] biggerNumber = new byte[8];
-            byte[] smallerNumber = new byte[8];
-            if (CompareIfAGreaterThenB(firstNumber, secondNumber) == true)
-            {
-                biggerNumber = firstNumber;
-                smallerNumber = secondNumber;
-            }
-            else
+            byte[] biggerNumber = firstNumber;
+            byte[] smallerNumber = secondNumber;
+            if (CompareIfAGreaterThenB(firstNumber, secondNumber) == false)
             {
                 biggerNumber = secondNumber;
                 smallerNumber = firstNumber;
             }
             int remainder = 0;
-            byte[] resultArray = new byte[8];
-            for (int i = 7; i >= 0; i--)
+            byte[] resultArray = new byte[biggerNumber.Length];
+            for (int i = biggerNumber.Length-1; i >= 0; i--)
             {
                 int summ = 0;
-                if (biggerNumber[i] - remainder - smallerNumber[i] < 0)
+                if (GetNullIfOutOfArrayRange(biggerNumber,biggerNumber.Length - 1 - i) - remainder - GetNullIfOutOfArrayRange(smallerNumber, biggerNumber.Length - 1 - i) < 0)
                 {
-                    summ = Math.Abs(biggerNumber[i] - remainder + smallerNumber[i] - nrBase);
+                    summ = Math.Abs(GetNullIfOutOfArrayRange(biggerNumber, biggerNumber.Length - 1 - i) - remainder + GetNullIfOutOfArrayRange(smallerNumber, biggerNumber.Length - 1 - i) - nrBase);
                     remainder = Math.Abs(summ - nrBase);
                     summ = CheckIfNumberDevideWithBaseAndReturnNull(summ, nrBase);
                 }
                 else
                 {
-                    summ = biggerNumber[i] - remainder + smallerNumber[i];
+                    summ = GetNullIfOutOfArrayRange(biggerNumber, biggerNumber.Length - 1 - i) - remainder + GetNullIfOutOfArrayRange(smallerNumber, biggerNumber.Length - 1 - i);
                     remainder = 0;
                     summ = CheckIfNumberDevideWithBaseAndReturnNull(summ, nrBase);
                 }
                 resultArray[i] = (byte) summ;
             }
-            return resultArray;
+            return CutFirstNullValues(resultArray);
         }
         [TestMethod]
         public void CheckIfNumberTwoDevideWithTwo()
