@@ -240,16 +240,24 @@ namespace BaseOperations
         {
             Assert.IsFalse(CompareIfAGreaterThenB(new byte[] { 1 }, new byte[] { 1, 0 }));
         }
+        [TestMethod]
+        public void ShouldReturnFalseForFirsArrayLengthSmallerThenSecond()
+        {
+            Assert.IsFalse(CompareIfAGreaterThenB (new byte[] { 1, 5 }, new byte[] { 3, 4, 1 }));
+        }
         bool CompareIfAGreaterThenB(byte[] first, byte[] second)
         {
             first = CutFirstNullValues(first);
             second  = CutFirstNullValues(second);
             if (first.Length != second.Length && first.Length > second.Length)
                 return true;
-            for (int i = 0; i < first.Length; i++)
+            if (first.Length == second.Length)
             {
-                if (first[i] > second[i])
-                    return true;
+                for (int i = 0; i < first.Length; i++)
+                {
+                    if (first[i] > second[i])
+                        return true;
+                }
             }
             return false;
         }
@@ -325,6 +333,11 @@ namespace BaseOperations
             CollectionAssert.AreEqual(new byte[] { 1 }, SubstractionNumbersInBaseX(new byte[] { 1,0 }, new byte[] { 1 }, 2));
         }
         [TestMethod]
+        public void SubstractBaseTwoNumbersSecondIsBigger()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1 }, SubstractionNumbersInBaseX(new byte[] { 1 }, new byte[] { 1,0 }, 2));
+        }
+        [TestMethod]
         public void SubstractSeventeenFromThirtysevenBaseTwo()
         {
             CollectionAssert.AreEqual(new byte[] { 1, 0, 1, 0, 0 }, SubstractionNumbersInBaseX(new byte[] { 0,0,1,0,0,1,0,1 }, new byte[] {0,0,0,1,0,0,0,1 }, 2));
@@ -333,6 +346,16 @@ namespace BaseOperations
         public void SubstractSeventeenFromThirtysevenBaseTwoWithFunction()
         {
             CollectionAssert.AreEqual(new byte[] { 1, 0, 1, 0, 0 }, SubstractionNumbersInBaseX(TransformFromBaseTenToBaseTwo(37), TransformFromBaseTenToBaseTwo(17), 2));
+        }
+        [TestMethod]
+        public void SubstractSeventeenFromThirtysevenBaseTenWithFunction()
+        {
+            CollectionAssert.AreEqual(new byte[] { 2, 0 }, SubstractionNumbersInBaseX(new byte[] {1, 7 }, new byte[] {  3, 7 }, 10));
+        }
+        [TestMethod]
+        public void SubstractInBaseSix()
+        {
+            CollectionAssert.AreEqual(new byte[] { 3, 2, 2 }, SubstractionNumbersInBaseX(new byte[] { 1, 5 }, new byte[] { 3, 4, 1 }, 6));
         }
         byte[] SubstractionNumbersInBaseX(byte[] firstNumber, byte[] secondNumber, int nrBase)
         {
@@ -350,15 +373,13 @@ namespace BaseOperations
                 int summ = 0;
                 if (GetNullIfOutOfArrayRange(biggerNumber,biggerNumber.Length - 1 - i) - remainder - GetNullIfOutOfArrayRange(smallerNumber, biggerNumber.Length - 1 - i) < 0)
                 {
-                    summ = Math.Abs(GetNullIfOutOfArrayRange(biggerNumber, biggerNumber.Length - 1 - i) - remainder + GetNullIfOutOfArrayRange(smallerNumber, biggerNumber.Length - 1 - i) - nrBase);
-                    remainder = Math.Abs(summ - nrBase);
-                    summ = CheckIfNumberDevideWithBaseAndReturnNull(summ, nrBase);
+                    summ = Math.Abs(GetNullIfOutOfArrayRange(biggerNumber, biggerNumber.Length - 1 - i) - remainder + nrBase - GetNullIfOutOfArrayRange(smallerNumber, biggerNumber.Length - 1 - i));
+                    remainder =1;
                 }
                 else
                 {
-                    summ = GetNullIfOutOfArrayRange(biggerNumber, biggerNumber.Length - 1 - i) - remainder + GetNullIfOutOfArrayRange(smallerNumber, biggerNumber.Length - 1 - i);
+                    summ = GetNullIfOutOfArrayRange(biggerNumber, biggerNumber.Length - 1 - i) - remainder - GetNullIfOutOfArrayRange(smallerNumber, biggerNumber.Length - 1 - i);
                     remainder = 0;
-                    summ = CheckIfNumberDevideWithBaseAndReturnNull(summ, nrBase);
                 }
                 resultArray[i] = (byte) summ;
             }
