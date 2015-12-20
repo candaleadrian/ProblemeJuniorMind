@@ -184,22 +184,33 @@ namespace BaseOperations
         [TestMethod]
         public void ShiftToLeftTwoValueArray()
         {
-            CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 1, 0, 0, 0 }, ShiftToLeft(TransformFromBaseTenToBaseTwo(2), 2));
+            CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 1, 0, 0, 0 }, ShiftArray(TransformFromBaseTenToBaseTwo(2), 2, "LEFT"));
         }
         [TestMethod]
         public void ShiftToLeftFourValuesArray()
         {
-            CollectionAssert.AreEqual(new byte[] { 0, 1, 0, 1, 0, 0, 0, 0 }, ShiftToLeft(new byte[] { 1, 0, 1, 0 }, 3));
+            CollectionAssert.AreEqual(new byte[] { 0, 1, 0, 1, 0, 0, 0, 0 }, ShiftArray(new byte[] { 1, 0, 1, 0 }, 3, "LEFT"));
         }
-        byte[] ShiftToLeft(byte[] toBeShifted, int steps)
+        [TestMethod]
+        public void ShiftToRightTwoValueArrayTwoElements()
+        {
+            CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 0, 0, 0, 0 }, ShiftArray(TransformFromBaseTenToBaseTwo(2), 2, "RIGHT"));
+        }
+        byte[] ShiftArray(byte[] toBeShifted, int steps, string direction)
         {           
             byte[] shiftedResult = new byte[ReturnArrayLengthEightSixteenThirtytwoAndSoOn(toBeShifted.Length)];
             for (int i = shiftedResult.Length-1; i >= 0 ; i--)
             {
-                shiftedResult[i] = GetNullIfOutOfArrayRange(toBeShifted,shiftedResult.Length-1-i-steps);
+                shiftedResult[i] = GetNullIfOutOfArrayRange(toBeShifted, shiftedResult.Length - 1 - i + ChoseLeftOrRight(direction,steps));
             }
             return shiftedResult;
         }
+
+        int ChoseLeftOrRight(string direction, int steps)
+        {
+            return direction == "LEFT" ? 0 - steps : steps;
+        }
+
         [TestMethod]
         public void ShouldReturnEightIfArrayLengthIsSmallerThenEight()
         {
