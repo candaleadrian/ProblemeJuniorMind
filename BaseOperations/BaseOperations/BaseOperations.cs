@@ -400,6 +400,11 @@ namespace BaseOperations
         {
             CollectionAssert.AreEqual(new byte[] { 1,1, 0,1,1,1 }, MultiplyInSelectedBase(new byte[] { 1, 0,1 }, new byte[] { 1,0,1,1 }, 2));
         }
+        [TestMethod]
+        public void ShouldReturnFifteenAftrMultiplicationOfFiveAndThreeBaseTen()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1,5 }, MultiplyInSelectedBase(new byte[] { 3 }, new byte[] { 5 }, 10));
+        }
 
         byte[] MultiplyInSelectedBase(byte[] v1, byte[] v2, int nrBase)
         {
@@ -415,8 +420,8 @@ namespace BaseOperations
                     multipliedWithOneElement[j] = (byte) (GetNullIfOutOfArrayRange(v1, v1.Length - 1 - i) *GetNullIfOutOfArrayRange(v2,v2.Length-1-j) - reminder);
                     if ( multipliedWithOneElement[j] >= nrBase)
                     {
-                        multipliedWithOneElement[j] = (byte) (multipliedWithOneElement[i] % nrBase);
                         reminder = multipliedWithOneElement[j] / nrBase;
+                        multipliedWithOneElement[j] = (byte) (multipliedWithOneElement[i] % nrBase);
                     }
                     if (j==0 && reminder > 0)
                     {
