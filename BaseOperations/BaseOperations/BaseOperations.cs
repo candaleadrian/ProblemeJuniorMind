@@ -262,6 +262,46 @@ namespace BaseOperations
             return false;
         }
         [TestMethod]
+        public void CompareIfOneBasetwoIsSmallerThenTwoBaseTwo()
+        {
+            Assert.IsTrue(CompareIfASmallerThenB(new byte[] { 1 }, new byte[] { 1, 0 }));
+        }
+        [TestMethod]
+        public void ShouldReturnFalseForFirsArrayLengthBiggerThenSecond()
+        {
+            Assert.IsTrue(CompareIfASmallerThenB(new byte[] { 1, 5 }, new byte[] { 3, 4, 1 }));
+        }
+        bool CompareIfASmallerThenB(byte[] first, byte[] second)
+        {
+            if (CompareIfAGreaterThenB(first,second))
+            {
+                return false;
+            }
+            if (CompareIfAGreaterThenB(second, first))
+            {
+                return true;
+            }
+            return false;
+        }
+        [TestMethod]
+        public void CompareIfOneBasetwoIsEqualThenTwoBaseTwo()
+        {
+            Assert.IsTrue(CompareIfAEqualB(new byte[] { 1,0 }, new byte[] { 1, 0 }));
+        }
+        [TestMethod]
+        public void ShouldReturnFalseForFirsArrayLengthEqualThenSecond()
+        {
+            Assert.IsFalse(CompareIfAEqualB(new byte[] { 1, 5 }, new byte[] { 3, 4, 1 }));
+        }
+        bool CompareIfAEqualB(byte[] first, byte[] second)
+        {
+            if (CompareIfAGreaterThenB(first, second)==false && CompareIfAGreaterThenB(second, first)==false)
+            {
+                return true;
+            }
+            return false;
+        }
+        [TestMethod]
         public void ReduceArrayByDeletingFirstTwoNullValues()
         {
             CollectionAssert.AreEqual(new byte[] { 1, 0 }, CutFirstNullValues(new byte[] { 0, 0, 1, 0 }));
@@ -396,6 +436,11 @@ namespace BaseOperations
             CollectionAssert.AreEqual(new byte[] { 1, 0 }, MultiplyInSelectedBase(new byte[] { 1, 0 }, new byte[] { 1 }, 2));
         }
         [TestMethod]
+        public void ShouldReturnFourInBaseTwoForTwoBinaryMultiplicateWithTwo()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 0, 0 }, MultiplyInSelectedBase(new byte[] { 1, 0 }, new byte[] { 1,0 }, 2));
+        }
+        [TestMethod]
         public void ShouldReturnResultOfTwoBinaryMultiplication()
         {
             CollectionAssert.AreEqual(new byte[] { 1, 1, 0, 1, 1, 1 }, MultiplyInSelectedBase(new byte[] { 1, 0, 1 }, new byte[] { 1, 0, 1, 1 }, 2));
@@ -404,6 +449,11 @@ namespace BaseOperations
         public void ShouldReturnFifteenAftrMultiplicationOfFiveAndThreeBaseTen()
         {
             CollectionAssert.AreEqual(new byte[] { 1, 5 }, MultiplyInSelectedBase(new byte[] { 3 }, new byte[] { 5 }, 10));
+        }
+        [TestMethod]
+        public void ShouldReturnFourAfterMultiplicationOfTwoAndTwoBaseTwo()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 0,0,0 }, MultiplyInSelectedBase(new byte[] { 1,0,0 }, new byte[] { 1,0 }, 2));
         }
 
         byte[] MultiplyInSelectedBase(byte[] v1, byte[] v2, int nrBase)
@@ -441,13 +491,17 @@ namespace BaseOperations
         [TestMethod]
         public void ShouldReturnTwoInBaseTwoWhenDevideFourWithTwoBinary()
         {
-            CollectionAssert.AreEqual(new byte[] { 1, 0 }, DevideInDesiredBase(new byte[] { 1,0, 0 }, new byte[] {  1, 0 }, 2));
+            CollectionAssert.AreEqual(new byte[] { 1, 0 }, DevideInDesiredBase(new byte[] { 1, 0, 0 }, new byte[] { 1, 0 }, 2));
         }
-
+        [TestMethod]
+        public void ShouldReturnTenInBaseTenWhenDevideOneHunderdWithTen()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 0 }, DevideInDesiredBase(new byte[] { 1, 0, 0 }, new byte[] { 1, 0 }, 10));
+        }
         byte[] DevideInDesiredBase(byte[] v1, byte[] v2, int nrBase)
         {
-            byte[] result = { 1 }; 
-            while (v1 != MultiplyInSelectedBase(v2,result,nrBase))
+            byte[] result = { 1 };           
+            while (CompareIfAEqualB(v1, MultiplyInSelectedBase(v2, result, nrBase)) == false)
             {
                 result = AddingNumbersInBaseX(result, new byte[] { 1 }, nrBase);
             }
