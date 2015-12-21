@@ -315,10 +315,15 @@ namespace BaseOperations
         {
             CollectionAssert.AreEqual(new byte[] { 3, 5, 3, 3, 4 }, AddingNumbersInBaseX(new byte[] { 3,4,5,2,1 }, new byte[] { 4,1,3 }, 6));
         }
+        [TestMethod]
+        public void ShouldIncreaseResultArrayAddingBaseTwoNumbers()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1,0,0,0,0 }, AddingNumbersInBaseX(new byte[] { 1,0,1,1 }, new byte[] { 1, 0,1 }, 2));
+        }
         byte[] AddingNumbersInBaseX(byte[] firstNumber, byte[] secondNumber, int nrBase)
         {
             int remainder = 0;
-            byte[] resultArray = new byte[Math.Max(firstNumber.Length,secondNumber.Length)];
+            byte[] resultArray = new byte[Math.Max(firstNumber.Length,secondNumber.Length)+1];
             for (int i = resultArray.Length - 1; i >= 0; i--)
             {
                 int summ = GetNullIfOutOfArrayRange(firstNumber, resultArray.Length - 1 - i) + GetNullIfOutOfArrayRange(secondNumber, resultArray.Length - 1 - i) + remainder;
@@ -386,16 +391,59 @@ namespace BaseOperations
             return CutFirstNullValues(resultArray);
         }
         [TestMethod]
-        public void CheckIfNumberTwoDevideWithTwo()
+        public void ShouldTestIfResultIsOkForTwoBinaryMultiplication()
         {
-            Assert.AreEqual(0, CheckIfNumberDevideWithBaseAndReturnNull(2, 2));
+            CollectionAssert.AreEqual(new byte[] { 1, 0 }, MultiplyInSelectedBase(new byte[] { 1, 0 }, new byte[] { 1 }, 2));
         }
-        int CheckIfNumberDevideWithBaseAndReturnNull(int numberToCheck, int baseNumber)
+        [TestMethod]
+        public void ShouldReturnResultOfTwoBinaryMultiplication()
         {
-            if (numberToCheck % baseNumber == 0)            
-                return 0;
-            else            
-                return numberToCheck;
+            CollectionAssert.AreEqual(new byte[] { 1,1, 0,1,1,1 }, MultiplyInSelectedBase(new byte[] { 1, 0,1 }, new byte[] { 1,0,1,1 }, 2));
+        }
+
+        byte[] MultiplyInSelectedBase(byte[] v1, byte[] v2, int nrBase)
+        {
+            int resultLength = Math.Max(v1.Length, v2.Length);
+            byte[] result = new byte[resultLength];
+            byte[] multipliedWithOneElement = new byte[v2.Length];
+            int reminder = 0;
+            int counter = 0;
+            for (int i = v1.Length-1 ; i >= 0; i--)
+            {
+                for (int j = v2.Length-1; j >= 0; j--)
+                {
+                    multipliedWithOneElement[j] = (byte) (GetNullIfOutOfArrayRange(v1, v1.Length - 1 - i) *GetNullIfOutOfArrayRange(v2,v2.Length-1-j) - reminder);
+                    if ( multipliedWithOneElement[j] >= nrBase)
+                    {
+                        multipliedWithOneElement[j] = (byte) (multipliedWithOneElement[i] % nrBase);
+                        reminder = multipliedWithOneElement[j] / nrBase;
+                    }
+                    if (j==0 && reminder > 0)
+                    {
+                        multipliedWithOneElement = AddZeroValuesToArrayUntilSpecifiedLength(multipliedWithOneElement, multipliedWithOneElement.Length+1);
+                        multipliedWithOneElement[j] = (byte) reminder;
+                    }
+                }
+                if (counter>0)
+                {
+                    multipliedWithOneElement = AddNullAtTheEnd(multipliedWithOneElement);
+                }
+                counter++;
+                result = AddingNumbersInBaseX(result, multipliedWithOneElement, nrBase);
+            }
+            return CutFirstNullValues(result);
+        }
+        [TestMethod]
+        public void ShouldIncreaseArrayWithOneAndAddNullValueAtEnd()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 0, 1, 0 }, AddNullAtTheEnd(new byte[] { 1, 0, 1 }));
+        }
+        byte[] AddNullAtTheEnd(byte[] array)
+        {
+            byte[] result = array;
+                Array.Resize(ref result, result.Length + 1);
+                result[result.Length - 1] = (byte) 0;
+            return result;
+        }
         }
     }
-}
