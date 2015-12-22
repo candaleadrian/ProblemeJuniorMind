@@ -27,32 +27,10 @@ namespace BaseOperations
         {
             CollectionAssert.AreEqual(new byte[] { 1, 0, 0, 0, 0, 0, 1, 0, 0 }, TransformFromBaseTenToBaseTwo(260));
         }
-
-        byte[] TransformFromBaseTenToBaseTwo(int number)
-        {
-            byte[] base2Array = { };
-            while (number > 0)
-            {
-                Array.Resize(ref base2Array, base2Array.Length + 1);
-                base2Array[base2Array.Length - 1] = (byte)(number % 2);
-                number = number / 2;
-            }
-            return InvertArray(base2Array);
-        }
         [TestMethod]
         public void InvertArray123()
         {
             CollectionAssert.AreEqual(new byte[] { 3, 2, 1 }, InvertArray(new byte[] { 1, 2, 3 }));
-        }
-
-        public byte[] InvertArray(byte[] array)
-        {
-            byte[] invertedArray = new byte[array.Length];
-            for (int i = 0; i < array.Length; i++)
-            {
-                invertedArray[i] = array[array.Length - 1 - i];
-            }
-            return invertedArray;
         }
         [TestMethod]
         public void OROperation()
@@ -84,33 +62,6 @@ namespace BaseOperations
         {
             CollectionAssert.AreEqual(new byte[] { 1, 1, 1, 0 }, BitOperation(TransformFromBaseTenToBaseTwo(7), TransformFromBaseTenToBaseTwo(9), "XOR"));
         }
-
-        public byte[] BitOperation(byte[] v1, byte[] v2, string operation)
-        {
-            int arrayLength = Math.Max(v1.Length, v2.Length);
-            byte[] result = new byte[arrayLength];
-            for (int i = arrayLength - 1; i >= 0; i--)
-            {
-                result[i] = WhichOperation(GetNullIfOutOfArrayRange(v1, arrayLength - 1 - i), GetNullIfOutOfArrayRange(v2, arrayLength - 1 - i), operation, i);
-            }
-            return result;
-        }
-
-        byte WhichOperation(byte v1, byte v2, string Operation, int i)
-        {
-            switch (Operation)
-            {
-                case "OR":
-                    return v1 == (byte)1 || v2 == (byte)1 ? (byte)1 : (byte)0;
-                case "AND":
-                    return v1 == (byte)1 && v2 == (byte)1 ? (byte)1 : (byte)0;
-                case "XOR":
-                    return v1 == v2 ? (byte)0 : (byte)1;
-                default:
-                    return 0;
-            }
-        }
-
         [TestMethod]
         public void AddNulltoATwoElementsArrayIfIIsFive()
         {
@@ -136,25 +87,11 @@ namespace BaseOperations
         {
             Assert.AreEqual(1, GetNullIfOutOfArrayRange(new byte[] { 1, 0, 1, 0 }, 1));
         }
-        byte GetNullIfOutOfArrayRange(byte[] array, int i)
-        {
-            return (i < (array.Length)) && i >= 0 ? array[array.Length - 1 - i] : (byte)0;
-        }
         [TestMethod]
         public void NOTOperation()
         {
             CollectionAssert.AreEqual(new byte[] { 0, 1 }, NotOperation(TransformFromBaseTenToBaseTwo(2)));
         }
-        byte[] NotOperation(byte[] notArray)
-        {
-            byte[] notResult = new byte[notArray.Length];
-            for (int i = 0; i < notArray.Length; i++)
-            {
-                notResult[i] = notArray[i] == (byte)0 ? (byte)1 : (byte)0;
-            }
-            return notResult;
-        }
-
         [TestMethod]
         public void AddZeroValueToOneElementArray()
         {
@@ -169,17 +106,6 @@ namespace BaseOperations
         public void AddZeroValueTotwoElementArray()
         {
             CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 0, 0, 1, 0 }, AddZeroValuesToArrayUntilSpecifiedLength(TransformFromBaseTenToBaseTwo(2), 8));
-        }
-
-        private byte[] AddZeroValuesToArrayUntilSpecifiedLength(byte[] arrayToModify, int arrayDesiredLength)
-        {
-            byte[] invertedArray = InvertArray(arrayToModify);
-            while (invertedArray.Length < arrayDesiredLength)
-            {
-                Array.Resize(ref invertedArray, invertedArray.Length + 1);
-                invertedArray[invertedArray.Length - 1] = 0;
-            }
-            return InvertArray(invertedArray);
         }
         [TestMethod]
         public void ShiftToLeftTwoValueArray()
@@ -201,21 +127,6 @@ namespace BaseOperations
         {
             CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 0, 0, 1, 0 }, ShiftArray(new byte[] { 1, 0, 1, 0 }, 2, "RIGHT"));
         }
-        byte[] ShiftArray(byte[] toBeShifted, int steps, string direction)
-        {
-            byte[] shiftedResult = new byte[ReturnArrayLengthEightSixteenThirtytwoAndSoOn(toBeShifted.Length)];
-            for (int i = shiftedResult.Length - 1; i >= 0; i--)
-            {
-                shiftedResult[i] = GetNullIfOutOfArrayRange(toBeShifted, shiftedResult.Length - 1 - i + ChoseLeftOrRight(direction, steps));
-            }
-            return shiftedResult;
-        }
-
-        int ChoseLeftOrRight(string direction, int steps)
-        {
-            return direction == "LEFT" ? 0 - steps : steps;
-        }
-
         [TestMethod]
         public void ShouldReturnEightIfArrayLengthIsSmallerThenEight()
         {
@@ -224,16 +135,6 @@ namespace BaseOperations
         public void ShouldReturnSixteenIfArrayLengthIsBiggerThenEightAndSmallerThenSixteen()
         {
             Assert.AreEqual(16, ReturnArrayLengthEightSixteenThirtytwoAndSoOn(9));
-        }
-        int ReturnArrayLengthEightSixteenThirtytwoAndSoOn(int length)
-        {
-            for (int i = 3; ; i++)
-            {
-                if (length <= Math.Pow(2, i))
-                {
-                    return (int)Math.Pow(2, i);
-                }
-            }
         }
         [TestMethod]
         public void CompareIfOneBasetwoIsGreaterThenTwoBaseTwo()
@@ -245,22 +146,6 @@ namespace BaseOperations
         {
             Assert.IsFalse(CompareIfAGreaterThenB(new byte[] { 1, 5 }, new byte[] { 3, 4, 1 }));
         }
-        bool CompareIfAGreaterThenB(byte[] first, byte[] second)
-        {
-            first = CutFirstNullValues(first);
-            second = CutFirstNullValues(second);
-            if (first.Length != second.Length && first.Length > second.Length)
-                return true;
-            if (first.Length == second.Length)
-            {
-                for (int i = 0; i < first.Length; i++)
-                {
-                    if (first[i] > second[i])
-                        return true;
-                }
-            }
-            return false;
-        }
         [TestMethod]
         public void CompareIfOneBasetwoIsSmallerThenTwoBaseTwo()
         {
@@ -271,75 +156,26 @@ namespace BaseOperations
         {
             Assert.IsTrue(CompareIfASmallerThenB(new byte[] { 1, 5 }, new byte[] { 3, 4, 1 }));
         }
-        bool CompareIfASmallerThenB(byte[] first, byte[] second)
-        {
-            if (CompareIfAGreaterThenB(first,second))
-            {
-                return false;
-            }
-            if (CompareIfAGreaterThenB(second, first))
-            {
-                return true;
-            }
-            return false;
-        }
         [TestMethod]
         public void CompareIfOneBasetwoIsEqualThenTwoBaseTwo()
         {
-            Assert.IsTrue(CompareIfAEqualB(new byte[] { 1,0 }, new byte[] { 1, 0 }));
+            Assert.IsTrue(CompareIfAEqualB(new byte[] { 1, 0 }, new byte[] { 1, 0 }));
         }
         [TestMethod]
         public void ShouldReturnFalseForFirsArrayLengthEqualThenSecond()
         {
             Assert.IsFalse(CompareIfAEqualB(new byte[] { 1, 5 }, new byte[] { 3, 4, 1 }));
         }
-        bool CompareIfAEqualB(byte[] first, byte[] second)
+        [TestMethod]
+        public void AspectedTwoAfterCountingFirstNullValues()
         {
-            if (CompareIfAGreaterThenB(first, second)==false && CompareIfAGreaterThenB(second, first)==false)
-            {
-                return true;
-            }
-            return false;
+            Assert.AreEqual(2, CountFirstNullValues(new byte[] { 0, 0, 1, 0 }));
         }
         [TestMethod]
         public void ReduceArrayByDeletingFirstTwoNullValues()
         {
             CollectionAssert.AreEqual(new byte[] { 1, 0 }, CutFirstNullValues(new byte[] { 0, 0, 1, 0 }));
         }
-        private byte[] CutFirstNullValues(byte[] array)
-        {
-            int resultLength = CountFirstNullValues(array);
-            byte[] result = new byte[array.Length - resultLength];
-            if (resultLength > 0)
-            {
-                for (int i = resultLength; i < array.Length; i++)
-                {
-                    result[i - resultLength] = array[i];
-                }
-                return result;
-            }
-            else
-                return array;
-        }
-
-        [TestMethod]
-        public void AspectedTwoAfterCountingFirstNullValues()
-        {
-            Assert.AreEqual(2, CountFirstNullValues(new byte[] { 0, 0, 1, 0 }));
-        }
-        private int CountFirstNullValues(byte[] array)
-        {
-            int result = 0;
-            foreach (var item in array)
-            {
-                if (item == 0)
-                    result++;
-                else
-                    return result;
-            }
-            return result;
-        }
-
         [TestMethod]
         public void AddBaseTwoNumbers()
         {
@@ -359,18 +195,6 @@ namespace BaseOperations
         public void ShouldIncreaseResultArrayAddingBaseTwoNumbers()
         {
             CollectionAssert.AreEqual(new byte[] { 1, 0, 0, 0, 0 }, AddingNumbersInBaseX(new byte[] { 1, 0, 1, 1 }, new byte[] { 1, 0, 1 }, 2));
-        }
-        byte[] AddingNumbersInBaseX(byte[] firstNumber, byte[] secondNumber, int nrBase)
-        {
-            int remainder = 0;
-            byte[] resultArray = new byte[Math.Max(firstNumber.Length, secondNumber.Length) + 1];
-            for (int i = resultArray.Length - 1; i >= 0; i--)
-            {
-                int summ = GetNullIfOutOfArrayRange(firstNumber, resultArray.Length - 1 - i) + GetNullIfOutOfArrayRange(secondNumber, resultArray.Length - 1 - i) + remainder;
-                remainder = summ / nrBase;
-                resultArray[i] = (byte)(summ % nrBase);
-            }
-            return CutFirstNullValues(resultArray);
         }
         [TestMethod]
         public void SubstractBaseTwoNumbers()
@@ -402,6 +226,222 @@ namespace BaseOperations
         {
             CollectionAssert.AreEqual(new byte[] { 3, 2, 2 }, SubstractionNumbersInBaseX(new byte[] { 1, 5 }, new byte[] { 3, 4, 1 }, 6));
         }
+        [TestMethod]
+        public void ShouldTestIfResultIsOkForTwoBinaryMultiplication()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 0 }, MultiplyInSelectedBase(new byte[] { 1, 0 }, new byte[] { 1 }, 2));
+        }
+        [TestMethod]
+        public void ShouldReturnFourInBaseTwoForTwoBinaryMultiplicateWithTwo()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 0, 0 }, MultiplyInSelectedBase(new byte[] { 1, 0 }, new byte[] { 1, 0 }, 2));
+        }
+        [TestMethod]
+        public void ShouldReturnResultOfTwoBinaryMultiplication()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 1, 0, 1, 1, 1 }, MultiplyInSelectedBase(new byte[] { 1, 0, 1 }, new byte[] { 1, 0, 1, 1 }, 2));
+        }
+        [TestMethod]
+        public void ShouldReturnFifteenAftrMultiplicationOfFiveAndThreeBaseTen()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 5 }, MultiplyInSelectedBase(new byte[] { 3 }, new byte[] { 5 }, 10));
+        }
+        [TestMethod]
+        public void ShouldReturnFourAfterMultiplicationOfTwoAndTwoBaseTwo()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 0, 0, 0 }, MultiplyInSelectedBase(new byte[] { 1, 0, 0 }, new byte[] { 1, 0 }, 2));
+        }
+        [TestMethod]
+        public void ShouldReturnTwoInBaseTwoWhenDevideFourWithTwoBinary()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 0 }, DevideInDesiredBase(new byte[] { 1, 0, 0 }, new byte[] { 1, 0 }, 2));
+        }
+        [TestMethod]
+        public void ShouldReturnTenInBaseTenWhenDevideOneHunderdWithTen()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 0 }, DevideInDesiredBase(new byte[] { 1, 0, 0 }, new byte[] { 1, 0 }, 10));
+        }
+        [TestMethod]
+        public void ShouldIncreaseArrayWithOneAndAddNullValueAtEnd()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 0, 1, 0 }, AddNullAtTheEnd(new byte[] { 1, 0, 1 }));
+        }
+
+        byte[] TransformFromBaseTenToBaseTwo(int number)
+        {
+            byte[] base2Array = { };
+            while (number > 0)
+            {
+                Array.Resize(ref base2Array, base2Array.Length + 1);
+                base2Array[base2Array.Length - 1] = (byte)(number % 2);
+                number = number / 2;
+            }
+            return InvertArray(base2Array);
+        }
+
+        public byte[] InvertArray(byte[] array)
+        {
+            byte[] invertedArray = new byte[array.Length];
+            for (int i = 0; i < array.Length; i++)
+            {
+                invertedArray[i] = array[array.Length - 1 - i];
+            }
+            return invertedArray;
+        }
+
+        public byte[] BitOperation(byte[] v1, byte[] v2, string operation)
+        {
+            int arrayLength = Math.Max(v1.Length, v2.Length);
+            byte[] result = new byte[arrayLength];
+            for (int i = arrayLength - 1; i >= 0; i--)
+            {
+                result[i] = ReturnBiteValueForSelectedOperation(GetNullIfOutOfArrayRange(v1, arrayLength - 1 - i), GetNullIfOutOfArrayRange(v2, arrayLength - 1 - i), operation, i);
+            }
+            return result;
+        }
+
+        byte ReturnBiteValueForSelectedOperation(byte v1, byte v2, string Operation, int i)
+        {
+            switch (Operation)
+            {
+                case "OR":
+                    return v1 == (byte)1 || v2 == (byte)1 ? (byte)1 : (byte)0;
+                case "AND":
+                    return v1 == (byte)1 && v2 == (byte)1 ? (byte)1 : (byte)0;
+                case "XOR":
+                    return v1 == v2 ? (byte)0 : (byte)1;
+                default:
+                    return 0;
+            }
+        }
+
+        byte GetNullIfOutOfArrayRange(byte[] array, int i)
+        {
+            return (i < (array.Length)) && i >= 0 ? array[array.Length - 1 - i] : (byte)0;
+        }
+        byte[] NotOperation(byte[] notArray)
+        {
+            byte[] notResult = new byte[notArray.Length];
+            for (int i = 0; i < notArray.Length; i++)
+            {
+                notResult[i] = notArray[i] == (byte)0 ? (byte)1 : (byte)0;
+            }
+            return notResult;
+        }
+
+
+        private byte[] AddZeroValuesToArrayUntilSpecifiedLength(byte[] arrayToModify, int arrayDesiredLength)
+        {
+            byte[] invertedArray = InvertArray(arrayToModify);
+            while (invertedArray.Length < arrayDesiredLength)
+            {
+                Array.Resize(ref invertedArray, invertedArray.Length + 1);
+                invertedArray[invertedArray.Length - 1] = 0;
+            }
+            return InvertArray(invertedArray);
+        }
+        byte[] ShiftArray(byte[] toBeShifted, int steps, string direction)
+        {
+            byte[] shiftedResult = new byte[ReturnArrayLengthEightSixteenThirtytwoAndSoOn(toBeShifted.Length)];
+            for (int i = shiftedResult.Length - 1; i >= 0; i--)
+            {
+                shiftedResult[i] = GetNullIfOutOfArrayRange(toBeShifted, shiftedResult.Length - 1 - i + ChoseLeftOrRight(direction, steps));
+            }
+            return shiftedResult;
+        }
+
+        int ChoseLeftOrRight(string direction, int steps)
+        {
+            return direction == "LEFT" ? 0 - steps : steps;
+        }
+
+        int ReturnArrayLengthEightSixteenThirtytwoAndSoOn(int length)
+        {
+            for (int i = 3; ; i++)
+            {
+                if (length <= Math.Pow(2, i))
+                {
+                    return (int)Math.Pow(2, i);
+                }
+            }
+        }
+        bool CompareIfAGreaterThenB(byte[] first, byte[] second)
+        {
+            first = CutFirstNullValues(first);
+            second = CutFirstNullValues(second);
+            if (first.Length != second.Length && first.Length > second.Length)
+                return true;
+            if (first.Length == second.Length)
+            {
+                for (int i = 0; i < first.Length; i++)
+                {
+                    if (first[i] > second[i])
+                        return true;
+                }
+            }
+            return false;
+        }
+        bool CompareIfASmallerThenB(byte[] first, byte[] second)
+        {
+            if (CompareIfAGreaterThenB(first,second))
+            {
+                return false;
+            }
+            if (CompareIfAGreaterThenB(second, first))
+            {
+                return true;
+            }
+            return false;
+        }
+        bool CompareIfAEqualB(byte[] first, byte[] second)
+        {
+            if (CompareIfAGreaterThenB(first, second)==false && CompareIfAGreaterThenB(second, first)==false)
+            {
+                return true;
+            }
+            return false;
+        }
+        private byte[] CutFirstNullValues(byte[] array)
+        {
+            int resultLength = CountFirstNullValues(array);
+            byte[] result = new byte[array.Length - resultLength];
+            if (resultLength > 0)
+            {
+                for (int i = resultLength; i < array.Length; i++)
+                {
+                    result[i - resultLength] = array[i];
+                }
+                return result;
+            }
+            else
+                return array;
+        }
+
+        private int CountFirstNullValues(byte[] array)
+        {
+            int result = 0;
+            foreach (var item in array)
+            {
+                if (item == 0)
+                    result++;
+                else
+                    return result;
+            }
+            return result;
+        }
+
+        byte[] AddingNumbersInBaseX(byte[] firstNumber, byte[] secondNumber, int nrBase)
+        {
+            int remainder = 0;
+            byte[] resultArray = new byte[Math.Max(firstNumber.Length, secondNumber.Length) + 1];
+            for (int i = resultArray.Length - 1; i >= 0; i--)
+            {
+                int summ = GetNullIfOutOfArrayRange(firstNumber, resultArray.Length - 1 - i) + GetNullIfOutOfArrayRange(secondNumber, resultArray.Length - 1 - i) + remainder;
+                remainder = summ / nrBase;
+                resultArray[i] = (byte)(summ % nrBase);
+            }
+            return CutFirstNullValues(resultArray);
+        }
         byte[] SubstractionNumbersInBaseX(byte[] firstNumber, byte[] secondNumber, int nrBase)
         {
             byte[] biggerNumber = firstNumber;
@@ -429,31 +469,6 @@ namespace BaseOperations
                 resultArray[i] = (byte)summ;
             }
             return CutFirstNullValues(resultArray);
-        }
-        [TestMethod]
-        public void ShouldTestIfResultIsOkForTwoBinaryMultiplication()
-        {
-            CollectionAssert.AreEqual(new byte[] { 1, 0 }, MultiplyInSelectedBase(new byte[] { 1, 0 }, new byte[] { 1 }, 2));
-        }
-        [TestMethod]
-        public void ShouldReturnFourInBaseTwoForTwoBinaryMultiplicateWithTwo()
-        {
-            CollectionAssert.AreEqual(new byte[] { 1, 0, 0 }, MultiplyInSelectedBase(new byte[] { 1, 0 }, new byte[] { 1,0 }, 2));
-        }
-        [TestMethod]
-        public void ShouldReturnResultOfTwoBinaryMultiplication()
-        {
-            CollectionAssert.AreEqual(new byte[] { 1, 1, 0, 1, 1, 1 }, MultiplyInSelectedBase(new byte[] { 1, 0, 1 }, new byte[] { 1, 0, 1, 1 }, 2));
-        }
-        [TestMethod]
-        public void ShouldReturnFifteenAftrMultiplicationOfFiveAndThreeBaseTen()
-        {
-            CollectionAssert.AreEqual(new byte[] { 1, 5 }, MultiplyInSelectedBase(new byte[] { 3 }, new byte[] { 5 }, 10));
-        }
-        [TestMethod]
-        public void ShouldReturnFourAfterMultiplicationOfTwoAndTwoBaseTwo()
-        {
-            CollectionAssert.AreEqual(new byte[] { 1, 0,0,0 }, MultiplyInSelectedBase(new byte[] { 1,0,0 }, new byte[] { 1,0 }, 2));
         }
 
         byte[] MultiplyInSelectedBase(byte[] v1, byte[] v2, int nrBase)
@@ -488,16 +503,6 @@ namespace BaseOperations
             }
             return CutFirstNullValues(result);
         }
-        [TestMethod]
-        public void ShouldReturnTwoInBaseTwoWhenDevideFourWithTwoBinary()
-        {
-            CollectionAssert.AreEqual(new byte[] { 1, 0 }, DevideInDesiredBase(new byte[] { 1, 0, 0 }, new byte[] { 1, 0 }, 2));
-        }
-        [TestMethod]
-        public void ShouldReturnTenInBaseTenWhenDevideOneHunderdWithTen()
-        {
-            CollectionAssert.AreEqual(new byte[] { 1, 0 }, DevideInDesiredBase(new byte[] { 1, 0, 0 }, new byte[] { 1, 0 }, 10));
-        }
         byte[] DevideInDesiredBase(byte[] v1, byte[] v2, int nrBase)
         {
             byte[] result = { 1 };           
@@ -506,11 +511,6 @@ namespace BaseOperations
                 result = AddingNumbersInBaseX(result, new byte[] { 1 }, nrBase);
             }
             return result;
-        }
-        [TestMethod]
-        public void ShouldIncreaseArrayWithOneAndAddNullValueAtEnd()
-        {
-            CollectionAssert.AreEqual(new byte[] { 1, 0, 1, 0 }, AddNullAtTheEnd(new byte[] { 1, 0, 1 }));
         }
         byte[] AddNullAtTheEnd(byte[] array)
         {
