@@ -281,6 +281,22 @@ namespace BaseOperations
         {
             Assert.AreEqual(2, TransformFromAnyBaseToBaseTen(TransformFromBaseTenToAnotherBase(2, 2),2));
         }
+        [TestMethod]
+        public void ReturnTransformationOfSeventeenFromBaseTwoToBaseTen()
+        {
+            Assert.AreEqual(17, TransformFromAnyBaseToBaseTen(TransformFromBaseTenToAnotherBase(17, 2), 2));
+        }
+        [TestMethod]
+        public void ReturnTransformationOfTwentySixFromBaseTwoToBaseSix()
+        {
+            CollectionAssert.AreEqual(new byte[] { 4, 2 }, TransformFromAnyBaseToAnyBase(TransformFromBaseTenToAnotherBase(26,2), 2, 6));
+        }
+
+
+        byte[] TransformFromAnyBaseToAnyBase(byte[] array, int firstBase, int secondBase)
+        {
+           return TransformFromBaseTenToAnotherBase(TransformFromAnyBaseToBaseTen(array,firstBase),secondBase);
+        }
         byte[] TransformFromBaseTenToAnotherBase(int number, int baseNumber)
         {
             byte[] baseArray = { };
