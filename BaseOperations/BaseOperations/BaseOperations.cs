@@ -276,16 +276,30 @@ namespace BaseOperations
         {
             CollectionAssert.AreEqual(new byte[] { 4, 2 }, TransformFromBaseTenToAnotherBase(26, 6));
         }
+        [TestMethod]
+        public void ReturnTransformationOfTwoFromBaseTwoToBaseTen()
+        {
+            Assert.AreEqual(2, TransformFromAnyBaseToBaseTen(TransformFromBaseTenToAnotherBase(2, 2),2));
+        }
         byte[] TransformFromBaseTenToAnotherBase(int number, int baseNumber)
         {
-            byte[] base2Array = { };
+            byte[] baseArray = { };
             while (number > 0)
             {
-                Array.Resize(ref base2Array, base2Array.Length + 1);
-                base2Array[base2Array.Length - 1] = (byte)(number % baseNumber);
+                Array.Resize(ref baseArray, baseArray.Length + 1);
+                baseArray[baseArray.Length - 1] = (byte)(number % baseNumber);
                 number = number / baseNumber;
             }
-            return InvertArray(base2Array);
+            return InvertArray(baseArray);
+        }
+        int TransformFromAnyBaseToBaseTen(byte[] arrayNumber, int baseNumber)
+        {
+            int result = 0;
+            for (int i = arrayNumber.Length-1; i >= 0; i--)
+            {
+                result = result + arrayNumber[i] * (int) Math.Pow(baseNumber, arrayNumber.Length - 1 - i);
+            }
+             return result;
         }
         public byte[] InvertArray(byte[] array)
         {
