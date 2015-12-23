@@ -10,22 +10,22 @@ namespace BaseOperations
         [TestMethod]
         public void Transform1FromBase10ToBase2()
         {
-            CollectionAssert.AreEqual(new byte[] { 1 }, TransformFromBaseTenToBaseTwo(1));
+            CollectionAssert.AreEqual(new byte[] { 1 }, TransformFromBaseTenToAnotherBase(1,2));
         }
         [TestMethod]
         public void Transform2FromBase10ToBase2()
         {
-            CollectionAssert.AreEqual(new byte[] { 1, 0 }, TransformFromBaseTenToBaseTwo(2));
+            CollectionAssert.AreEqual(new byte[] { 1, 0 }, TransformFromBaseTenToAnotherBase(2,2));
         }
         [TestMethod]
         public void Transform15FromBase10ToBase2()
         {
-            CollectionAssert.AreEqual(new byte[] { 1, 0, 0, 0, 0 }, TransformFromBaseTenToBaseTwo(16));
+            CollectionAssert.AreEqual(new byte[] { 1, 0, 0, 0, 0 }, TransformFromBaseTenToAnotherBase(16,2));
         }
         [TestMethod]
         public void Transform260FromBase10ToBase2()
         {
-            CollectionAssert.AreEqual(new byte[] { 1, 0, 0, 0, 0, 0, 1, 0, 0 }, TransformFromBaseTenToBaseTwo(260));
+            CollectionAssert.AreEqual(new byte[] { 1, 0, 0, 0, 0, 0, 1, 0, 0 }, TransformFromBaseTenToAnotherBase(260,2));
         }
         [TestMethod]
         public void InvertArray123()
@@ -35,32 +35,32 @@ namespace BaseOperations
         [TestMethod]
         public void OROperation()
         {
-            CollectionAssert.AreEqual(new byte[] { 1, 1 }, BitOperation(TransformFromBaseTenToBaseTwo(1), TransformFromBaseTenToBaseTwo(2), "OR"));
+            CollectionAssert.AreEqual(new byte[] { 1, 1 }, BitOperation(TransformFromBaseTenToAnotherBase(1,2), TransformFromBaseTenToAnotherBase(2,2), "OR"));
         }
         [TestMethod]
         public void OROperationSevenAndNine()
         {
-            CollectionAssert.AreEqual(new byte[] { 1, 1, 1, 1 }, BitOperation(TransformFromBaseTenToBaseTwo(7), TransformFromBaseTenToBaseTwo(9), "OR"));
+            CollectionAssert.AreEqual(new byte[] { 1, 1, 1, 1 }, BitOperation(TransformFromBaseTenToAnotherBase(7,2), TransformFromBaseTenToAnotherBase(9,2), "OR"));
         }
         [TestMethod]
         public void ANDOperation()
         {
-            CollectionAssert.AreEqual(new byte[] { 0, 0 }, BitOperation(TransformFromBaseTenToBaseTwo(1), TransformFromBaseTenToBaseTwo(2), "AND"));
+            CollectionAssert.AreEqual(new byte[] { 0, 0 }, BitOperation(TransformFromBaseTenToAnotherBase(1,2), TransformFromBaseTenToAnotherBase(2,2), "AND"));
         }
         [TestMethod]
         public void ANDOperationSevenAndNine()
         {
-            CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 1 }, BitOperation(TransformFromBaseTenToBaseTwo(7), TransformFromBaseTenToBaseTwo(9), "AND"));
+            CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 1 }, BitOperation(TransformFromBaseTenToAnotherBase(7,2), TransformFromBaseTenToAnotherBase(9,2), "AND"));
         }
         [TestMethod]
         public void XOROperation()
         {
-            CollectionAssert.AreEqual(new byte[] { 1, 1 }, BitOperation(TransformFromBaseTenToBaseTwo(1), TransformFromBaseTenToBaseTwo(2), "XOR"));
+            CollectionAssert.AreEqual(new byte[] { 1, 1 }, BitOperation(TransformFromBaseTenToAnotherBase(1,2), TransformFromBaseTenToAnotherBase(2,2), "XOR"));
         }
         [TestMethod]
         public void XOROperationSevenAndNine()
         {
-            CollectionAssert.AreEqual(new byte[] { 1, 1, 1, 0 }, BitOperation(TransformFromBaseTenToBaseTwo(7), TransformFromBaseTenToBaseTwo(9), "XOR"));
+            CollectionAssert.AreEqual(new byte[] { 1, 1, 1, 0 }, BitOperation(TransformFromBaseTenToAnotherBase(7,2), TransformFromBaseTenToAnotherBase(9,2), "XOR"));
         }
         [TestMethod]
         public void AddNulltoATwoElementsArrayIfIIsFive()
@@ -90,7 +90,7 @@ namespace BaseOperations
         [TestMethod]
         public void NOTOperation()
         {
-            CollectionAssert.AreEqual(new byte[] { 0, 1 }, NotOperation(TransformFromBaseTenToBaseTwo(2)));
+            CollectionAssert.AreEqual(new byte[] { 0, 1 }, NotOperation(TransformFromBaseTenToAnotherBase(2,2)));
         }
         [TestMethod]
         public void AddZeroValueToOneElementArray()
@@ -105,12 +105,12 @@ namespace BaseOperations
         [TestMethod]
         public void AddZeroValueTotwoElementArray()
         {
-            CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 0, 0, 1, 0 }, AddZeroValuesToArrayUntilSpecifiedLength(TransformFromBaseTenToBaseTwo(2), 8));
+            CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 0, 0, 1, 0 }, AddZeroValuesToArrayUntilSpecifiedLength(TransformFromBaseTenToAnotherBase(2,2), 8));
         }
         [TestMethod]
         public void ShiftToLeftTwoValueArray()
         {
-            CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 1, 0, 0, 0 }, ShiftArray(TransformFromBaseTenToBaseTwo(2), 2, "LEFT"));
+            CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 1, 0, 0, 0 }, ShiftArray(TransformFromBaseTenToAnotherBase(2,2), 2, "LEFT"));
         }
         [TestMethod]
         public void ShiftToLeftFourValuesArray()
@@ -120,7 +120,7 @@ namespace BaseOperations
         [TestMethod]
         public void ShiftToRightTwoValueArrayTwoElements()
         {
-            CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 0, 0, 0, 0 }, ShiftArray(TransformFromBaseTenToBaseTwo(2), 2, "RIGHT"));
+            CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 0, 0, 0, 0 }, ShiftArray(TransformFromBaseTenToAnotherBase(2,2), 2, "RIGHT"));
         }
         [TestMethod]
         public void ShiftToRightFourValuesArrayTwoSteps()
@@ -214,7 +214,7 @@ namespace BaseOperations
         [TestMethod]
         public void SubstractSeventeenFromThirtysevenBaseTwoWithFunction()
         {
-            CollectionAssert.AreEqual(new byte[] { 1, 0, 1, 0, 0 }, SubstractionNumbersInBaseX(TransformFromBaseTenToBaseTwo(37), TransformFromBaseTenToBaseTwo(17), 2));
+            CollectionAssert.AreEqual(new byte[] { 1, 0, 1, 0, 0 }, SubstractionNumbersInBaseX(TransformFromBaseTenToAnotherBase(37,2), TransformFromBaseTenToAnotherBase(17,2), 2));
         }
         [TestMethod]
         public void SubstractSeventeenFromThirtysevenBaseTenWithFunction()
@@ -266,19 +266,27 @@ namespace BaseOperations
         {
             CollectionAssert.AreEqual(new byte[] { 1, 0, 1, 0 }, AddNullAtTheEnd(new byte[] { 1, 0, 1 }));
         }
-
-        byte[] TransformFromBaseTenToBaseTwo(int number)
+        [TestMethod]
+        public void ReturnTransformationOfTwoFromBaseTenToBaseTwo()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 0 }, TransformFromBaseTenToAnotherBase(2, 2));
+        }
+        [TestMethod]
+        public void ReturnTransformationOfTwentySixFromBaseTenToBaseSix()
+        {
+            CollectionAssert.AreEqual(new byte[] { 4, 2 }, TransformFromBaseTenToAnotherBase(26, 6));
+        }
+        byte[] TransformFromBaseTenToAnotherBase(int number, int baseNumber)
         {
             byte[] base2Array = { };
             while (number > 0)
             {
                 Array.Resize(ref base2Array, base2Array.Length + 1);
-                base2Array[base2Array.Length - 1] = (byte)(number % 2);
-                number = number / 2;
+                base2Array[base2Array.Length - 1] = (byte)(number % baseNumber);
+                number = number / baseNumber;
             }
             return InvertArray(base2Array);
         }
-
         public byte[] InvertArray(byte[] array)
         {
             byte[] invertedArray = new byte[array.Length];
