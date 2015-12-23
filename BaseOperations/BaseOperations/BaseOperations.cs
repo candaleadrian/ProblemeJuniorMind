@@ -93,21 +93,6 @@ namespace BaseOperations
             CollectionAssert.AreEqual(new byte[] { 0, 1 }, NotOperation(TransformFromBaseTenToAnotherBase(2,2)));
         }
         [TestMethod]
-        public void AddZeroValueToOneElementArray()
-        {
-            CollectionAssert.AreEqual(new byte[] { 0, 1 }, AddZeroValuesToArrayUntilSpecifiedLength(new byte[] { 1 }, 2));
-        }
-        [TestMethod]
-        public void AddFiveZeroValueToOneElementArray()
-        {
-            CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 0, 1 }, AddZeroValuesToArrayUntilSpecifiedLength(new byte[] { 1 }, 6));
-        }
-        [TestMethod]
-        public void AddZeroValueTotwoElementArray()
-        {
-            CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 0, 0, 1, 0 }, AddZeroValuesToArrayUntilSpecifiedLength(TransformFromBaseTenToAnotherBase(2,2), 8));
-        }
-        [TestMethod]
         public void ShiftToLeftTwoValueArray()
         {
             CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 1, 0, 0, 0 }, ShiftArray(TransformFromBaseTenToAnotherBase(2,2), 2, "LEFT"));
@@ -366,18 +351,6 @@ namespace BaseOperations
             }
             return notResult;
         }
-
-
-        private byte[] AddZeroValuesToArrayUntilSpecifiedLength(byte[] arrayToModify, int arrayDesiredLength)
-        {
-            byte[] invertedArray = InvertArray(arrayToModify);
-            while (invertedArray.Length < arrayDesiredLength)
-            {
-                Array.Resize(ref invertedArray, invertedArray.Length + 1);
-                invertedArray[invertedArray.Length - 1] = 0;
-            }
-            return InvertArray(invertedArray);
-        }
         byte[] ShiftArray(byte[] toBeShifted, int steps, string direction)
         {
             byte[] shiftedResult = new byte[ReturnArrayLengthEightSixteenThirtytwoAndSoOn(toBeShifted.Length)];
@@ -508,35 +481,13 @@ namespace BaseOperations
 
         byte[] MultiplyInSelectedBase(byte[] v1, byte[] v2, int nrBase)
         {
-            int resultLength = Math.Max(v1.Length, v2.Length);
-            byte[] result = new byte[resultLength];
-            byte[] multipliedWithOneElement = new byte[v2.Length];
-            int reminder = 0;
-            int counter = 0;
-            for (int i = v1.Length - 1; i >= 0; i--)
+            byte[] result = { 0};
+            while (CompareIfAEqualB(v2,new byte[] { 0})==false)
             {
-                for (int j = v2.Length - 1; j >= 0; j--)
-                {
-                    multipliedWithOneElement[j] = (byte)(GetNullIfOutOfArrayRange(v1, v1.Length - 1 - i) * GetNullIfOutOfArrayRange(v2, v2.Length - 1 - j) - reminder);
-                    if (multipliedWithOneElement[j] >= nrBase)
-                    {
-                        reminder = multipliedWithOneElement[j] / nrBase;
-                        multipliedWithOneElement[j] = (byte)(multipliedWithOneElement[i] % nrBase);
-                    }
-                    if (j == 0 && reminder > 0)
-                    {
-                        multipliedWithOneElement = AddZeroValuesToArrayUntilSpecifiedLength(multipliedWithOneElement, multipliedWithOneElement.Length + 1);
-                        multipliedWithOneElement[j] = (byte)reminder;
-                    }
-                }
-                if (counter > 0)
-                {
-                    multipliedWithOneElement = AddNullAtTheEnd(multipliedWithOneElement);
-                }
-                counter = 1;
-                result = AddingNumbersInBaseX(result, multipliedWithOneElement, nrBase);
+                result = AddingNumbersInBaseX(result, v1, nrBase);
+                v2 = SubstractionNumbersInBaseX(v2,new byte[] { 1},nrBase);
             }
-            return CutFirstNullValues(result);
+            return result;
         }
         int DevideInDesiredBase(byte[] v1, byte[] v2, int nrBase)
         {
