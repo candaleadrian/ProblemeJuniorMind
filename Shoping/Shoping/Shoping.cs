@@ -9,12 +9,17 @@ namespace Shoping
         [TestMethod]
         public void ShouldCalculateTotalForOneProduct()
         {
-            Assert.AreEqual(15, CalculateTotal(products.milk));
+            Assert.AreEqual(40.5M, CalculateTotal());
         }        
-        enum products { milk= (int) 15.50, water = 25};    
-        decimal CalculateTotal(object product)
+        enum products { milk=1550, water = 2500};    
+        decimal CalculateTotal()
         {
-            return (decimal) products.milk;
+            decimal totalPurchases = 0;
+            foreach (products item in Enum.GetValues(typeof(products)))
+            {
+                totalPurchases += (decimal) item;
+            }
+            return (decimal) totalPurchases/100;
         }
     }
 }
