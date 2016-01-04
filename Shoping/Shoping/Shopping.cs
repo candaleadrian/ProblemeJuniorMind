@@ -7,14 +7,32 @@ namespace Shoping
     public class Shopping
     {
         [TestMethod]
-        public void ShouldCalculateTotalForOneProduct()
-        {
-            Assert.AreEqual(96M, CalculateTotal());
-        }
-        [TestMethod]
-        public void TestShoppingCart()
+        public void TestShoppingCartFirstProductName()
         {
             Assert.AreEqual("milk", shoppingCart[0].productName);
+        }
+        [TestMethod]
+        public void TestShoppingCartFirstProductPrice()
+        {
+            Assert.AreEqual(15.50M, shoppingCart[0].price);
+        }
+        [TestMethod]
+        public void ShouldReturnTotalForAllShoppingCartProduct()
+        {
+            Assert.AreEqual(48.25M, CalculateTotalPurchase());
+        }
+        [TestMethod]
+        public void ShouldReturnShoppingCartFirstProductPrice()
+        {
+            Assert.AreEqual(15.50M, GetEachPrice(0));
+        }
+        decimal CalculateTotalPurchase()
+        {
+            return 0;
+        }
+        decimal GetEachPrice(int i)
+        {
+            return shoppingCart[i].price;
         }
         public struct ProductNameAndPrice
         {
@@ -23,18 +41,9 @@ namespace Shoping
         }
         public ProductNameAndPrice[] shoppingCart = 
           {
-            new ProductNameAndPrice { productName = "milk", price = 15.50M}
-
+            new ProductNameAndPrice { productName = "milk", price = 15.50M},
+            new ProductNameAndPrice { productName = "beer", price = 21.42M},
+            new ProductNameAndPrice { productName = "water", price = 11.33M}
           };
-        enum products { milk=1550, water = 2500, bear = 5550};    
-        decimal CalculateTotal()
-        {
-            decimal totalPurchases = 0;
-            foreach (products item in Enum.GetValues(typeof(products)))
-            {
-                totalPurchases += (decimal) item;
-            }
-            return (decimal) totalPurchases/100;
-        }
     }
 }
