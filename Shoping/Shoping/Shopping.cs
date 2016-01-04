@@ -28,7 +28,12 @@ namespace Shoping
         }
         decimal CalculateTotalPurchase()
         {
-            return 0;
+            decimal sum = 0;       
+            for (int i = 0; i < shoppingCart.Length; i++)
+            {
+                sum += GetEachPrice(i);
+            }
+            return sum;
         }
         decimal GetEachPrice(int i)
         {
