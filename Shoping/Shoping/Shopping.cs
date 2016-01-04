@@ -14,7 +14,7 @@ namespace Shoping
         [TestMethod]
         public void TestShoppingCart()
         {
-            Assert.AreEqual("milk", shoppingCart[0]);
+            Assert.AreEqual("milk", shoppingCart[0].productName);
         }
         public struct ProductNameAndPrice
         {
