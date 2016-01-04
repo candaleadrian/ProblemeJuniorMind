@@ -31,6 +31,20 @@ namespace Shoping
         {
             Assert.AreEqual("water", FindTheCheapestProduct());
         }
+        [TestMethod]
+        public void ShouldFindInShoppingCartTheMostExpensiveProductPrice()
+        {
+            Assert.AreEqual("beer", FindTheMostExpensiveProduct());
+        }
+        string FindTheMostExpensiveProduct()
+        {
+            int counter = 0;
+            for (int i = 0; i < shoppingCart.Length - 1; i++)
+            {
+                counter = GetEachPrice(i) < GetEachPrice(i + 1) ? i+1 : i;
+            }
+            return shoppingCart[counter].productName;
+        }
         string FindTheCheapestProduct()
         {
             int counter = 0;    
