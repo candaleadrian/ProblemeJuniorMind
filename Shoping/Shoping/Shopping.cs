@@ -26,6 +26,20 @@ namespace Shoping
         {
             Assert.AreEqual(15.50M, GetEachPrice(0));
         }
+        [TestMethod]
+        public void ShouldReturnShoppingCartCheapestProductPrice()
+        {
+            Assert.AreEqual("water", FindTheCheapestProduct());
+        }
+        string FindTheCheapestProduct()
+        {
+            int counter = 0;    
+            for (int i = 0; i < shoppingCart.Length-1; i++)
+            {
+                counter = GetEachPrice(i) < GetEachPrice(i + 1) ? i : i + 1;
+            }
+            return shoppingCart[counter].productName;
+        }
         decimal CalculateTotalPurchase()
         {
             decimal sum = 0;       
