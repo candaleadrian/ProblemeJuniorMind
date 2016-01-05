@@ -9,7 +9,7 @@ namespace Shoping
         [TestMethod]
         public void TestShoppingCartFirstProductName()
         {
-            Assert.AreEqual("milk", shoppingCart[0].productName);
+            Assert.AreEqual("milk", shoppingCart[0].name);
         }
         [TestMethod]
         public void TestShoppingCartFirstProductPrice()
@@ -34,38 +34,46 @@ namespace Shoping
         [TestMethod]
         public void ShouldFindInShoppingCartTheMostExpensiveProductPrice()
         {
-            Assert.AreEqual("beer", FindTheMostExpensiveProduct());
+            Assert.AreEqual("beer", FindTheMostExpensiveProductAndRemoveItFromCart());
         }
         [TestMethod]
         public void ShouldReturnTotalForAllShoppingCartProductAfterRemovingTheMostExpensive()
         {
-            Assert.AreEqual(48.25M, CalculateTotalPurchase());
+            FindTheMostExpensiveProductAndRemoveItFromCart();
+            Assert.AreEqual(26.83M, CalculateTotalPurchase());
         }
         [TestMethod]
         public void TestShoppingCartSecondProductName()
         {
-            Assert.AreEqual("beer", shoppingCart[1].productName);
+            Assert.AreEqual("beer", shoppingCart[1].name);
         }
-        string FindTheMostExpensiveProduct()
+        string FindTheMostExpensiveProductAndRemoveItFromCart()
         {
             int counter = 0;
-            for (int i = 0; i < shoppingCart.Length - 1; i++)
+            for (int i = 0; i < shoppingCart.Length-1; i++)
             {
-                counter = GetEachPrice(i) < GetEachPrice(i + 1) ? i+1 : i;
+                counter = GetEachPrice(i) > GetEachPrice(i + 1) ? i : counter;
             }
-            string result = shoppingCart[counter].productName;
-            shoppingCart[counter].productName = null;
-            shoppingCart[counter].price = 0M;
+            string result = shoppingCart[counter].name;
+            RemoveDesiredProduct(counter);
             return result;
+        }
+        public void RemoveDesiredProduct(int position)
+        {
+            for (int i = position; i < shoppingCart.Length-1; i++)
+            {
+                shoppingCart[i] = shoppingCart[i + 1];
+            }
+            Array.Resize(ref shoppingCart, shoppingCart.Length - 1);
         }
         string FindTheCheapestProduct()
         {
             int counter = 0;    
             for (int i = 0; i < shoppingCart.Length-1; i++)
             {
-                counter = GetEachPrice(i) < GetEachPrice(i + 1) ? i : i + 1;
+                counter = GetEachPrice(i) > GetEachPrice(i + 1) ? i+1 : counter;
             }
-            return shoppingCart[counter].productName;
+            return shoppingCart[counter].name;
         }
         decimal CalculateTotalPurchase()
         {
@@ -80,16 +88,16 @@ namespace Shoping
         {
             return shoppingCart[i].price;
         }
-        public struct ProductNameAndPrice
+        public struct Product
         {
-            public string productName;
+            public string name;
             public decimal price;            
         }
-        public ProductNameAndPrice[] shoppingCart = 
+        public Product[] shoppingCart = 
           {
-            new ProductNameAndPrice { productName = "milk", price = 15.50M},
-            new ProductNameAndPrice { productName = "beer", price = 21.42M},
-            new ProductNameAndPrice { productName = "water", price = 11.33M}
+            new Product { name = "milk", price = 15.50M},
+            new Product { name = "beer", price = 21.42M},
+            new Product { name = "water", price = 11.33M}
           };
     }
 }
