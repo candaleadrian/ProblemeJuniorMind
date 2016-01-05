@@ -53,6 +53,18 @@ namespace Shoping
             FindTheMostExpensiveProductAndRemoveItFromCart();
             AddOneMoreProductToSoppingCart("wine",85.42M);
             Assert.AreEqual("wine", shoppingCart[2].name);
+            Assert.AreEqual(85.42M, shoppingCart[2].price);
+        }
+        [TestMethod]
+        public void TestTheAveragePriceForItemsInCart()
+        {
+            FindTheMostExpensiveProductAndRemoveItFromCart();
+            AddOneMoreProductToSoppingCart("wine", 85.42M);
+            Assert.AreEqual(37.42M, CalculateAveragePrice());
+        }
+        decimal CalculateAveragePrice()
+        {
+            return Math.Round (CalculateTotalPurchase() / shoppingCart.Length,2);
         }
         public void AddOneMoreProductToSoppingCart(string name, decimal price)
         {
