@@ -47,6 +47,19 @@ namespace Shoping
         {
             Assert.AreEqual("beer", shoppingCart[1].name);
         }
+        [TestMethod]
+        public void ShouldReturnTheLastProductInShoppingCart()
+        {
+            FindTheMostExpensiveProductAndRemoveItFromCart();
+            AddOneMoreProductToSoppingCart("wine",85.42M);
+            Assert.AreEqual("wine", shoppingCart[2].name);
+        }
+        public void AddOneMoreProductToSoppingCart(string name, decimal price)
+        {
+            Array.Resize(ref shoppingCart, shoppingCart.Length+1);
+           shoppingCart[shoppingCart.Length-1].name = name;
+            shoppingCart[shoppingCart.Length - 1].price = price;
+        }
         string FindTheMostExpensiveProductAndRemoveItFromCart()
         {
             int counter = 0;
