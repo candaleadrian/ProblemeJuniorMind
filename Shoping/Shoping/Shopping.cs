@@ -74,18 +74,18 @@ namespace Shoping
         }
         string FindTheMostExpensiveProductAndRemoveItFromCart()
         {
-            int counter = 0;
+            int maxIndex = 0;
             decimal max = GetEachPrice(0);
             for (int i = 0; i < shoppingCart.Length-1; i++)
             {
                 if (GetEachPrice(i)>max)
                 {
                     max = GetEachPrice(i);
-                    counter = i;
+                    maxIndex = i;
                 }
             }
-            string result = shoppingCart[counter].name;
-            RemoveDesiredProduct(counter);
+            string result = shoppingCart[maxIndex].name;
+            RemoveDesiredProduct(maxIndex);
             return result;
         }
         public void RemoveDesiredProduct(int position)
@@ -98,17 +98,17 @@ namespace Shoping
         }
         string FindTheCheapestProduct()
         {
-            int counter = 0;
+            int minIndex = 0;
             decimal min = GetEachPrice(0);
             for (int i = 0; i < shoppingCart.Length; i++)
             {
                 if (GetEachPrice(i) < min)
                 {
                     min = GetEachPrice(i);
-                    counter = i;
+                    minIndex = i;
                 }
             }
-            return shoppingCart[counter].name;
+            return shoppingCart[minIndex].name;
         }
         decimal CalculateTotalPurchase()
         {
