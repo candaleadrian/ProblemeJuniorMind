@@ -9,16 +9,26 @@ namespace Password
         [TestMethod]
         public void ShouldReturnAPaswordContainingOneRandomLeter()
         {
-            Assert.AreEqual(0, GeneratePassword(3,1).Length);
+            Assert.AreEqual(1, GeneratePassword(1,1).Length);
         }
         [TestMethod]
         public void ShouldReturnARandomValueSmallerThenSix()
         {
             Assert.IsTrue(ReturnRandomNumberFromNullToSpecified(6)<6);
         }
+        [TestMethod]
+        public void ShouldReturnARandomPasswordContainingThreeRandomLeters()
+        {
+            Assert.AreEqual(3,GeneratePassword(3,1).Length);
+        }
         string GeneratePassword(int passLength, byte option)
         {
-            return "";
+            string password = "";
+            for (int i = 0; i < passLength; i++)
+            {
+                password += Options[0].type[random.Next(0, Options[0].type.Length)];
+            }
+            return password;
         }
         public Random random = new Random();
         int ReturnRandomNumberFromNullToSpecified(int upperLimit)
