@@ -9,29 +9,37 @@ namespace Password
         [TestMethod]
         public void ShouldReturnARandomPasswordContainingSixRandomLeters()
         {
-            Assert.AreEqual(6,GeneratePassword(Options).Length);
+            var option = new PasswordOptions { length = 6, upperCaseCharacters = 3 };
+            Assert.AreEqual(6,GeneratePassword(option).Length);
         }
         [TestMethod]
         public void ShouldReturnTwoRandomPasswordContainingSixRandomLeters()
         {
-            var first = GeneratePassword(Options);
-            var second = GeneratePassword(Options);
+            var option = new PasswordOptions { length = 6, upperCaseCharacters = 3 };
+            var first = GeneratePassword(option);
+            var second = GeneratePassword(option);
             Assert.AreNotEqual(first, second);
         }
         [TestMethod]
-        public void ShouldScheckUpperCaseRandomLeters()
+        public void ShouldScheckUpperCaseRandomLetersNumber()
         {
-            var first = GeneratePassword(Options);
-            first.Contains(char.IsUpper);
-            Assert.AreNotEqual(first, second);
+            var option = new PasswordOptions { length = 6, upperCaseCharacters = 3 };
+            string first = GeneratePassword(option);
+            int result = 0;
+            foreach (var item in first)
+            {
+                if (char.IsUpper(item))
+                    result++;
+            }
+            Assert.AreEqual(3,result);
         }
-        string GeneratePassword(PasswordOptions[] Option)
+        string GeneratePassword(PasswordOptions Options)
         {
             string password = string.Empty;
-            if (Options[0].upperCaseCharacters>0)
-                password += ReturnRandomStringKnowingLengthAndAsciRange(Options[0].upperCaseCharacters, 65, 91);
-            if (password.Length<Options[0].length)
-            password += ReturnRandomStringKnowingLengthAndAsciRange(Options[0].length-password.Length, 97,123);
+            if (Options.upperCaseCharacters>0)
+                password += ReturnRandomStringKnowingLengthAndAsciRange(Options.upperCaseCharacters, 65, 91);
+            if (password.Length<Options.length)
+                password += ReturnRandomStringKnowingLengthAndAsciRange(Options.length-password.Length, 97,123);
             return password;
         }
 
@@ -52,9 +60,5 @@ namespace Password
             public int length;
             public int upperCaseCharacters;
         }
-        public PasswordOptions[] Options =
-        {
-            new PasswordOptions {length = 6, upperCaseCharacters = 3 }
-        };
     }
 }
