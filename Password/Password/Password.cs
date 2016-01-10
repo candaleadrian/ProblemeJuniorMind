@@ -7,44 +7,27 @@ namespace Password
     public class Password
     {
         [TestMethod]
-        public void ShouldReturnAPaswordContainingOneRandomLeter()
+        public void ShouldReturnARandomPasswordContainingSixRandomLeters()
         {
-            Assert.AreEqual(1, GeneratePassword(1,1).Length);
+            Assert.AreEqual(6,GeneratePassword(Options[0]).Length);
         }
-        [TestMethod]
-        public void ShouldReturnARandomValueSmallerThenSix()
+        string GeneratePassword(PasswordOptions Option)
         {
-            Assert.IsTrue(ReturnRandomNumberFromNullToSpecified(6)<6);
-        }
-        [TestMethod]
-        public void ShouldReturnARandomPasswordContainingThreeRandomLeters()
-        {
-            Assert.AreEqual(3,GeneratePassword(3,1).Length);
-        }
-        string GeneratePassword(int passLength, byte option)
-        {
-            string password = "";
-            for (int i = 0; i < passLength; i++)
+            string password = string.Empty;
+            for (int i = 0; i < Options[0].length; i++)
             {
-                password += Options[0].type[random.Next(0, Options[0].type.Length)];
+                password += (char)random.Next(61, 123);
             }
             return password;
         }
         public Random random = new Random();
-        int ReturnRandomNumberFromNullToSpecified(int upperLimit)
-        {
-            return random.Next(0,upperLimit);
-        }
         public struct PasswordOptions
         {
-            public string name;
-            public string type;
-            public int number;
-            public int selectionNumber;
+            public int length;
         }
         public PasswordOptions[] Options =
         {
-            new PasswordOptions {name = "smallLeters", type = "abcdefghijklmnopqrstuvwxyz",number = 6, selectionNumber=1 }
+            new PasswordOptions {length = 6 }
         };
     }
 }
