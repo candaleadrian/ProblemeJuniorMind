@@ -24,18 +24,33 @@ namespace Password
         public void ShouldScheckUpperCaseRandomLetersNumber()
         {
             var option = new PasswordOptions { length = 6, upperCaseCharacters = 3 };
-            string first = GeneratePassword(option);
+            string password = GeneratePassword(option);
             int result = 0;
-            foreach (var item in first)
+            foreach (var item in password)
             {
                 if (char.IsUpper(item))
                     result++;
             }
             Assert.AreEqual(3,result);
         }
+        [TestMethod]
+        public void ShouldScheckHowManyNumbersAreInThePassword()
+        {
+            var option = new PasswordOptions { length = 6, upperCaseCharacters = 3, numbers = 2};
+            string password = GeneratePassword(option);
+            int result = 0;
+            foreach (var item in password)
+            {
+                if (char.IsNumber(item))
+                    result++;
+            }
+            Assert.AreEqual(2, result);
+        }
         string GeneratePassword(PasswordOptions Options)
         {
             string password = string.Empty;
+            if (Options.upperCaseCharacters > 0)
+                password += ReturnRandomStringKnowingLengthAndAsciRange(Options.numbers, 48, 58);
             if (Options.upperCaseCharacters>0)
                 password += ReturnRandomStringKnowingLengthAndAsciRange(Options.upperCaseCharacters, 65, 91);
             if (password.Length<Options.length)
@@ -59,6 +74,7 @@ namespace Password
         {
             public int length;
             public int upperCaseCharacters;
+            public int numbers;
         }
     }
 }
