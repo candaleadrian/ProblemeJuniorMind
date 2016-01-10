@@ -9,14 +9,21 @@ namespace Password
         [TestMethod]
         public void ShouldReturnARandomPasswordContainingSixRandomLeters()
         {
-            Assert.AreEqual(6,GeneratePassword(Options[0]).Length);
+            Assert.AreEqual(6,GeneratePassword(Options).Length);
         }
-        string GeneratePassword(PasswordOptions Option)
+        [TestMethod]
+        public void ShouldReturnTwoRandomPasswordContainingSixRandomLeters()
+        {
+            var first = GeneratePassword(Options);
+            var second = GeneratePassword(Options);
+            Assert.AreNotEqual(first, second);
+        }
+        string GeneratePassword(PasswordOptions[] Option)
         {
             string password = string.Empty;
             for (int i = 0; i < Options[0].length; i++)
             {
-                password += (char)random.Next(61, 123);
+                password += (char)random.Next(97, 123);
             }
             return password;
         }
