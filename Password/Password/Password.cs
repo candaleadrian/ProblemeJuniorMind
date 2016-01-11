@@ -72,6 +72,13 @@ namespace Password
             }
             Assert.AreEqual(2, result);
         }
+        [TestMethod]
+        public void ShouldCheckIfFunctionReplaceSimilarCharacters()
+        {
+            string password = "45tyildb0soO";
+            string result = ReplaceSimilarLeters(password);
+            Assert.AreNotEqual(password, result);
+        }
         string GeneratePassword(PasswordOptions Options)
         {
             string password = string.Empty;
@@ -83,15 +90,54 @@ namespace Password
                 password += ReturnRandomStringKnowingLengthAndAsciRange(Options.upperCaseCharacters, 65, 91);
             if (password.Length<Options.length)
                 password += ReturnRandomStringKnowingLengthAndAsciRange(Options.length-password.Length, 97,123);
+            if (Options.similar)
+                password = ReplaceSimilarLeters(password);
             return password;
+        }
+        private string ReplaceSimilarLeters(string password)
+        {
+            char[] array = password.ToCharArray();
+            for (int i = 0; i < array.Length; i++)
+            {
+                while (CheckIfCharIsContaindInSimilarString(array[i]))
+                {
+                    array[i] = TransformOneLetterStringToChar(ReturnRandomStringKnowingLengthAndAsciRange(1, 97, 123));
+                }
+            }
+            return new string(array);
+        }
+        private bool CheckIfCharIsContaindInSimilarString(char charToCheck)
+        {
+            string similar = "1l0oO";
+            foreach (char item in similar)
+            {
+                if (item == charToCheck)
+                    return true;
+            }
+            return false;
+        }
+        private char TransformOneLetterStringToChar(string letter)
+        {
+            char[] array = letter.ToCharArray();
+            return array[0];
+        }
+        private bool CheckIfCharIsContaindInAString(string stringTocheck, char charToCheck)
+        {
+            char[] charArray = stringTocheck.ToCharArray();
+            for (int i = 0; i < charArray.Length; i++)
+            {
+                if (charArray[i] == charToCheck)
+                    return true;
+            }
+            return false;
         }
         private string ReturnRandomSymbolsStringKnowingLength(int length)
         {
             string password = string.Empty;
-            string symbols = "!@#$%^&*()_+";
+            string symbols = "!@#$%^&*()_+{}[]()/\'~,;.<>"+'"';
             for (int i = 0; i < length; i++)
             {
-                int rnd = (char)random.Next(0, symbols.Length+1);
+                int rnd = (char)random.Next(0, symbols.Length);
                 password += symbols[rnd];
             }
             return password;
@@ -112,6 +158,7 @@ namespace Password
             public int upperCaseCharacters;
             public int numbers;
             public int symbols;
+            public bool similar;
         }
     }
 }
