@@ -79,6 +79,13 @@ namespace Password
             string result = ReplaceSimilarLeters(password);
             Assert.AreNotEqual(password, result);
         }
+        [TestMethod]
+        public void ShouldCheckIfFunctionReplaceAmbiguousCharacters()
+        {
+            string password = "pp44{>;";
+            string result = ReplaceAmbiguousCharacters(password);
+            Assert.AreNotEqual(password, result);
+        }
         string GeneratePassword(PasswordOptions Options)
         {
             string password = string.Empty;
@@ -92,24 +99,42 @@ namespace Password
                 password += ReturnRandomStringKnowingLengthAndAsciRange(Options.length-password.Length, 97,123);
             if (Options.similar)
                 password = ReplaceSimilarLeters(password);
+            if (Options.ambiguous)
+                password = ReplaceAmbiguousCharacters(password);
             return password;
+        }
+        private string ReplaceAmbiguousCharacters(string password)
+        {
+            char[] array = password.ToCharArray();
+            for (int i = 0; i < array.Length; i++)
+            {
+                while (CheckIfCharIsContaindInSimilarString(array[i], "{}[]()/\'~,;.<> "+'"'))
+                {
+                        array[i] = TransformOneLetterStringToChar(ReturnRandomSymbolsStringKnowingLength(1));
+                }
+            }
+            return new string(array);
         }
         private string ReplaceSimilarLeters(string password)
         {
             char[] array = password.ToCharArray();
             for (int i = 0; i < array.Length; i++)
             {
-                while (CheckIfCharIsContaindInSimilarString(array[i]))
+                while (CheckIfCharIsContaindInSimilarString(array[i], "1l0oO"))
                 {
+                    if (char.IsLower(array[i]))
                     array[i] = TransformOneLetterStringToChar(ReturnRandomStringKnowingLengthAndAsciRange(1, 97, 123));
+                    if (char.IsUpper(array[i]))
+                        array[i] = TransformOneLetterStringToChar(ReturnRandomStringKnowingLengthAndAsciRange(1, 65, 91));
+                    if (char.IsNumber(array[i]))
+                        array[i] = TransformOneLetterStringToChar(ReturnRandomStringKnowingLengthAndAsciRange(1, 48, 58));
                 }
             }
             return new string(array);
         }
-        private bool CheckIfCharIsContaindInSimilarString(char charToCheck)
+        private bool CheckIfCharIsContaindInSimilarString(char charToCheck, string stringToCheck)
         {
-            string similar = "1l0oO";
-            foreach (char item in similar)
+            foreach (char item in stringToCheck)
             {
                 if (item == charToCheck)
                     return true;
@@ -159,6 +184,7 @@ namespace Password
             public int numbers;
             public int symbols;
             public bool similar;
+            public bool ambiguous;
         }
     }
 }
