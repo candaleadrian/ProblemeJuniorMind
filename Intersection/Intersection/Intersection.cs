@@ -36,6 +36,11 @@ namespace Intersection
         {
             Assert.AreEqual(new Point(0, 1), AddOneToYDirection(new Point(0, 0)));
         }
+        [TestMethod]
+        public void ShouldDecreaseYDirectionWithOne()
+        {
+            Assert.AreEqual(new Point(0, -1), SubstractOneToYDirection(new Point(0, 0)));
+        }
         public struct Point
         {
             public int x, y;
@@ -70,6 +75,9 @@ namespace Intersection
                     case 'U':
                         actual = AddOneToYDirection(actual);
                         break;
+                    case 'D':
+                        actual = SubstractOneToYDirection(actual);
+                        break;
                     default:
                         break;
                 }
@@ -88,6 +96,10 @@ namespace Intersection
         public Point AddOneToYDirection(Point coord)
         {
             return new Point(coord.x, coord.y + 1);
+        }
+        public Point SubstractOneToYDirection(Point coord)
+        {
+            return new Point(coord.x, coord.y - 1);
         }
     }
 }
