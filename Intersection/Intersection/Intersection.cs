@@ -19,17 +19,22 @@ namespace Intersection
         [TestMethod]
         public void ShouldIncreaseXDirectionWithOneWithAStringComand()
         {
-            Assert.AreEqual(new Point(1, 0), ReturnTheFirsIntersectionPoint("U"));
+            Assert.AreEqual(new Point(1, 0), ReturnTheFirsIntersectionPoint("R"));
         }
         [TestMethod]
         public void ShouldIncreaseAndDecreaseXDirectionWithOneWithAStringComand()
         {
-            Assert.AreEqual(new Point(0, 0), ReturnTheFirsIntersectionPoint("UD"));
+            Assert.AreEqual(new Point(0, 0), ReturnTheFirsIntersectionPoint("RL"));
         }
         [TestMethod]
         public void ShouldDecreaseXDirectionWithOne()
         {
             Assert.AreEqual(new Point(-1, 0), SubstractOneToXDirection(new Point(0, 0)));
+        }
+        [TestMethod]
+        public void ShouldIncreaseYDirectionWithOne()
+        {
+            Assert.AreEqual(new Point(0, 1), AddOneToYDirection(new Point(0, 0)));
         }
         public struct Point
         {
@@ -44,17 +49,26 @@ namespace Intersection
         public Point ReturnTheFirsIntersectionPoint(string path)
         {
             Point start = new Point(0, 0);
-            Point[] points = { start};
+            Point[] points = { start };
             Point actual = points[points.Length - 1];
+            actual = CalculateLastPoint(path, actual);
+            return actual;
+        }
+
+        private Point CalculateLastPoint(string path, Point actual)
+        {
             foreach (char direction in path)
             {
                 switch (direction)
                 {
-                    case 'U':
+                    case 'R':
                         actual = AddOneToXDirection(actual);
                         break;
-                    case 'D':
+                    case 'L':
                         actual = SubstractOneToXDirection(actual);
+                        break;
+                    case 'U':
+                        actual = AddOneToYDirection(actual);
                         break;
                     default:
                         break;
@@ -62,6 +76,7 @@ namespace Intersection
             }
             return actual;
         }
+
         public Point AddOneToXDirection(Point coord)
         {
             return new Point(coord.x+1,coord.y) ;
@@ -69,6 +84,10 @@ namespace Intersection
         public Point SubstractOneToXDirection(Point coord)
         {
             return new Point(coord.x - 1, coord.y);
+        }
+        public Point AddOneToYDirection(Point coord)
+        {
+            return new Point(coord.x, coord.y + 1);
         }
     }
 }
