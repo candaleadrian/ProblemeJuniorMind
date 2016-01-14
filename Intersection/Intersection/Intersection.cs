@@ -19,7 +19,7 @@ namespace Intersection
         [TestMethod]
         public void ShouldIncreaseXDirectionWithOneWithAStringComand()
         {
-            Assert.AreEqual(new Point(1, 0), ReturnTheFirsIntersectionPoint("R"));
+            Assert.AreEqual(new Point(0, 0), ReturnTheFirsIntersectionPoint("R"));
         }
         [TestMethod]
         public void ShouldIncreaseAndDecreaseXDirectionWithOneWithAStringComand()
@@ -41,6 +41,11 @@ namespace Intersection
         {
             Assert.AreEqual(new Point(0, -1), SubstractOneToYDirection(new Point(0, 0)));
         }
+        [TestMethod]
+        public void ShouldCalculateFirstIntersectionBasedOnStringUURDL()
+        {
+            Assert.AreEqual(new Point(0, 1), ReturnTheFirsIntersectionPoint("UURDL"));
+        }
         public struct Point
         {
             public int x, y;
@@ -54,17 +59,39 @@ namespace Intersection
         public Point ReturnTheFirsIntersectionPoint(string path)
         {
             Point start = new Point(0, 0);
-            Point[] points = { start };
+            Point[] points = { start};
             Point actual = points[points.Length - 1];
-            actual = CalculateLastPoint(path, actual);
-            return actual;
-        }
-
-        private Point CalculateLastPoint(string path, Point actual)
-        {
-            foreach (char direction in path)
+            foreach (char item in path)
             {
-                switch (direction)
+                CalculateLastPoint(item, actual);
+                if (CeckForIntersection(actual, points))
+                {
+                    return actual;
+                }
+                else
+                {
+                    AddActualToPoints(actual, points);
+                }
+            }
+            return start;
+        }
+        private void AddActualToPoints(Point actual, Point[] array)
+        {
+            Array.Resize(ref array, array.Length+1);
+            array[array.Length - 1] = actual;
+        }
+        private bool CeckForIntersection(Point actual, Point[] points)
+        {
+            for (int i = 0; i < points.Length; i++)
+            {
+                if (actual.x == points[i].x && actual.y == points[i].y)
+                    return true;
+            }
+            return false;
+        }
+         public void CalculateLastPoint(char direction, Point actual)
+        {
+               switch (direction)
                 {
                     case 'R':
                         actual = AddOneToXDirection(actual);
@@ -80,11 +107,8 @@ namespace Intersection
                         break;
                     default:
                         break;
-                }
-            }
-            return actual;
+                }            
         }
-
         public Point AddOneToXDirection(Point coord)
         {
             return new Point(coord.x+1,coord.y) ;
