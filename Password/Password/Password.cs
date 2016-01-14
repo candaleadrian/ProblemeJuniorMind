@@ -162,16 +162,6 @@ namespace Password
             char[] array = letter.ToCharArray();
             return array[0];
         }
-        private bool CheckIfCharIsContaindInAString(string stringTocheck, char charToCheck)
-        {
-            char[] charArray = stringTocheck.ToCharArray();
-            for (int i = 0; i < charArray.Length; i++)
-            {
-                if (charArray[i] == charToCheck)
-                    return true;
-            }
-            return false;
-        }
         private string ReturnRandomSymbolsStringKnowingLength(int length)
         {
             string password = string.Empty;
