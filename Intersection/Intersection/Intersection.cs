@@ -7,18 +7,30 @@ namespace Intersection
     public class Intersection
     {
         [TestMethod]
-        public void TestMethod1()
+        public void ShouldPassIfPointsCoordinateAreDifferent()
         {
             Assert.AreNotEqual(new Point(0, 0), new Point(0, 1));
         }
+        [TestMethod]
+        public void ShouldIncreaseXDirectionWithOne()
+        {
+            Assert.AreEqual(new Point(0, 0), start);
+        }
         public struct Point
         {
-            int x, y;
-            public Point (int x, int y)
+            public int x, y;
+            public Point(int x, int y)
             {
                 this.x = x;
                 this.y = y;
             }
+        }
+        public Point start = new Point(0,0);
+        int a = start.x;
+        public Point[] points = { start };
+        object AddOneToXDirection()
+        {
+            return points[points.Length - 1];
         }
     }
 }
