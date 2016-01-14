@@ -21,6 +21,16 @@ namespace Intersection
         {
             Assert.AreEqual(new Point(1, 0), ReturnTheFirsIntersectionPoint("U"));
         }
+        [TestMethod]
+        public void ShouldIncreaseAndDecreaseXDirectionWithOneWithAStringComand()
+        {
+            Assert.AreEqual(new Point(0, 0), ReturnTheFirsIntersectionPoint("UD"));
+        }
+        [TestMethod]
+        public void ShouldDecreaseXDirectionWithOne()
+        {
+            Assert.AreEqual(new Point(-1, 0), SubstractOneToXDirection(new Point(0, 0)));
+        }
         public struct Point
         {
             public int x, y;
@@ -43,6 +53,9 @@ namespace Intersection
                     case 'U':
                         actual = AddOneToXDirection(actual);
                         break;
+                    case 'D':
+                        actual = SubstractOneToXDirection(actual);
+                        break;
                     default:
                         break;
                 }
@@ -52,6 +65,10 @@ namespace Intersection
         public Point AddOneToXDirection(Point coord)
         {
             return new Point(coord.x+1,coord.y) ;
+        }
+        public Point SubstractOneToXDirection(Point coord)
+        {
+            return new Point(coord.x - 1, coord.y);
         }
     }
 }
