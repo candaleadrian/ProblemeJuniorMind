@@ -16,6 +16,11 @@ namespace Intersection
         {
             Assert.AreEqual(new Point(1, 0), AddOneToXDirection(new Point(0, 0)));
         }
+        [TestMethod]
+        public void ShouldIncreaseXDirectionWithOneWithAStringComand()
+        {
+            Assert.AreEqual(new Point(1, 0), ReturnTheFirsIntersectionPoint("U"));
+        }
         public struct Point
         {
             public int x, y;
@@ -25,9 +30,28 @@ namespace Intersection
                 this.y = y;
             }
         }
-        public Point AddOneToXDirection(Point start)
+        // path should be given with a strind D=Doun, U=Up, L=Left, R=Right
+        public Point ReturnTheFirsIntersectionPoint(string path)
         {
-            return new Point(start.x+1,start.y) ;
+            Point start = new Point(0, 0);
+            Point[] points = { start};
+            Point actual = points[points.Length - 1];
+            foreach (char direction in path)
+            {
+                switch (direction)
+                {
+                    case 'U':
+                        actual = AddOneToXDirection(actual);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            return actual;
+        }
+        public Point AddOneToXDirection(Point coord)
+        {
+            return new Point(coord.x+1,coord.y) ;
         }
     }
 }
