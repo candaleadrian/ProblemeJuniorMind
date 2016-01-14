@@ -14,7 +14,7 @@ namespace Intersection
         [TestMethod]
         public void ShouldIncreaseXDirectionWithOne()
         {
-            Assert.AreEqual(new Point(0, 0), start);
+            Assert.AreEqual(new Point(1, 0), AddOneToXDirection(new Point(0, 0)));
         }
         public struct Point
         {
@@ -25,12 +25,9 @@ namespace Intersection
                 this.y = y;
             }
         }
-        public Point start = new Point(0,0);
-        int a = start.x;
-        public Point[] points = { start };
-        object AddOneToXDirection()
+        public Point AddOneToXDirection(Point start)
         {
-            return points[points.Length - 1];
+            return new Point(start.x+1,start.y) ;
         }
     }
 }
