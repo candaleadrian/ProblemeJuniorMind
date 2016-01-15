@@ -12,11 +12,6 @@ namespace Intersection
             Assert.AreNotEqual(new Point(0, 0), new Point(0, 1));
         }
         [TestMethod]
-        public void ShouldIncreaseXDirectionWithOne()
-        {
-            Assert.AreEqual(new Point(1, 0), AddOneToXDirection(new Point(0, 0)));
-        }
-        [TestMethod]
         public void ShouldIncreaseXDirectionWithOneWithAStringComand()
         {
             Assert.AreEqual(new Point(0, 0), ReturnTheFirsIntersectionPoint("R"));
@@ -25,21 +20,6 @@ namespace Intersection
         public void ShouldIncreaseAndDecreaseXDirectionWithOneWithAStringComand()
         {
             Assert.AreEqual(new Point(0, 0), ReturnTheFirsIntersectionPoint("RL"));
-        }
-        [TestMethod]
-        public void ShouldDecreaseXDirectionWithOne()
-        {
-            Assert.AreEqual(new Point(-1, 0), SubstractOneToXDirection(new Point(0, 0)));
-        }
-        [TestMethod]
-        public void ShouldIncreaseYDirectionWithOne()
-        {
-            Assert.AreEqual(new Point(0, 1), AddOneToYDirection(new Point(0, 0)));
-        }
-        [TestMethod]
-        public void ShouldDecreaseYDirectionWithOne()
-        {
-            Assert.AreEqual(new Point(0, -1), SubstractOneToYDirection(new Point(0, 0)));
         }
         [TestMethod]
         public void ShouldCalculateFirstIntersectionBasedOnStringUURDL()
@@ -63,19 +43,19 @@ namespace Intersection
             Point actual = points[points.Length - 1];
             foreach (char item in path)
             {
-                CalculateLastPoint(item, actual);
+                CalculateLastPoint(item, ref actual);
                 if (CeckForIntersection(actual, points))
                 {
                     return actual;
                 }
                 else
                 {
-                    AddActualToPoints(actual, points);
+                    AddActualToPoints(ref actual, ref points);
                 }
             }
             return start;
         }
-        private void AddActualToPoints(Point actual, Point[] array)
+        private void AddActualToPoints(ref Point actual, ref Point[] array)
         {
             Array.Resize(ref array, array.Length+1);
             array[array.Length - 1] = actual;
@@ -89,41 +69,25 @@ namespace Intersection
             }
             return false;
         }
-         public void CalculateLastPoint(char direction, Point actual)
+         public void CalculateLastPoint(char direction, ref Point actual)
         {
                switch (direction)
                 {
                     case 'R':
-                        actual = AddOneToXDirection(actual);
+                        actual = new Point(actual.x + 1, actual.y);
                         break;
                     case 'L':
-                        actual = SubstractOneToXDirection(actual);
+                        actual = new Point(actual.x - 1, actual.y);
                         break;
                     case 'U':
-                        actual = AddOneToYDirection(actual);
+                        actual = new Point(actual.x, actual.y + 1);
                         break;
                     case 'D':
-                        actual = SubstractOneToYDirection(actual);
+                        actual = new Point(actual.x, actual.y - 1);
                         break;
                     default:
                         break;
                 }            
-        }
-        public Point AddOneToXDirection(Point coord)
-        {
-            return new Point(coord.x+1,coord.y) ;
-        }
-        public Point SubstractOneToXDirection(Point coord)
-        {
-            return new Point(coord.x - 1, coord.y);
-        }
-        public Point AddOneToYDirection(Point coord)
-        {
-            return new Point(coord.x, coord.y + 1);
-        }
-        public Point SubstractOneToYDirection(Point coord)
-        {
-            return new Point(coord.x, coord.y - 1);
         }
     }
 }
