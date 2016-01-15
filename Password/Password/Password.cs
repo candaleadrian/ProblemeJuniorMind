@@ -73,20 +73,6 @@ namespace Password
             Assert.AreEqual(2, result);
         }
         [TestMethod]
-        public void ShouldCheckIfFunctionReplaceSimilarCharacters()
-        {
-            string password = "45tyildb0soO";
-            string result = ReplaceSimilarLeters(password);
-            Assert.AreNotEqual(password, result);
-        }
-        [TestMethod]
-        public void ShouldCheckIfFunctionReplaceAmbiguousCharacters()
-        {
-            string password = "pp44{>;";
-            string result = ReplaceAmbiguousCharacters(password);
-            Assert.AreNotEqual(password, result);
-        }
-        [TestMethod]
         public void ShouldCheckIfShuffleFunctionWorks()
         {
             string password = "pp44{>;mkft0754sdfsdf";
@@ -97,12 +83,10 @@ namespace Password
         string GeneratePassword(PasswordOptions Options)
         {
             string password = string.Empty;
-            password += ReturnRandomSymbolsStringKnowingLength(Options.symbols);
-            password += GenerateRandomString(Options.numbers, 48, 58);
-            password += GenerateRandomString(Options.upperCaseCharacters, 65, 91);
-            password += GenerateRandomString(Options.length - password.Length, 97, 123);
-            password = ReplaceSimilarLeters(password);
-            password = ReplaceAmbiguousCharacters(password);
+            password += ReturnRandomSymbolsStringKnowingLength(Options.symbols, Options.ambiguous);
+            password += GenerateRandomString(Options.numbers, 48, 58, Options.similar);
+            password += GenerateRandomString(Options.upperCaseCharacters, 65, 91, Options.similar);
+            password += GenerateRandomString(Options.length - password.Length, 97, 123, Options.similar);
             password = ShuffleString(password);
             return password;
         }
@@ -116,35 +100,6 @@ namespace Password
                 int z = random.Next(0, array.Length);
                 array[j] = array[z];
                 array[z] = reminder;
-            }
-            return new string(array);
-        }
-        private string ReplaceAmbiguousCharacters(string password)
-        {
-            char[] array = password.ToCharArray();
-            for (int i = 0; i < array.Length; i++)
-            {
-                while (CheckIfCharIsContaindInSimilarString(array[i], "{}[]()/\'~,;.<> "+'"'))
-                {
-                        array[i] = TransformOneLetterStringToChar(ReturnRandomSymbolsStringKnowingLength(1));
-                }
-            }
-            return new string(array);
-        }
-        private string ReplaceSimilarLeters(string password)
-        {
-            char[] array = password.ToCharArray();
-            for (int i = 0; i < array.Length; i++)
-            {
-                while (CheckIfCharIsContaindInSimilarString(array[i], "1l0oO"))
-                {
-                    if (char.IsLower(array[i]))
-                    array[i] = TransformOneLetterStringToChar(GenerateRandomString(1, 97, 123));
-                    if (char.IsUpper(array[i]))
-                        array[i] = TransformOneLetterStringToChar(GenerateRandomString(1, 65, 91));
-                    if (char.IsNumber(array[i]))
-                        array[i] = TransformOneLetterStringToChar(GenerateRandomString(1, 48, 58));
-                }
             }
             return new string(array);
         }
@@ -162,23 +117,34 @@ namespace Password
             char[] array = letter.ToCharArray();
             return array[0];
         }
-        private string ReturnRandomSymbolsStringKnowingLength(int length)
+        private string ReturnRandomSymbolsStringKnowingLength(int length, bool ambiguous)
         {
             string password = string.Empty;
             string symbols = "!@#$%^&*()_+{}[]()/\'~,;.<>"+'"';
             for (int i = 0; i < length; i++)
             {
                 int rnd = (char)random.Next(0, symbols.Length);
+                char temp = symbols[rnd];
+                while (ambiguous && CheckIfCharIsContaindInSimilarString(temp, "{}[]()/\'~,;.<> " + '"'))
+                {
+                    rnd = (char)random.Next(0, symbols.Length);
+                    temp = symbols[rnd];
+                }
                 password += symbols[rnd];
             }
             return password;
         }
-        private string GenerateRandomString(int length, int minRange, int maxRange)
+        private string GenerateRandomString(int length, int minRange, int maxRange, bool similar)
         {
             string password = string.Empty;
             for (int i = 0; i < length; i++)
             {
-                password += (char)random.Next(minRange, maxRange);
+                char temp = (char)random.Next(minRange, maxRange);
+                while (similar && CheckIfCharIsContaindInSimilarString(temp, "1l0oO"))
+                {
+                    temp = (char)random.Next(minRange, maxRange);
+                }
+                password += temp;
             }
             return password;
         }
