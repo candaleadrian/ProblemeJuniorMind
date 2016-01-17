@@ -84,9 +84,9 @@ namespace Password
         {
             string password = string.Empty;
             password += ReturnRandomSymbolsStringKnowingLength(Options.symbols, Options.ambiguous);
-            password += GenerateRandomString(Options.numbers, 48, 58, Options.similar);
-            password += GenerateRandomString(Options.upperCaseCharacters, 65, 91, Options.similar);
-            password += GenerateRandomString(Options.length - password.Length, 97, 123, Options.similar);
+            password += GenerateRandomString(Options.numbers, '0', '9'+1, Options.similar);
+            password += GenerateRandomString(Options.upperCaseCharacters, 'A', 'Z'+1, Options.similar);
+            password += GenerateRandomString(Options.length - password.Length, 'a', 'z'+1, Options.similar);
             password = ShuffleString(password);
             return password;
         }
