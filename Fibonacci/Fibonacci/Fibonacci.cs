@@ -26,10 +26,15 @@ namespace Fibonacci
         {
             Assert.AreEqual(8, CalculateFibonacci(6));
         }
-        int CalculateFibonacci(int n)
+        [TestMethod]
+        public void ShouldReturnFibonacciSumForSeven()
+        {
+            Assert.AreEqual(13, CalculateFibonacci(7));
+        }
+        public int CalculateFibonacci(int n)
         {
             if (n < 2) return n;
-            return CalculateFibonacci(n-2) + CalculateFibonacci (n - 1);
+            return CalculateFibonacci(n-2) + CalculateFibonacci(n-1);
         }
     }
 }
