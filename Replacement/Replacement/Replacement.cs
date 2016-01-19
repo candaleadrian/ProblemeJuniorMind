@@ -9,16 +9,24 @@ namespace Replacement
         [TestMethod]
         public void ShouldReplaceACharWithAnotherString()
         {
-            Assert.AreEqual("ccb",ReplaceACharWithAString("ab","a","cc"));
+            Assert.AreEqual("ccb",ReplaceACharWithAString("ab",'a',"cc"));
         }
         [TestMethod]
         public void ShouldReplaceACharWithAnotherStringForFiveCharString()
         {
-            Assert.AreEqual("ccbccccc", ReplaceACharWithAString("abaac", "a", "cc"));
+            Assert.AreEqual("ccbccccc", ReplaceACharWithAString("abaac", 'a', "cc"));
         }
-        public string ReplaceACharWithAString(string checkedString,string toBeReplaced, string desiredString)
+        [TestMethod]
+        public void ShouldReplaceCharAWithAStringBrr()
         {
-            return checkedString.Replace(toBeReplaced,desiredString);
+            Assert.AreEqual("BrrbBrrBrrc", ReplaceACharWithAString("abaac", 'a', "Brr"));
+        }
+        public string ReplaceACharWithAString(string checkedString, char toBeReplaced, string desiredString)
+        {
+            if (checkedString == string.Empty)
+                return "";
+            string result = (checkedString[0] == toBeReplaced) ? desiredString : checkedString[0].ToString();
+            return result + ReplaceACharWithAString(checkedString.Substring(1), toBeReplaced,desiredString);
         }
 
     }
