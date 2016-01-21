@@ -32,21 +32,36 @@ namespace Calculator
             Assert.AreEqual(1, FindFirstOpertion(new string[] {"+","+","1","1","1" }));
         }
         [TestMethod]
+        public void ShouldReturnZero()
+        {
+            Assert.AreEqual(0, FindFirstOpertion(new string[] { "+", "1", "1", "1" }));
+        }
+        [TestMethod]
         public void ShouldReturnNewStringWithoutFirstOperation()
         {
-            Assert.AreEqual("+ 1", CreateNewOperationString(1,new string[] { "+", "+", "1", "1", "1" }));
+            Assert.AreEqual("+ 2 1", CreateNewOperationString(1,new string[] { "+", "+", "1", "1", "1" }));
+        }
+        [TestMethod]
+        public void ShouldReturnOneForStringOne()
+        {
+            Assert.AreEqual(1, TransformFromStringToInt("1"));
         }
         public int Calculate(string operation)
         {
             int num1;
             int num2;
             string[] opArray = operation.Split(' ');
-            int.TryParse(opArray[FindFirstOpertion(opArray)+1], out num1);
-            int.TryParse(opArray[FindFirstOpertion(opArray)+2], out num2);
+            num1 = TransformFromStringToInt(opArray[1]);
+            num2 = TransformFromStringToInt(opArray[2]);
             if (opArray.Length<4)
                 return num1 + num2;
             Calculate(CreateNewOperationString(FindFirstOpertion(opArray),opArray));
             return 0;
+        }
+        public int TransformFromStringToInt(string transformString)
+        {
+            int num;
+            return int.TryParse(transformString,out num) ? num: 0;
         }
         public int FindFirstOpertion(string[] array)
         {
@@ -65,14 +80,27 @@ namespace Calculator
             string result = string.Empty;
             for (int i = 0; i < operation.Length; i++)
             {
-                if (i != num && i != num + 1 && i != num + 2)
+                if (i == num + 1 && i == num + 2)
                 {
-                    result += operation[i];
-                    if (i < operation.Length - 1)
-                        result += " ";
+                    result += "";
                 }
+                if (i == num)
+                {
+                    result += Operation(operation[i + 1], operation[i + 2]);
+                }
+                else 
+                {
+                    if (i < operation.Length - 2)
+                        result += operation[i];
+                }
+                result += " ";
             }
             return result;
+        }
+
+        private string Operation(string v1, string v2)
+        {
+            return ((TransformFromStringToInt(v1)+TransformFromStringToInt(v2)).ToString());
         }
     }
 }
