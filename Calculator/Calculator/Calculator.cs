@@ -51,6 +51,16 @@ namespace Calculator
         {
             Assert.AreEqual(8.74, Calculate("+ + + + -1 2 3 -1 + 3.53 2.21"));
         }
+        [TestMethod]
+        public void ShouldReturnDifferenceBetweenTwoAndOne()
+        {
+            Assert.AreEqual(1, Calculate("- 2 1"));
+        }
+        [TestMethod]
+        public void ShouldReturnDifferenceBetweenTwoPointFiveAndSixPointSeven()
+        {
+            Assert.AreEqual(-4.2, Calculate("- 2.5 6.7"));
+        }
         public double Calculate(string operation)
         {
             int position = 0;
@@ -66,8 +76,22 @@ namespace Calculator
                 position++;
                 return result;
             }
+            string op = operation[position];
             position++;
-            return Calculate(operation,ref position) + Calculate(operation,ref position);
+            return Operation(operation, op, ref position);
+        }
+
+        private double Operation(string[] operation, string op, ref int position)
+        {
+            switch (op)
+            {
+                case "+":
+                    return Calculate(operation, ref position) + Calculate(operation, ref position);
+                case "-":
+                    return Calculate(operation, ref position) - Calculate(operation, ref position);
+                default:
+                    return 0;
+            }
         }
     }
 }
