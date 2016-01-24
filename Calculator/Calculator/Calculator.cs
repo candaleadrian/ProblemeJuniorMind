@@ -16,11 +16,16 @@ namespace Calculator
         {
             Assert.AreEqual(1.5, Calculate("1.5"));
         }
-        //[TestMethod]
-        //public void ShouldReturnSumBetweenOneAndOne()
-        //{
-        //    Assert.AreEqual(2, Calculate("+ 1 1"));
-        //}
+        [TestMethod]
+        public void ShouldReturnSumBetweenOneAndOne()
+        {
+            Assert.AreEqual(2, Calculate("+ 1 1"));
+        }
+        [TestMethod]
+        public void ShouldReturnSumBetweenOneAndTwo()
+        {
+            Assert.AreEqual(3, Calculate("+ 1 2"));
+        }
         //[TestMethod]
         //public void ShouldReturnSumBetweenMinusOneAndOne()
         //{
@@ -40,17 +45,18 @@ namespace Calculator
         {
             int position = 0;
             string[] opArray = operation.Split(' ');
-            return Calculate(opArray, position);
+            return Calculate(opArray, ref position);
         }
         
-        private double Calculate(string[] operation, int position)
+        private double Calculate(string[] operation,ref int position)
         {
             double result;
             if (double.TryParse(operation[position], out result))
             {
                 return result;
             }
-            return 0;
+            position++;
+            return Calculate(operation[position]) + Calculate(operation[position+1]);
         }
     }
 }
