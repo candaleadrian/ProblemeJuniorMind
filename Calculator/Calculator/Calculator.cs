@@ -26,21 +26,21 @@ namespace Calculator
         {
             Assert.AreEqual(3, Calculate("+ 1 2"));
         }
-        //[TestMethod]
-        //public void ShouldReturnSumBetweenMinusOneAndOne()
-        //{
-        //    Assert.AreEqual(0, Calculate("+ -1 1"));
-        //}
-        //[TestMethod]
-        //public void ShouldReturnSumBetweenMinusOneAndMinusOne()
-        //{
-        //    Assert.AreEqual(-2, Calculate("+ -1 -1"));
-        //}
-        //[TestMethod]
-        //public void ShouldReturnSumBetweenOneAndOneAndOne()
-        //{
-        //    Assert.AreEqual(3, Calculate("+ + 1 1 1"));
-        //}
+        [TestMethod]
+        public void ShouldReturnSumBetweenMinusOneAndOne()
+        {
+            Assert.AreEqual(0, Calculate("+ -1 1"));
+        }
+        [TestMethod]
+        public void ShouldReturnSumBetweenMinusOneAndMinusOne()
+        {
+            Assert.AreEqual(-2, Calculate("+ -1 -1"));
+        }
+        [TestMethod]
+        public void ShouldReturnSumBetweenOneAndOneAndOne()
+        {
+            Assert.AreEqual(3, Calculate("+ + 1 1 1"));
+        }
         public double Calculate(string operation)
         {
             int position = 0;
@@ -53,10 +53,11 @@ namespace Calculator
             double result;
             if (double.TryParse(operation[position], out result))
             {
+                position++;
                 return result;
             }
             position++;
-            return Calculate(operation[position]) + Calculate(operation[position+1]);
+            return Calculate(operation,ref position) + Calculate(operation,ref position);
         }
     }
 }
