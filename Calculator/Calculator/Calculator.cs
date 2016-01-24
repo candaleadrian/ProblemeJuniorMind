@@ -61,6 +61,17 @@ namespace Calculator
         {
             Assert.AreEqual(-4.2, Calculate("- 2.5 6.7"));
         }
+        [TestMethod]
+        public void ShouldReturnTwoMultipliedByFive()
+        {
+            Assert.AreEqual(10, Calculate("* 2 5"));
+        }
+        [TestMethod]
+        public void ShouldCalculateAComplexOperation()
+        {
+            Assert.AreEqual(3, Calculate("/ - + * 2 5 5 3 4"));
+            Assert.AreEqual(3, Calculate("/ - + * 2 5 5 3 + 2 2"));
+        }
         public double Calculate(string operation)
         {
             int position = 0;
@@ -89,6 +100,10 @@ namespace Calculator
                     return Calculate(operation, ref position) + Calculate(operation, ref position);
                 case "-":
                     return Calculate(operation, ref position) - Calculate(operation, ref position);
+                case "*":
+                    return Calculate(operation, ref position) * Calculate(operation, ref position);
+                case "/":
+                    return Calculate(operation, ref position) / Calculate(operation, ref position);
                 default:
                     return 0;
             }
