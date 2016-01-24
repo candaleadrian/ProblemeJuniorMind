@@ -37,9 +37,19 @@ namespace Calculator
             Assert.AreEqual(-2, Calculate("+ -1 -1"));
         }
         [TestMethod]
+        public void ShouldReturnSumBetweenMinusOneTwoThreeAndMinusOne()
+        {
+            Assert.AreEqual(3, Calculate("+ + + -1 2 3 -1"));
+        }
+        [TestMethod]
         public void ShouldReturnSumBetweenOneAndOneAndOne()
         {
             Assert.AreEqual(3, Calculate("+ + 1 1 1"));
+        }
+        [TestMethod]
+        public void ShouldReturnSumBetweenTwoStrings()
+        {
+            Assert.AreEqual(8.74, Calculate("+ + + + -1 2 3 -1 + 3.53 2.21"));
         }
         public double Calculate(string operation)
         {
