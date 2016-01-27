@@ -17,6 +17,11 @@ namespace PascalTriangle
         {
             CollectionAssert.AreEqual(new int[] { 1 , 1 }, Generate(1));
         }
+        [TestMethod]
+        public void ShouldReturnTheThirdLine()
+        {
+            CollectionAssert.AreEqual(new int[] { 1, 2, 1 }, Generate(2));
+        }
         private int[] Generate(int n)
         {
             int[] result = new int[n+1];
@@ -24,6 +29,11 @@ namespace PascalTriangle
                 return new int[] {1};
             result[0] = 1;
             result[n] = 1;
+            int[] penultim = Generate(n-1);
+            for (int i = 1; i < n; i++)
+            {
+                result[i] = penultim[i - 1] + penultim[i];   
+            }
             return result;
         }
     }
