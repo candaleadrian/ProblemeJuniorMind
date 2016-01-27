@@ -22,6 +22,11 @@ namespace PascalTriangle
         {
             CollectionAssert.AreEqual(new int[] { 1, 2, 1 }, Generate(2));
         }
+        [TestMethod]
+        public void ShouldReturnTheFourthLine()
+        {
+            CollectionAssert.AreEqual(new int[] { 1, 3, 3, 1 }, Generate(3));
+        }
         private int[] Generate(int n)
         {
             int[] result = new int[n+1];
