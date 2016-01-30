@@ -35,6 +35,12 @@ namespace SortWords
             string[] expected = { "aab", "abc" };
             CollectionAssert.AreEqual(expected, SortText("abc aab"));
         }
+        [TestMethod]
+        public void ShouldSortWordsForFiveWordsText()
+        {
+            string[] expected = { "Abc","aab", "abc", "abca", "abcd" };
+            CollectionAssert.AreEqual(expected, SortText("abc abcd aab Abc abca"));
+        }
         private string[] SortText(string toBeSorted)
         {
             string[] words = toBeSorted.Split(' ');
@@ -42,7 +48,7 @@ namespace SortWords
                 return words;
             for (int i = 0; i < words.Length; i++)
             {
-                for (int j = i; j < words.Length; j++)
+                for (int j = i+1; j < words.Length; j++)
                 {
                     if (!Sorted(words[i],words[j]))
                         Swap(ref words[i],ref words[j]);
@@ -58,7 +64,7 @@ namespace SortWords
         }
         private bool Sorted(string first, string second)
         {
-            for (int i = 0; i < Math.Max(first.Length,second.Length); i++)
+            for (int i = 0; i < Math.Min(first.Length,second.Length); i++)
             {
                 if (first[i]>second[i])
                 {
