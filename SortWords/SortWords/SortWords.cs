@@ -22,6 +22,14 @@ namespace SortWords
             Assert.IsFalse(Sorted("abc", "aad"));
         }
         [TestMethod]
+        public void ShouldSwapTheWords()
+        {
+            string[] entry = { "aab", "bbc" };
+            Swap(ref entry[0], ref entry[1]);
+            string[] result = { "bbc", "aab" };
+            CollectionAssert.AreEqual(result, entry);
+        }
+        [TestMethod]
         public void ShouldSortWordForTwoWordsText()
         {
             string[] expected = { "aab", "abc" };
@@ -37,10 +45,16 @@ namespace SortWords
                 for (int j = 0; j < words.Length; j++)
                 {
                     if (!Sorted(words[i],words[j]))
-                        return new string[] { };
+                        Swap(ref words[i],ref words[j]);
                 }
             }
-            return new string[] {};
+            return words;
+        }
+        private void Swap(ref string first, ref string second)
+        {
+            string temp = first;
+            first = second;
+            second = temp;
         }
         private bool Sorted(string first, string second)
         {
@@ -51,7 +65,7 @@ namespace SortWords
                     return false;
                 }
             }
-            return true;
+            return (first.Length<=second.Length)? true: false;
         }
     }
 }
