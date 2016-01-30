@@ -42,7 +42,7 @@ namespace SortWords
                 return words;
             for (int i = 0; i < words.Length; i++)
             {
-                for (int j = 0; j < words.Length; j++)
+                for (int j = i; j < words.Length; j++)
                 {
                     if (!Sorted(words[i],words[j]))
                         Swap(ref words[i],ref words[j]);
