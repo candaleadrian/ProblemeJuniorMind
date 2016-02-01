@@ -38,22 +38,23 @@ namespace SortWords
         [TestMethod]
         public void ShouldSortWordsForFiveWordsText()
         {
-            string[] expected = { "Abc","aab", "abc", "abca", "abcd" };
+            string[] expected = { "aab", "abc", "Abc", "abca", "abcd" };
             CollectionAssert.AreEqual(expected, SortText("abc abcd aab Abc abca"));
         }
         private string[] SortText(string toBeSorted)
         {
             string[] words = toBeSorted.Split(' ');
-            if (words.Length <= 1)
-                return words;
-            for (int i = 0; i < words.Length; i++)
-            {
-                for (int j = i+1; j < words.Length; j++)
-                {
-                    if (!Sorted(words[i],words[j]))
-                        Swap(ref words[i],ref words[j]);
-                }
-            }
+            //if (words.Length <= 1)
+            //    return words;
+            Array.Sort(words, (x, y) => x.CompareTo(y));
+            //for (int i = 0; i < words.Length; i++)
+            //{
+            //    for (int j = i+1; j < words.Length; j++)
+            //    {
+            //        if (!Sorted(words[i],words[j]))
+            //            Swap(ref words[i],ref words[j]);
+            //    }
+            //}
             return words;
         }
         private void Swap(ref string first, ref string second)
