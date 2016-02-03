@@ -44,6 +44,7 @@ namespace SortWords
                 if (pos < 0)
                 {
                     wordCount[length].word = textArray[i];
+                    wordCount[length].number = 1;
                     length++;
                 }
                 else
