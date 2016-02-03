@@ -20,12 +20,12 @@ namespace PrioritySort
                 this.priority = priority;
             }
         }
-        Repairs[] repairs =
+        public object[] repairs =
             {
             new Repairs ("Radio", "High"),
             new Repairs ("Book", "Medium"),
             new Repairs ("Tv", "Low"),
             new Repairs ("Car", "High"),
-            };
+            };         
     }
 }
