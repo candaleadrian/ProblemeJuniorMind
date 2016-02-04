@@ -77,17 +77,22 @@ namespace SortWords
         {
             for (int i = 0; i < wordCount.Length; i++)
             {
-                for (int j = 0; j < wordCount.Length-1; j++)
+                for (int j = i; j < wordCount.Length-1; j++)
                 {
-                    if (wordCount[j].number<wordCount[j+1].number)
-                    {
-                    var temp = wordCount[j+1];
-                    wordCount[j + 1] = wordCount[j];
-                    wordCount[j] = temp;
-                    }
+                    OrderStructByBiggestNumber(wordCount, j);
                 }
             }
             return wordCount;
+        }
+
+        private static void OrderStructByBiggestNumber(WordCount[] wordCount, int j)
+        {
+            if (wordCount[j].number < wordCount[j + 1].number)
+            {
+                var temp = wordCount[j + 1];
+                wordCount[j + 1] = wordCount[j];
+                wordCount[j] = temp;
+            }
         }
 
         private int ReturnPositionOrNegative(WordCount[] wordCount, string word)
