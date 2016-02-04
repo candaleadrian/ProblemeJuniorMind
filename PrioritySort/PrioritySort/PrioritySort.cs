@@ -16,14 +16,29 @@ namespace PrioritySort
         [TestMethod]
         public void SouldReturnZeroForRepairWithHighPrio()
         {
-            var repair = new Repairs[] { new Repairs("shoping", "High") };
-            Assert.AreEqual(0,CheckPriority(repair,0));
+            var repair = new Repairs("shoping", "High");
+            Assert.AreEqual(0,CheckPriority(repair));
         }
         [TestMethod]
         public void SouldReturnOneForRepairWithMediumPrio()
         {
-            var repair = new Repairs[] { new Repairs("shoping", "Medium") };
-            Assert.AreEqual(1, CheckPriority(repair, 0));
+            var repair = new Repairs("shoping", "Medium");
+            Assert.AreEqual(1, CheckPriority(repair));
+        }
+        [TestMethod]
+        public void SouldSwapAStructOfTwoByPriority()
+        {
+            Repairs[] repairs = new Repairs[]
+            {
+             new Repairs("work", "Medium"),
+             new Repairs("shoping", "High")
+            };
+            Repairs[] expected = new Repairs[]
+            {
+             new Repairs("shoping", "High"),
+             new Repairs("work", "Medium")
+            };
+            CollectionAssert.AreEqual(expected,SortByPriority(repairs));
         }
         public string[] Prio = { "High" , "Medium" , "Low" };
         public Repairs[] SortByPriority(Repairs[] ToBeSorted)
@@ -32,18 +47,25 @@ namespace PrioritySort
             {
                 for (int j = i; j < ToBeSorted.Length-1; j++)
                 {
-                    if (CheckPriority(ToBeSorted,j) > CheckPriority(ToBeSorted,j+1))
+                    if (CheckPriority(ToBeSorted[j]) > CheckPriority(ToBeSorted[j+1]))
                     {
-
+                        Swap(ref ToBeSorted,j);
                     }
                 }
             }
             return ToBeSorted;
         }
 
-        private int CheckPriority(Repairs[] toBeSorted, int j)
+        private void Swap(ref Repairs[] toBeSorted, int pos)
         {
-            return Array.FindIndex(Prio,priority => priority.Contains (toBeSorted[j].priority));
+            Repairs temp = toBeSorted[pos];
+            toBeSorted[pos] = toBeSorted[pos+1];
+            toBeSorted[pos + 1] = temp;
+        }
+
+        private int CheckPriority(Repairs toBeSorted)
+        {
+            return Array.FindIndex(Prio,priority => priority.Contains (toBeSorted.priority));
         }
 
         public struct Repairs
