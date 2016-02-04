@@ -40,12 +40,29 @@ namespace PrioritySort
             };
             CollectionAssert.AreEqual(expected,SortByPriority(repairs));
         }
+        [TestMethod]
+        public void SouldSortAStructOfThreeByPriority()
+        {
+            Repairs[] repairs = new Repairs[]
+            {
+             new Repairs("work", "Medium"),
+             new Repairs("drinking", "Low"),
+             new Repairs("shoping", "High")
+            };
+            Repairs[] expected = new Repairs[]
+            {
+             new Repairs("shoping", "High"),
+             new Repairs("work", "Medium"),
+             new Repairs("drinking", "Low")
+            };
+            CollectionAssert.AreEqual(expected, SortByPriority(repairs));
+        }
         public string[] Prio = { "High" , "Medium" , "Low" };
         public Repairs[] SortByPriority(Repairs[] ToBeSorted)
         {
             for (int i = 0; i < ToBeSorted.Length; i++)
             {
-                for (int j = i; j < ToBeSorted.Length-1; j++)
+                for (int j = 0; j < ToBeSorted.Length-1; j++)
                 {
                     if (CheckPriority(ToBeSorted[j]) > CheckPriority(ToBeSorted[j+1]))
                     {
