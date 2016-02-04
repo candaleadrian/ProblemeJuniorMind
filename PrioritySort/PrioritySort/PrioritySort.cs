@@ -10,21 +10,21 @@ namespace PrioritySort
         public void SouldReturnAStructOrderdByPriority()
         {
             var expected = new Repairs[] { new Repairs("shoping", 1) };
-            var result =SortByPriority();
+            var result =SortByPriority(new Repairs[] { new Repairs("shoping", 1) });
             CollectionAssert.AreEqual(expected, result);
         }
         public enum Prio { High , Medium , Low };
-        public Repairs[] SortByPriority()
+        public Repairs[] SortByPriority(Repairs[] ToBeSorted)
         {
-            int x = (int) Prio.Medium;
+            var x =  Prio.Medium;
             return new Repairs[] { new Repairs("shoping", x)};
         }
         
         public struct Repairs
         {
             public string repair;
-            public int priority;
-            public Repairs(string repair, int priority)
+            public var priority;
+            public Repairs(string repair, var priority)
             {
                 this.repair = repair;
                 this.priority = priority;
