@@ -28,12 +28,12 @@ namespace PrioritySort
         [TestMethod]
         public void SouldSwapAStructOfTwoByPriority()
         {
-            Repairs[] repairs = new Repairs[]
+            var repairs = new Repairs[]
             {
              new Repairs("work", "Medium"),
              new Repairs("shoping", "High")
             };
-            Repairs[] expected = new Repairs[]
+            var expected = new Repairs[]
             {
              new Repairs("shoping", "High"),
              new Repairs("work", "Medium")
@@ -43,13 +43,13 @@ namespace PrioritySort
         [TestMethod]
         public void SouldSortAStructOfThreeByPriority()
         {
-            Repairs[] repairs = new Repairs[]
+            var repairs = new Repairs[]
             {
              new Repairs("work", "Medium"),
              new Repairs("drinking", "Low"),
              new Repairs("shoping", "High")
             };
-            Repairs[] expected = new Repairs[]
+            var expected = new Repairs[]
             {
              new Repairs("shoping", "High"),
              new Repairs("work", "Medium"),

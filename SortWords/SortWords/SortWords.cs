@@ -10,7 +10,7 @@ namespace SortWords
         public void ShouldReturnWordForOneWordText()
         {
            var structArray = new WordCount[] { new WordCount("abc", 1) };
-           CollectionAssert.AreEqual(structArray, SortText("abc"));
+           CollectionAssert.AreEqual(structArray, SortTextByApearence("abc"));
         }
         [TestMethod]
         public void ShouldReturnNegativeIfStructDoesntContainWord()
@@ -29,31 +29,26 @@ namespace SortWords
         [TestMethod]
         public void ShouldReturnOneIfStructContainWordOnPositionOne()
         {
-            var structArray = new WordCount[] { new WordCount("bbc", 1), new WordCount("abc", 1) };
+            var structArray = new WordCount[] { new WordCount("bbc", 1),
+                                                new WordCount("abc", 1) };
             var result = ReturnPositionOrNegative(structArray, "abc");
             Assert.AreEqual(1, result);
         }
         [TestMethod]
         public void ShouldReturnSortedWordsForThreeWordsText()
         {
-            WordCount[] expected = new WordCount[2];
-            expected[0] = new WordCount("abc", 2);
-            expected[1] = new WordCount("bbc", 1);
-            expected[2] = new WordCount(null, 0);
-            CollectionAssert.AreEqual(expected, SortText("bbc abc abc"));
+            var expected = new WordCount[] { new WordCount("abc", 2),
+                                             new WordCount("bbc", 1)};
+            CollectionAssert.AreEqual(expected, SortTextByApearence("bbc abc abc"));
         }
         [TestMethod]
         public void ShouldReturnSortedWordsForThreeObjectsStruct()
         {
-            WordCount[] expected = new WordCount[2];
-            expected[0] = new WordCount("abc", 2);
-            expected[1] = new WordCount("bbc", 1);
-            WordCount[] toCheck = new WordCount[2];
-            toCheck[0] = new WordCount("bbc", 1);
-            toCheck[1] = new WordCount("abc", 2);
+            var expected = new WordCount[] { new WordCount("abc", 2), new WordCount("bbc", 1) };
+            var toCheck =  new WordCount[] { new WordCount("bbc", 1), new WordCount("abc", 2) };
             CollectionAssert.AreEqual(expected, SortStruct(toCheck));
         }
-        public WordCount[] SortText(string textToSort)
+        public WordCount[] SortTextByApearence(string textToSort)
         {
             string[] textArray = textToSort.Split(' ');
             var wordCount = new WordCount[textArray.Length];
@@ -68,8 +63,9 @@ namespace SortWords
                     length++;
                 }
                 else
-                    wordCount[pos].number++;       
+                    wordCount[pos].number++;
             }
+            Array.Resize(ref wordCount, length);     
             return SortStruct(wordCount);
         }
 
