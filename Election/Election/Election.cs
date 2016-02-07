@@ -7,7 +7,7 @@ namespace Election
     public class Election
     {
         [TestMethod]
-        public void ShouldReturnTruIfTotalContainsTheCandidate()
+        public void ShouldReturnSortedDescendingByTotalVotesForTwoCandidates()
         {
             CandidateResult[] office1 = { new CandidateResult("Ciobanu", 7), new CandidateResult("Dobi", 9) };
             CandidateResult[] office2 = { new CandidateResult("Ciobanu", 5), new CandidateResult("Dobi", 6) };
@@ -26,6 +26,36 @@ namespace Election
             CandidateResult[] expected = { new CandidateResult("Dobi", 9), new CandidateResult("Ciobanu", 7) };
             CollectionAssert.AreEqual(expected, SortByVotes(toBeSorted));
         }
+        [TestMethod]
+        public void ShouldReturnSortedDescendingByTotalVotesForTwoCandidatesAndThreeOffices()
+        {
+            CandidateResult[] office1 = { new CandidateResult("Ciobanu", 7), new CandidateResult("Dobi", 9) };
+            CandidateResult[] office2 = { new CandidateResult("Ciobanu", 5), new CandidateResult("Dobi", 6) };
+            CandidateResult[] office3 = { new CandidateResult("Ciobanu", 2), new CandidateResult("Dobi", 0) };
+            ResultInEachOffice[] allResults =
+            {
+               new ResultInEachOffice(office1),
+               new ResultInEachOffice(office2),
+               new ResultInEachOffice(office3),
+            };
+            CandidateResult[] expected = { new CandidateResult("Dobi", 15), new CandidateResult("Ciobanu", 14) };
+            CollectionAssert.AreEqual(expected, SortCandidatesByVotes(allResults));
+        }
+        [TestMethod]
+        public void ShouldReturnSortedDescendingByTotalVotesForThreeCandidatesAndThreeOffices()
+        {
+            CandidateResult[] office1 = { new CandidateResult("Ciobanu", 7), new CandidateResult("Dobi", 9), new CandidateResult("Bughi", 3) };
+            CandidateResult[] office2 = { new CandidateResult("Ciobanu", 5), new CandidateResult("Dobi", 6), new CandidateResult("Bughi", 8) };
+            CandidateResult[] office3 = { new CandidateResult("Ciobanu", 2), new CandidateResult("Dobi", 0), new CandidateResult("Bughi", 7) };
+            ResultInEachOffice[] allResults =
+            {
+               new ResultInEachOffice(office1),
+               new ResultInEachOffice(office2),
+               new ResultInEachOffice(office3),
+            };
+            CandidateResult[] expected = { new CandidateResult("Bughi",18), new CandidateResult("Dobi", 15), new CandidateResult("Ciobanu", 14) };
+            CollectionAssert.AreEqual(expected, SortCandidatesByVotes(allResults));
+        }
         public CandidateResult[] SortCandidatesByVotes(ResultInEachOffice[] electionResults)
         {
             CandidateResult[] total = new CandidateResult[electionResults[0].office.Length];
@@ -36,7 +66,7 @@ namespace Election
             }
             for (int j = 0; j < electionResults.Length; j++)
             {
-                for (int i = 0; i < electionResults.Length; i++)
+                for (int i = 0; i < total.Length; i++)
                 {
                     total[i].votes += electionResults[j].office[i].votes;
                 }
