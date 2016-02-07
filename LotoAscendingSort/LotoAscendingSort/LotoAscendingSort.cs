@@ -36,6 +36,13 @@ namespace LotoAscendingSort
             int[] expected = { 1, 2 };
             CollectionAssert.AreEqual(expected,SortNumbersQuickMethod(entry));
         }
+        [TestMethod]
+        public void ShouldSortThreeNumbersWithQuickMethod()
+        {
+            int[] entry = { 4, 2, 3 };
+            int[] expected = { 2, 3, 4 };
+            CollectionAssert.AreEqual(expected, SortNumbersQuickMethod(entry));
+        }
         public int[] SortAscending(int[] numbers,string method)
         {
             if (method == "Selection")
@@ -46,14 +53,18 @@ namespace LotoAscendingSort
         }
         private int[] SortNumbersQuickMethod(int[] numbers)
         {
-            int k = 0;
-            for (int i = 1; i < numbers.Length; i++)
+            int k=1;
+            while (k != 0)
             {
-                if (numbers[0] > numbers[i])
-                    Swap(ref numbers[i],ref numbers[++k]);
-            }
+                k = 0;
+                for (int i = 1; i < numbers.Length; i++)
+                {
+                    if (numbers[0] > numbers[i])
+                        Swap(ref numbers[i], ref numbers[++k]);
+                }
                 Swap(ref numbers[0], ref numbers[k]);
-            return numbers;
+            }
+                return numbers;
         }
 
         private int[] SortNumbersSelectionMethod(int[] numbers)
