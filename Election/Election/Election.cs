@@ -58,20 +58,26 @@ namespace Election
         }
         public CandidateResult[] SortCandidatesByVotes(ResultInEachOffice[] electionResults)
         {
+            CandidateResult[] total = BuildTotalResult(electionResults);
+            for (int officeCount = 0; officeCount < electionResults.Length; officeCount++)
+            {
+                for (int i = 0; i < total.Length; i++)
+                {
+                    total[i].votes += electionResults[officeCount].office[i].votes;
+                }
+            }
+            return SortByVotes(total);
+        }
+
+        private static CandidateResult[] BuildTotalResult(ResultInEachOffice[] electionResults)
+        {
             CandidateResult[] total = new CandidateResult[electionResults[0].office.Length];
             for (int i = 0; i < total.Length; i++)
             {
                 total[i].name = electionResults[0].office[i].name;
                 total[i].votes = 0;
             }
-            for (int j = 0; j < electionResults.Length; j++)
-            {
-                for (int i = 0; i < total.Length; i++)
-                {
-                    total[i].votes += electionResults[j].office[i].votes;
-                }
-            }
-            return SortByVotes(total);
+            return total;
         }
 
         private CandidateResult[] SortByVotes(CandidateResult[] total)
