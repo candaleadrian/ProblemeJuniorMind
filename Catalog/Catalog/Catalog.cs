@@ -33,6 +33,13 @@ namespace Catalog
         }
         public string[] SortStudentsAlpha(Student[] allClass)
         {
+            string[] studentsNames = GetStudentNameArray(allClass);
+            Array.Sort(studentsNames);
+            return studentsNames;
+        }
+
+        private static string[] GetStudentNameArray(Student[] allClass)
+        {
             string[] studentsNames = new string[allClass.Length];
             for (int i = 0; i < allClass.Length; i++)
             {
