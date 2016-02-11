@@ -78,6 +78,79 @@ namespace Catalog
             string[] expected = {"Bubu"};
             CollectionAssert.AreEqual(expected, SearchStudentsByGeneralMean(allClass,9m));
         }
+        [TestMethod]
+        public void ShouldReturnTwoStudentWithASpecificGeneralMean()
+        {
+            Maters mathZuzu = new Maters("Mathematics", new int[] { 8, 8 });
+            Maters sportZuzu = new Maters("Sport", new int[] { 10, 10 });
+            Maters[] zuzuMatters = { mathZuzu, sportZuzu };
+            Student zuzu = new Student { name = "Zuzu", mattersAndNotes = zuzuMatters };
+            Maters mathCucu = new Maters("Mathematics", new int[] { 6, 7 });
+            Maters sportCucu = new Maters("Sport", new int[] { 8, 9 });
+            Maters[] cucuMatters = { mathCucu, sportCucu };
+            Student cucu = new Student { name = "Cucu", mattersAndNotes = cucuMatters };
+            Maters mathBubu = new Maters("Mathematics", new int[] { 9, 8 });
+            Maters sportBubu = new Maters("Sport", new int[] { 10, 9 });
+            Maters[] bubuMatters = { mathBubu, sportBubu };
+            Student bubu = new Student { name = "Bubu", mattersAndNotes = bubuMatters };
+            Student[] allClass = { cucu, bubu, zuzu };
+            string[] expected = { "Bubu","Zuzu" };
+            CollectionAssert.AreEqual(expected, SearchStudentsByGeneralMean(allClass, 9m));
+        }
+        [TestMethod]
+        public void ShouldReturnStudentsWithTenNotes()
+        {
+            Maters mathZuzu = new Maters("Mathematics", new int[] { 8, 8 });
+            Maters sportZuzu = new Maters("Sport", new int[] { 10, 10 });
+            Maters[] zuzuMatters = { mathZuzu, sportZuzu };
+            Student zuzu = new Student { name = "Zuzu", mattersAndNotes = zuzuMatters };
+            Maters mathCucu = new Maters("Mathematics", new int[] { 6, 7 });
+            Maters sportCucu = new Maters("Sport", new int[] { 8, 9 });
+            Maters[] cucuMatters = { mathCucu, sportCucu };
+            Student cucu = new Student { name = "Cucu", mattersAndNotes = cucuMatters };
+            Maters mathBubu = new Maters("Mathematics", new int[] { 9, 8 });
+            Maters sportBubu = new Maters("Sport", new int[] { 10, 9 });
+            Maters[] bubuMatters = { mathBubu, sportBubu };
+            Student bubu = new Student { name = "Bubu", mattersAndNotes = bubuMatters };
+            Student[] allClass = { cucu, bubu, zuzu };
+            StudWithTenNotes[] expected = { new StudWithTenNotes("Bubu",1), new StudWithTenNotes("Zuzu", 2) };
+            CollectionAssert.AreEqual(expected, SudentsWithTenNotes(allClass));
+        }
+
+        private StudWithTenNotes[] SudentsWithTenNotes(Student[] allClass)
+        {
+            StudWithTenNotes[] studentWithTenNotes = { };
+            for (int i = 0; i < allClass.Length; i++)
+            {
+                int counter = 0;
+                for (int j = 0; j < allClass[i].mattersAndNotes.Length; j++)
+                {
+                    for (int x = 0; x < allClass[i].mattersAndNotes[j].notes.Length; x++)
+                    {
+                        if (allClass[i].mattersAndNotes[j].notes[x] == 10)
+                        {
+                            counter++;
+                        }
+                    }
+                }
+                    if (counter!=0)
+                    {
+                        Array.Resize(ref studentWithTenNotes, studentWithTenNotes.Length + 1);
+                        studentWithTenNotes[studentWithTenNotes.Length - 1] = new StudWithTenNotes(allClass[i].name, counter);
+                    }
+            };
+            return studentWithTenNotes;
+        }
+        public struct StudWithTenNotes
+        {
+            public string name;
+            public int tenNotes;
+            public StudWithTenNotes(string name, int tenNotes)
+            {
+                this.name = name;
+                this.tenNotes = tenNotes;
+            }
+        }
 
         private string[] SearchStudentsByGeneralMean(Student[] allClass,decimal mean)
         {
