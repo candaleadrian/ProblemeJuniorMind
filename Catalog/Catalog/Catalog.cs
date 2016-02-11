@@ -114,10 +114,67 @@ namespace Catalog
             Student bubu = new Student { name = "Bubu", mattersAndNotes = bubuMatters };
             Student[] allClass = { cucu, bubu, zuzu };
             StudWithTenNotes[] expected = { new StudWithTenNotes("Bubu",1), new StudWithTenNotes("Zuzu", 2) };
-            CollectionAssert.AreEqual(expected, SudentsWithTenNotes(allClass));
+            CollectionAssert.AreEqual(expected, SearchSudentsWithTenNotes(allClass));
+        }
+        [TestMethod]
+        public void ShouldReturnStudentsWithTenLowestGeneralMean()
+        {
+            Maters mathZuzu = new Maters("Mathematics", new int[] { 8, 8 });
+            Maters sportZuzu = new Maters("Sport", new int[] { 10, 10 });
+            Maters[] zuzuMatters = { mathZuzu, sportZuzu };
+            Student zuzu = new Student { name = "Zuzu", mattersAndNotes = zuzuMatters };
+            Maters mathCucu = new Maters("Mathematics", new int[] { 6, 7 });
+            Maters sportCucu = new Maters("Sport", new int[] { 8, 9 });
+            Maters[] cucuMatters = { mathCucu, sportCucu };
+            Student cucu = new Student { name = "Cucu", mattersAndNotes = cucuMatters };
+            Maters mathBubu = new Maters("Mathematics", new int[] { 9, 8 });
+            Maters sportBubu = new Maters("Sport", new int[] { 10, 9 });
+            Maters[] bubuMatters = { mathBubu, sportBubu };
+            Student bubu = new Student { name = "Bubu", mattersAndNotes = bubuMatters };
+            Student[] allClass = { cucu, bubu, zuzu };
+            StudWithLowestGenMean[] expected = { new StudWithLowestGenMean("Cucu", 7.5m)};
+            CollectionAssert.AreEqual(expected, SearchSudentsWithLowestGeneralMean(allClass));
         }
 
-        private StudWithTenNotes[] SudentsWithTenNotes(Student[] allClass)
+        private StudWithLowestGenMean[] SearchSudentsWithLowestGeneralMean(Student[] allClass)
+        {
+            StudWithLowestGenMean[] studWithLowestGenMean = { };
+            GeneralMean[] studAndMean = CreateStudAndGeneralMeanArray(allClass);
+            decimal lowestMean = SearchForLowestMean(studAndMean);
+            for (int i = 0; i < studAndMean.Length; i++)
+            {
+                if (studAndMean[i].generalMean==lowestMean)
+                {
+                    Array.Resize(ref studWithLowestGenMean, studWithLowestGenMean.Length + 1);
+                    studWithLowestGenMean[studWithLowestGenMean.Length - 1] = new StudWithLowestGenMean(studAndMean[i].name, studAndMean[i].generalMean);
+                }
+            }
+            return studWithLowestGenMean;
+        }
+
+        private decimal SearchForLowestMean(GeneralMean[] studAndMean)
+        {
+            decimal lowestMean = studAndMean[0].generalMean;
+            for (int i = 0; i < studAndMean.Length-1; i++)
+            {
+                if (studAndMean[i].generalMean > studAndMean[i + 1].generalMean)
+                    lowestMean = studAndMean[i + 1].generalMean;
+            };
+            return lowestMean;
+        }
+
+        public struct StudWithLowestGenMean
+        {
+            public string name;
+            public decimal genMean;
+            public StudWithLowestGenMean(string name, decimal genMean)
+            {
+                this.name = name;
+                this.genMean = genMean;
+            }
+        }
+
+        private StudWithTenNotes[] SearchSudentsWithTenNotes(Student[] allClass)
         {
             StudWithTenNotes[] studentWithTenNotes = { };
             for (int i = 0; i < allClass.Length; i++)
