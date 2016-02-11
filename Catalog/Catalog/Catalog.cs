@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Catalog
@@ -62,6 +63,37 @@ namespace Catalog
             GeneralMean[] expected = { new GeneralMean("Bubu", 9m), new GeneralMean("Cucu", 7.5m) };
             CollectionAssert.AreEqual(expected, SortStudentsByGeneralMean(allClass));
         }
+        [TestMethod]
+        public void ShouldReturnStudentWithASpecificGeneralMean()
+        {
+            Maters mathCucu = new Maters("Mathematics", new int[] { 6, 7 });
+            Maters sportCucu = new Maters("Sport", new int[] { 8, 9 });
+            Maters[] cucuMatters = { mathCucu, sportCucu };
+            Student cucu = new Student { name = "Cucu", mattersAndNotes = cucuMatters };
+            Maters mathBubu = new Maters("Mathematics", new int[] { 9, 8 });
+            Maters sportBubu = new Maters("Sport", new int[] { 10, 9 });
+            Maters[] bubuMatters = { mathBubu, sportBubu };
+            Student bubu = new Student { name = "Bubu", mattersAndNotes = bubuMatters };
+            Student[] allClass = { cucu, bubu };
+            string[] expected = {"Bubu"};
+            CollectionAssert.AreEqual(expected, SearchStudentsByGeneralMean(allClass,9m));
+        }
+
+        private string[] SearchStudentsByGeneralMean(Student[] allClass,decimal mean)
+        {
+            string[] studentsWithSpecificMean = { };
+            GeneralMean[] studAndGeneralMean= SortStudentsByGeneralMean(allClass);
+            for (int i = 0; i < studAndGeneralMean.Length; i++)
+            {
+                if (studAndGeneralMean[i].generalMean == mean)
+                {
+                    Array.Resize(ref studentsWithSpecificMean, studentsWithSpecificMean.Length + 1);
+                    studentsWithSpecificMean[studentsWithSpecificMean.Length-1] = studAndGeneralMean[i].name;
+                }
+            }
+            return studentsWithSpecificMean;
+        }
+
         public GeneralMean[] SortStudentsByGeneralMean(Student[] allClass)
         {
             GeneralMean[] studAndGeneralMean = CreateStudAndGeneralMeanArray(allClass);
