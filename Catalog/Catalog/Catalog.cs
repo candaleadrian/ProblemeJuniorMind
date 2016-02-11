@@ -47,7 +47,48 @@ namespace Catalog
             Maters mathCucu = new Maters("Mathematics", new int[] { 6, 7 });
             Assert.AreEqual(6.5m, CalculateMeanForMatter(mathCucu));
         }
+        [TestMethod]
+        public void ShouldSortTwoStudentByGeneralMean()
+        {
+            Maters mathCucu = new Maters("Mathematics", new int[] { 6, 7 });
+            Maters sportCucu = new Maters("Sport", new int[] { 8, 9 });
+            Maters[] cucuMatters = { mathCucu, sportCucu };
+            Student cucu = new Student { name = "Cucu", mattersAndNotes = cucuMatters };
+            Maters mathBubu = new Maters("Mathematics", new int[] { 9, 8 });
+            Maters sportBubu = new Maters("Sport", new int[] { 10, 9 });
+            Maters[] bubuMatters = { mathBubu, sportBubu };
+            Student bubu = new Student { name = "Bubu", mattersAndNotes = bubuMatters };
+            Student[] allClass = { cucu, bubu };
+            GeneralMean[] expected = { new GeneralMean("Bubu", 9m), new GeneralMean("Cucu", 7.5m) };
+            CollectionAssert.AreEqual(expected, SortStudentsByGeneralMean(allClass));
+        }
         public GeneralMean[] SortStudentsByGeneralMean(Student[] allClass)
+        {
+            GeneralMean[] studAndGeneralMean = CreateStudAndGeneralMeanArray(allClass);
+            return SortStudAndGeneralMean(ref studAndGeneralMean);
+        }
+
+        private GeneralMean[] SortStudAndGeneralMean(ref GeneralMean[] studAndGeneralMean)
+        {
+            for (int i = 0; i < studAndGeneralMean.Length-1; i++)
+            {
+                for (int j = i+1; j < studAndGeneralMean.Length; j++)
+                {
+                    if (studAndGeneralMean[i].generalMean< studAndGeneralMean[j].generalMean)
+                    {
+                        Swap(ref studAndGeneralMean[i],ref studAndGeneralMean[j]);
+                    }
+                }
+            };
+            return studAndGeneralMean;
+        }
+        private void Swap(ref GeneralMean generalMean1,ref  GeneralMean generalMean2)
+        {
+            GeneralMean temp = generalMean1;
+            generalMean1 = generalMean2;
+            generalMean2 = temp;
+        }
+        private GeneralMean[] CreateStudAndGeneralMeanArray(Student[] allClass)
         {
             GeneralMean[] studAndGeneralMean = new GeneralMean[allClass.Length];
             for (int i = 0; i < allClass.Length; i++)
@@ -55,6 +96,7 @@ namespace Catalog
                 studAndGeneralMean[i].name = allClass[i].name;
                 studAndGeneralMean[i].generalMean = CalculateGeneralMean(allClass[i]);
             }
+
             return studAndGeneralMean;
         }
 
