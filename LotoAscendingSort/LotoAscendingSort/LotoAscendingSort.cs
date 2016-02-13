@@ -50,6 +50,13 @@ namespace LotoAscendingSort
             int[] expected = { 2, 3, 4,5,6,7,8 };
             CollectionAssert.AreEqual(expected, SortAscending(entry,"Quick"));
         }
+        [TestMethod]
+        public void ShouldSortEightNumbersWithQuickMethod()
+        {
+            int[] entry = { 9, 7, 3, 2, 4, 6, 8, 5 };
+            int[] expected = { 2, 3, 4, 5, 6, 7, 8, 9 };
+            CollectionAssert.AreEqual(expected, SortAscending(entry, "Quick"));
+        }
         public int[] SortAscending(int[] numbers,string method)
         {
             switch(method)
@@ -64,19 +71,46 @@ namespace LotoAscendingSort
         }
         private int[] SortNumbersQuickMethod(int[] numbers)
         {
-            int k=1;
-            while (k != 0)
+            int start = 0;
+            int end = numbers.Length-1;
+            SortNumbersQuickMethod(numbers, start, end);
+            return numbers;
+        }
+
+        public void SortNumbersQuickMethod(int[] numbers, int start, int end)
+        {
+            if (start <= end)
             {
-                k = 0;
-                for (int i = 1; i < numbers.Length; i++)
+                Swap(ref numbers[start], ref numbers[new Random().Next(start, end+1)]);
+                int k = start;
+                for (int i = start+1; i <= end; i++)
                 {
-                    if (numbers[0] > numbers[i])
+                    if (numbers[start] > numbers[i])
                         Swap(ref numbers[i], ref numbers[++k]);
                 }
-                Swap(ref numbers[0], ref numbers[k]);
+                Swap(ref numbers[start], ref numbers[k]);
+                if (start <= k - 1)
+                    SortNumbersQuickMethod(numbers, start, k - 1);
+                if (k + 1 < end)
+                    SortNumbersQuickMethod(numbers, k + 1, end);
             }
-                return numbers;
         }
+
+        //private int[] SortNumbersQuickMethod(int[] numbers)
+        //{
+        //    int k=1;
+        //    while (k != 0)
+        //    {
+        //        k = 0;
+        //        for (int i = 1; i < numbers.Length; i++)
+        //        {
+        //            if (numbers[0] > numbers[i])
+        //                Swap(ref numbers[i], ref numbers[++k]);
+        //        }
+        //        Swap(ref numbers[0], ref numbers[k]);
+        //    }
+        //        return numbers;
+        //}
 
         private int[] SortNumbersSelectionMethod(int[] numbers)
         {
