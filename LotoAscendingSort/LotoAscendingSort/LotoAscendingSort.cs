@@ -34,7 +34,7 @@ namespace LotoAscendingSort
         {
             int[] entry = { 2, 1 };
             int[] expected = { 1, 2 };
-            CollectionAssert.AreEqual(expected,SortNumbersQuickMethod(entry));
+            CollectionAssert.AreEqual(expected, SortNumbersQuickMethod(entry));
         }
         [TestMethod]
         public void ShouldSortThreeNumbersWithQuickMethod()
@@ -46,9 +46,9 @@ namespace LotoAscendingSort
         [TestMethod]
         public void ShouldSortSevenNumbersWithQuickMethod()
         {
-            int[] entry = { 7, 3, 2,4,6,8,5 };
-            int[] expected = { 2, 3, 4,5,6,7,8 };
-            CollectionAssert.AreEqual(expected, SortAscending(entry,"Quick"));
+            int[] entry = { 7, 3, 2, 4, 6, 8, 5 };
+            int[] expected = { 2, 3, 4, 5, 6, 7, 8 };
+            CollectionAssert.AreEqual(expected, SortAscending(entry, "Quick"));
         }
         [TestMethod]
         public void ShouldSortEightNumbersWithQuickMethod()
@@ -56,6 +56,35 @@ namespace LotoAscendingSort
             int[] entry = { 9, 7, 3, 2, 4, 6, 8, 5 };
             int[] expected = { 2, 3, 4, 5, 6, 7, 8, 9 };
             CollectionAssert.AreEqual(expected, SortAscending(entry, "Quick"));
+        }
+
+        [TestMethod]
+        public void ShouldSortTwoNumbersWithQuickNotRecMethod()
+        {
+            int[] entry = { 2, 1 };
+            int[] expected = { 1, 2 };
+            CollectionAssert.AreEqual(expected, SortNumbersQuickMethodNotRecursive(entry));
+        }
+        [TestMethod]
+        public void ShouldSortThreeNumbersWithQuickNotRecMethod()
+        {
+            int[] entry = { 4, 2, 3 };
+            int[] expected = { 2, 3, 4 };
+            CollectionAssert.AreEqual(expected, SortNumbersQuickMethodNotRecursive(entry));
+        }
+        [TestMethod]
+        public void ShouldSortSevenNumbersWithQuickNotRecMethod()
+        {
+            int[] entry = { 7, 3, 2, 4, 6, 8, 5 };
+            int[] expected = { 2, 3, 4, 5, 6, 7, 8 };
+            CollectionAssert.AreEqual(expected, SortAscending(entry, "QuickNotRec"));
+        }
+        [TestMethod]
+        public void ShouldSortEightNumbersWithQuickNotRecMethod()
+        {
+            int[] entry = { 9, 7, 3, 2, 4, 6, 8, 5 };
+            int[] expected = { 2, 3, 4, 5, 6, 7, 8, 9 };
+            CollectionAssert.AreEqual(expected, SortAscending(entry, "QuickNotRec"));
         }
         public int[] SortAscending(int[] numbers,string method)
         {
@@ -65,6 +94,8 @@ namespace LotoAscendingSort
                     return SortNumbersSelectionMethod(numbers);
                 case "Quick":
                     return SortNumbersQuickMethod(numbers);
+                case "QuickNotRec":
+                    return SortNumbersQuickMethodNotRecursive(numbers);
                 default:
                     return new int[] { };
             }
@@ -72,7 +103,7 @@ namespace LotoAscendingSort
         private int[] SortNumbersQuickMethod(int[] numbers)
         {
             int start = 0;
-            int end = numbers.Length-1;
+            int end = numbers.Length - 1;
             SortNumbersQuickMethod(numbers, start, end);
             return numbers;
         }
@@ -81,9 +112,9 @@ namespace LotoAscendingSort
         {
             if (start <= end)
             {
-                Swap(ref numbers[start], ref numbers[new Random().Next(start, end+1)]);
+                Swap(ref numbers[start], ref numbers[new Random().Next(start, end + 1)]);
                 int k = start;
-                for (int i = start+1; i <= end; i++)
+                for (int i = start + 1; i <= end; i++)
                 {
                     if (numbers[start] > numbers[i])
                         Swap(ref numbers[i], ref numbers[++k]);
@@ -96,21 +127,32 @@ namespace LotoAscendingSort
             }
         }
 
-        //private int[] SortNumbersQuickMethod(int[] numbers)
-        //{
-        //    int k=1;
-        //    while (k != 0)
-        //    {
-        //        k = 0;
-        //        for (int i = 1; i < numbers.Length; i++)
-        //        {
-        //            if (numbers[0] > numbers[i])
-        //                Swap(ref numbers[i], ref numbers[++k]);
-        //        }
-        //        Swap(ref numbers[0], ref numbers[k]);
-        //    }
-        //        return numbers;
-        //}
+        private int[] SortNumbersQuickMethodNotRecursive(int[] numbers)
+        {
+            int start = 0;
+            int end = numbers.Length-1;
+            int pivot = 0;
+            while (start <= end)
+            {
+                pivot = CheckSegmentAndSort(numbers, start, end);
+                if (pivot<numbers.Length-1)
+                    CheckSegmentAndSort(numbers, pivot+1, numbers.Length-1);
+                end = pivot - 1;
+            }
+            return numbers;
+        }
+
+        private int CheckSegmentAndSort(int[] numbers, int start, int end)
+        {
+            int k = start;
+            for (int i = start; i <= end; i++)
+            {
+                if (numbers[start] > numbers[i])
+                    Swap(ref numbers[i], ref numbers[++k]);
+            }
+            Swap(ref numbers[start], ref numbers[k]);
+            return k;
+        }
 
         private int[] SortNumbersSelectionMethod(int[] numbers)
         {
