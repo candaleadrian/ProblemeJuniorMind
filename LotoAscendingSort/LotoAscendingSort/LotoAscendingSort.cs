@@ -86,6 +86,20 @@ namespace LotoAscendingSort
             int[] expected = { 2, 3, 4, 5, 6, 7, 8, 9 };
             CollectionAssert.AreEqual(expected, SortAscending(entry, "QuickNotRec"));
         }
+        [TestMethod]
+        public void ShouldSortEightNumbersWithSelectionMethod()
+        {
+            int[] entry = { 4, 5, 2, 3, 7, 6, 8, 9 };
+            int[] expected = { 2, 3, 4, 5, 6, 7, 8, 9 };
+            CollectionAssert.AreEqual(expected, SortAscending(entry, "Selection"));
+        }
+        [TestMethod]
+        public void ShouldSortEightNumbersWithBubbleMethod()
+        {
+            int[] entry =    { 9, 7, 3, 2, 4, 6, 8, 5 };
+            int[] expected = { 2, 3, 4, 5, 6, 7, 8, 9 };
+            CollectionAssert.AreEqual(expected, SortAscending(entry, "Bubble"));
+        }
         public int[] SortAscending(int[] numbers,string method)
         {
             switch(method)
@@ -96,10 +110,32 @@ namespace LotoAscendingSort
                     return SortNumbersQuickMethod(numbers);
                 case "QuickNotRec":
                     return SortNumbersQuickMethodNotRecursive(numbers);
+                case "Bubble":
+                    return SortNumbersBubble(numbers);
                 default:
                     return new int[] { };
             }
         }
+
+        private int[] SortNumbersBubble(int[] numbers)
+        {
+            for (int i = 0; i < numbers.Length; i++)
+            {
+                bool swaped = true;
+                while (swaped == true)
+                swaped = false;
+                for (int j = numbers.Length-1; j > i; j--)
+                    {
+                        if (numbers[j] < numbers[j - 1])
+                        {
+                            Swap(ref numbers[j], ref numbers[j - 1]);
+                            swaped = true;
+                        }
+                    }
+            };
+            return numbers;
+        }
+
         private int[] SortNumbersQuickMethod(int[] numbers)
         {
             int start = 0;
@@ -156,7 +192,6 @@ namespace LotoAscendingSort
 
         private int[] SortNumbersSelectionMethod(int[] numbers)
         {
-            int[] result = new int[numbers.Length];
             if (numbers.Length <= 1)
                 return numbers;
             for (int i = 0; i < numbers.Length; i++)
