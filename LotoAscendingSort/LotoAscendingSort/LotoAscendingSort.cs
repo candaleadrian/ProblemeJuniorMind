@@ -119,20 +119,19 @@ namespace LotoAscendingSort
 
         private int[] SortNumbersBubble(int[] numbers)
         {
-            for (int i = 0; i < numbers.Length; i++)
+            bool swaped = true;
+            while (swaped)
             {
-                bool swaped = true;
-                while (swaped == true)
                 swaped = false;
-                for (int j = numbers.Length-1; j > i; j--)
+                for (int j = numbers.Length - 1; j > 0; j--)
+                {
+                    if (numbers[j] < numbers[j - 1])
                     {
-                        if (numbers[j] < numbers[j - 1])
-                        {
-                            Swap(ref numbers[j], ref numbers[j - 1]);
-                            swaped = true;
-                        }
+                        Swap(ref numbers[j], ref numbers[j - 1]);
+                        swaped = true;
                     }
-            };
+                }
+            }
             return numbers;
         }
 
