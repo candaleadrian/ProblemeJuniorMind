@@ -82,7 +82,7 @@ namespace LotoAscendingSort
         [TestMethod]
         public void ShouldSortEightNumbersWithQuickNotRecMethod()
         {
-            int[] entry = { 9, 7, 3, 2, 4, 6, 8, 5 };
+            int[] entry =    { 9, 7, 3, 2, 4, 6, 8, 5 };
             int[] expected = { 2, 3, 4, 5, 6, 7, 8, 9 };
             CollectionAssert.AreEqual(expected, SortAscending(entry, "QuickNotRec"));
         }
@@ -99,6 +99,20 @@ namespace LotoAscendingSort
             int[] entry =    { 9, 7, 3, 2, 4, 6, 8, 5 };
             int[] expected = { 2, 3, 4, 5, 6, 7, 8, 9 };
             CollectionAssert.AreEqual(expected, SortAscending(entry, "Bubble"));
+        }
+        [TestMethod]
+        public void ShouldSortEightNumbersWithQuickNotRecursiveMethod()
+        {
+            int[] entry =    { 9, 7, 3, 2, 4, 8, 6, 1 };
+            int[] expected = { 1, 2, 3, 4, 6, 7, 8, 9 };
+            CollectionAssert.AreEqual(expected, SortAscending(entry, "QuickNotRec"));
+        }
+        [TestMethod]
+        public void ShouldSortTestNumbersWithQuickNotRecuriveMethod()
+        {
+            int[] entry =    { 9, 7, 3, 2, 4, 1 };
+            int[] expected = { 1, 2, 3, 4, 7, 9 };
+            CollectionAssert.AreEqual(expected, SortAscending(entry, "QuickNotRec"));
         }
         public int[] SortAscending(int[] numbers,string method)
         {
@@ -166,13 +180,18 @@ namespace LotoAscendingSort
         {
             int start = 0;
             int end = numbers.Length-1;
-            int pivot = 0;
-            while (start <= end)
+            int first = 0;
+            int second = 0;
+            bool stop = true;
+            while (stop)
             {
-                pivot = CheckSegmentAndSort(numbers, start, end);
-                if (pivot<numbers.Length-1)
-                    CheckSegmentAndSort(numbers, pivot+1, numbers.Length-1);
-                end = pivot - 1;
+                first = CheckSegmentAndSort(numbers, start, end);
+                if (first < numbers.Length-1)
+                    second = CheckSegmentAndSort(numbers, first + 1, numbers.Length - 1);
+                if (first == 0 && first < numbers.Length - 1 && second == 0)
+                    stop = false;
+                end = first-1;
+
             }
             return numbers;
         }
@@ -186,6 +205,8 @@ namespace LotoAscendingSort
                     Swap(ref numbers[i], ref numbers[++k]);
             }
             Swap(ref numbers[start], ref numbers[k]);
+            if (k==start)
+                return 0;
             return k;
         }
 
