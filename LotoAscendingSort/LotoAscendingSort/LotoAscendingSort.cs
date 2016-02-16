@@ -175,28 +175,52 @@ namespace LotoAscendingSort
                     SortNumbersQuickMethod(numbers, k + 1, end);
             }
         }
-
+        public struct Ranges
+        {
+            public int start, end;
+            public Ranges(int start, int end)
+            {
+                this.start = start;
+                this.end = end;
+            }
+        }
+        public Ranges[] intervals = new Ranges[0];
         private int[] SortNumbersQuickMethodNotRecursive(int[] numbers)
         {
             int start = 0;
             int end = numbers.Length-1;
-            int first = 0;
-            int second = 0;
-            bool stop = true;
-            while (stop)
+            int pivot = 0;
+            while (start <end || intervals.Length>0)
             {
-                first = CheckSegmentAndSort(numbers, start, end);
-                if (first < numbers.Length-1)
-                    second = CheckSegmentAndSort(numbers, first + 1, numbers.Length - 1);
-                if (first == 0 && first < numbers.Length - 1 && second == 0)
-                    stop = false;
-                end = first-1;
-
+                if (start>end)
+                {
+                    start = intervals[intervals.Length - 1].start;
+                    end = intervals[intervals.Length - 1].end;
+                    Partition(numbers, start, end);
+                    PopIntervalFromRanges();
+                }
+                    pivot = Partition(numbers, start, end);
+                    PushIntervalToRanges(pivot + 1, end);
+                    end = pivot - 1;
             }
             return numbers;
         }
 
-        private int CheckSegmentAndSort(int[] numbers, int start, int end)
+        private void PopIntervalFromRanges()
+        {
+            Array.Resize(ref intervals, intervals.Length-1);
+        }
+
+        private void PushIntervalToRanges(int pivot, int end)
+        {
+            if (pivot+1<end)
+            {
+                Array.Resize(ref intervals, intervals.Length + 1);
+                intervals[intervals.Length - 1] = new Ranges(pivot, end);
+            }
+        }
+
+        private int Partition(int[] numbers, int start, int end)
         {
             int k = start;
             for (int i = start; i <= end; i++)
@@ -205,8 +229,6 @@ namespace LotoAscendingSort
                     Swap(ref numbers[i], ref numbers[++k]);
             }
             Swap(ref numbers[start], ref numbers[k]);
-            if (k==start)
-                return 0;
             return k;
         }
 
