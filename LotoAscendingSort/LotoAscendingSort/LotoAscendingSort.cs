@@ -184,9 +184,9 @@ namespace LotoAscendingSort
                 this.end = end;
             }
         }
-        public Ranges[] intervals = new Ranges[0];
         private int[] SortNumbersQuickMethodNotRecursive(int[] numbers)
         {
+            Ranges[] intervals = new Ranges[0];
             int start = 0;
             int end = numbers.Length-1;
             int pivot = 0;
@@ -194,30 +194,31 @@ namespace LotoAscendingSort
             {
                 if (start>end)
                 {
-                    start = intervals[intervals.Length - 1].start;
-                    end = intervals[intervals.Length - 1].end;
+                    
+                    Ranges tempInterval = PopIntervalFromRanges(ref intervals);
+                    start = tempInterval.start;
+                    end = tempInterval.end;
                     Partition(numbers, start, end);
-                    PopIntervalFromRanges();
                 }
-                    pivot = Partition(numbers, start, end);
-                    PushIntervalToRanges(pivot + 1, end);
-                    end = pivot - 1;
+                pivot = Partition(numbers, start, end);
+                if (pivot + 1 < end)
+                    PushIntervalToRanges(ref intervals, pivot + 1, end);
+                end = pivot - 1;
             }
             return numbers;
         }
 
-        private void PopIntervalFromRanges()
+        public Ranges PopIntervalFromRanges(ref Ranges[] intervals)
         {
+            Ranges interval = intervals[intervals.Length - 1];
             Array.Resize(ref intervals, intervals.Length-1);
+            return interval;
         }
 
-        private void PushIntervalToRanges(int pivot, int end)
+        private void PushIntervalToRanges(ref Ranges[] intervals,int pivot, int end)
         {
-            if (pivot+1<end)
-            {
                 Array.Resize(ref intervals, intervals.Length + 1);
                 intervals[intervals.Length - 1] = new Ranges(pivot, end);
-            }
         }
 
         private int Partition(int[] numbers, int start, int end)
