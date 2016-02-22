@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace SortWords
@@ -48,6 +49,43 @@ namespace SortWords
             var toCheck =  new WordCount[] { new WordCount("bbc", 1), new WordCount("abc", 2) };
             CollectionAssert.AreEqual(expected, SortStruct(toCheck));
         }
+        [TestMethod]
+        public void ShouldReturnTheWordWithTwoApearencesInText()
+        {
+            Assert.AreEqual("abc", SearchForWordWithSpecificNumbersOfApearence("bbc abc abc", 2));
+        }
+        [TestMethod]
+        public void ShouldReturnWordsWithTwoApearences()
+        {
+            var list = new WordCount[] { new WordCount("abc", 2),
+                                             new WordCount("bbc", 1)};
+            Assert.AreEqual("abc", CheckBinary(list,2));
+        }
+
+        private string SearchForWordWithSpecificNumbersOfApearence(string textToCheck, int numOfApearence)
+        {
+            WordCount[] wordAndApearence = SortTextByApearence(textToCheck);
+            string result = CheckBinary(wordAndApearence, numOfApearence);
+            return result;
+        }
+
+        private string CheckBinary(WordCount[] wordAndApearence, int numOfApearence)
+        {
+            int start = 0;
+            int end = wordAndApearence.Length - 1;
+            while (start<end)
+            {
+                int mid = (start + end) / 2;
+                if (wordAndApearence[mid].number == numOfApearence)
+                    return wordAndApearence[mid].word;
+                if ( wordAndApearence[mid].number < numOfApearence)
+                    start = mid + 1;
+                else 
+                    end = mid - 1;
+            }
+            return "";
+        }
+
         public WordCount[] SortTextByApearence(string textToSort)
         {
             string[] textArray = textToSort.Split(' ');
