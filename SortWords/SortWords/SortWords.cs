@@ -61,6 +61,11 @@ namespace SortWords
                                              new WordCount("bbc", 1)};
             Assert.AreEqual("abc", CheckBinary(list,2));
         }
+        [TestMethod]
+        public void ShouldReturnTheWordWithThreeApearencesInText()
+        {
+            Assert.AreEqual("abc", SearchForWordWithSpecificNumbersOfApearence("bbc abc abc bbc afg mpg abc afg", 3));
+        }
 
         private string SearchForWordWithSpecificNumbersOfApearence(string textToCheck, int numOfApearence)
         {
@@ -73,15 +78,15 @@ namespace SortWords
         {
             int start = 0;
             int end = wordAndApearence.Length - 1;
-            while (start<end)
+            while (start<=end)
             {
                 int mid = (start + end) / 2;
                 if (wordAndApearence[mid].number == numOfApearence)
                     return wordAndApearence[mid].word;
                 if ( wordAndApearence[mid].number < numOfApearence)
-                    start = mid + 1;
-                else 
                     end = mid - 1;
+                else 
+                    start = mid + 1;
             }
             return "";
         }
