@@ -4,17 +4,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Catalog
 {
-    public class StudAndGenMean
-    {
-        private string name;
-        private decimal genMean;
-        public StudAndGenMean[] studAndGenMean= {};
-        public StudAndGenMean(string name, decimal genMean)
-        {
-            this.name = name;
-            this.genMean = genMean;
-        }
-    }
     [TestClass]
     public class Catalog
     {
