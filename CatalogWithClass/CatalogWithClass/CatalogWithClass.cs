@@ -9,37 +9,70 @@ namespace CatalogWithClass
         [TestMethod]
         public void ShouldSortTwoStudentAlpha()
         {
-            Maters mathCucu = new Maters("Mathematics", new int[] { 6, 7 });
-            Maters sportCucu = new Maters("Sport", new int[] { 8, 9 });
-            Maters[] cucuMatters = { mathCucu, sportCucu };
-            Student cucu = new Student ( "Cucu", cucuMatters);
-            Maters mathBubu = new Maters("Mathematics", new int[] { 6, 7 });
-            Maters sportBubu = new Maters("Sport", new int[] { 8, 9 });
-            Maters[] bubuMatters = { mathBubu, sportBubu };
-            Student bubu = new Student ( "Bubu",bubuMatters );
-            Student[] allClass = { cucu, bubu };
+            SubjectAndGrades[] cucuGrades = { new SubjectAndGrades("Mathematics", new int[] { 6, 7 }),
+                                               new SubjectAndGrades("Sport", new int[] { 8, 9 }) };
+            SubjectAndGrades[] bubuGrades = { new SubjectAndGrades("Mathematics", new int[] { 6, 7 }),
+                                               new SubjectAndGrades("Sport", new int[] { 8, 9 }) };
+            Student[] allClass = { new Student("Cucu", cucuGrades),
+                                   new Student("Bubu", bubuGrades) };
             CollectionAssert.AreEqual(new string[] { "Bubu", "Cucu" }, SortStudentsAlpha(allClass));
         }
-        public string[] SortStudentsAlpha()
+        [TestMethod]
+        public void ShouldAddNewStudentAndSubsectWithGradesAndSortAlpha()
         {
-            string[] studentsNames = GetStudentNameArray(Student[] allClass);
+            SubjectAndGrades[] cucuGrades = { new SubjectAndGrades("Mathematics", new int[] { 6, 7 }),
+                                               new SubjectAndGrades("Sport", new int[] { 8, 9 }) };
+            SubjectAndGrades[] bubuGrades = { new SubjectAndGrades("Mathematics", new int[] { 6, 7 }),
+                                               new SubjectAndGrades("Sport", new int[] { 8, 9 }) };
+            SubjectAndGrades[] luluGrades = { new SubjectAndGrades("Mathematics", new int[] { 4, 10 }),
+                                               new SubjectAndGrades("Sport", new int[] { 10, 2 }) };
+            Student[] allClass = { new Student("Cucu", cucuGrades),
+                                   new Student("Bubu", bubuGrades) };
+            AddNewStudToClass(ref allClass, "Lulu", luluGrades);
+            CollectionAssert.AreEqual(new string[] { "Bubu", "Cucu","Lulu" }, ChoseAction(allClass, "SortAlpha"));
+        }
+        public string[] ChoseAction(Student[] allClass,string action)
+        {
+            switch (action)
+            {
+                case "SortAlpha":
+                    return SortStudentsAlpha(allClass);
+                default:
+                    break;
+            }
+            return new string[] { };
+        }
+        public string[] SortStudentsAlpha(Student[] allClass)
+        {
+            string[] studentsNames = GetStudentNameArray(allClass);
             Array.Sort(studentsNames);
             return studentsNames;
         }
-        private static string[] GetStudentNameArray(Student[] allClass)
+        public string[] GetStudentNameArray(Student[] allClass)
         {
             string[] studentsNames = new string[allClass.Length];
-            for (int i = 0; i <  allClass.Length; i++)
+            for (int i = 0; i < allClass.Length; i++)
             {
-                studentsNames[i] =  allClass[i].name;
+                studentsNames[i] = allClass[i].name;
             }
             return studentsNames;
         }
-        public class Maters
+        public void AddNewStudToClass(ref Student[] allClass,string name, SubjectAndGrades[] subjectAndNotes)
+        {
+            Array.Resize(ref allClass, allClass.Length + 1);
+            allClass[allClass.Length - 1] = new Student(name, subjectAndNotes);
+        }
+        public void AddNewSubjectAndGrades(string subject, int[] grades)
+        {
+            SubjectAndGrades[] temp = { };
+            Array.Resize(ref temp, temp.Length +1);
+            temp[temp.Length - 1] = new SubjectAndGrades(subject, grades);            
+        }
+        public class SubjectAndGrades
         {
             private string matterName;
             private int[] notes;
-            public Maters(string materName, int[] notes)
+            public SubjectAndGrades(string materName, int[] notes)
             {
                 this.matterName = materName;
                 this.notes = notes;
@@ -48,21 +81,11 @@ namespace CatalogWithClass
         public class Student
         {
             public string name;
-            private Maters[] subjectAndNotes;
-            public Student[] allClass;
-            public Student(string name, Maters[] subjectAndNotes)
+            private SubjectAndGrades[] subjectAndNotes;
+            public Student(string name, SubjectAndGrades[] subjectAndNotes)
             {
                 this.name = name;
                 this.subjectAndNotes = subjectAndNotes;
-                allClass = AddStudToClass(name, subjectAndNotes);
-            }
-
-            private Student[] AddStudToClass(string name, Maters[] subjectAndNotes)
-            {
-                Array.Resize(ref allClass, allClass.Length+1);
-                allClass[allClass.Length - 1].name = name;
-                allClass[allClass.Length - 1].subjectAndNotes = subjectAndNotes;
-                return allClass;
             }
         }
     }
