@@ -20,18 +20,18 @@ namespace CatalogWithClass
             Student[] allClass = { cucu, bubu };
             CollectionAssert.AreEqual(new string[] { "Bubu", "Cucu" }, SortStudentsAlpha(allClass));
         }
-        public string[] SortStudentsAlpha(Student[] allClass)
+        public string[] SortStudentsAlpha()
         {
-            string[] studentsNames = GetStudentNameArray(allClass);
+            string[] studentsNames = GetStudentNameArray(Student[] allClass);
             Array.Sort(studentsNames);
             return studentsNames;
         }
         private static string[] GetStudentNameArray(Student[] allClass)
         {
             string[] studentsNames = new string[allClass.Length];
-            for (int i = 0; i < allClass.Length; i++)
+            for (int i = 0; i <  allClass.Length; i++)
             {
-                studentsNames[i] = allClass[i].name;
+                studentsNames[i] =  allClass[i].name;
             }
             return studentsNames;
         }
@@ -49,10 +49,20 @@ namespace CatalogWithClass
         {
             public string name;
             private Maters[] subjectAndNotes;
+            public Student[] allClass;
             public Student(string name, Maters[] subjectAndNotes)
             {
                 this.name = name;
                 this.subjectAndNotes = subjectAndNotes;
+                allClass = AddStudToClass(name, subjectAndNotes);
+            }
+
+            private Student[] AddStudToClass(string name, Maters[] subjectAndNotes)
+            {
+                Array.Resize(ref allClass, allClass.Length+1);
+                allClass[allClass.Length - 1].name = name;
+                allClass[allClass.Length - 1].subjectAndNotes = subjectAndNotes;
+                return allClass;
             }
         }
     }
