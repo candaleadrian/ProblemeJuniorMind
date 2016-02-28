@@ -60,7 +60,24 @@ namespace CatalogWithClass
                                    new Student("Bubu", bubuGrades) };
             AddNewStudToClass(ref allClass, "Lulu", luluGrades);
             AddNewStudToClass(ref allClass, "Dudu", duduGrades);
-            CollectionAssert.AreEqual(new string[] { "Dudu","Bubu", "Cucu", "Lulu" }, ChoseAction(allClass, "SortByGenMean"));
+            CollectionAssert.AreEqual(new string[] { "Dudu", "Bubu", "Cucu", "Lulu" }, ChoseAction(allClass, "SortByGenMean"));
+        }
+        [TestMethod]
+        public void ShouldreturnStudentWitTenGeneralMean()
+        {
+            SubjectAndGrades[] cucuGrades = { new SubjectAndGrades("Mathematics", new int[] { 6, 7 }),
+                                               new SubjectAndGrades("Sport", new int[] { 8, 9 }) };
+            SubjectAndGrades[] bubuGrades = { new SubjectAndGrades("Mathematics", new int[] { 10, 10 }),
+                                               new SubjectAndGrades("Sport", new int[] { 9, 9 }) };
+            SubjectAndGrades[] luluGrades = { new SubjectAndGrades("Mathematics", new int[] { 4, 10 }),
+                                               new SubjectAndGrades("Sport", new int[] { 10, 2 }) };
+            SubjectAndGrades[] duduGrades = { new SubjectAndGrades("Mathematics", new int[] { 10, 10 }),
+                                               new SubjectAndGrades("Sport", new int[] { 10, 10 }) };
+            Student[] allClass = { new Student("Cucu", cucuGrades),
+                                   new Student("Bubu", bubuGrades) };
+            AddNewStudToClass(ref allClass, "Lulu", luluGrades);
+            AddNewStudToClass(ref allClass, "Dudu", duduGrades);
+            CollectionAssert.AreEqual(new string[] { "Dudu" }, ChoseAction(allClass, "SearchStudentsWithSpecificGeneralMean"));
         }
         public string[] ChoseAction(Student[] allClass,string action)
         {
@@ -70,13 +87,38 @@ namespace CatalogWithClass
                     return SortStudentsAlpha(allClass);
                 case "SortByGenMean":
                     return SortStudentsByGenMean(allClass);
+                case "SearchStudentsWithSpecificGeneralMean":
+                    return StudentsWithSpecificGenMean(allClass,10);
                 default:
                     break;
             }
             return new string[] { };
         }
 
+        private string[] StudentsWithSpecificGenMean(Student[] allClass, int generalMean)
+        {
+            string[] studNames = { };
+            NameAndGenMean[] nameAndGenMean = CreateateStudNameAndGenMean(allClass);
+            foreach (var stud in nameAndGenMean)
+            {
+                if (stud.genMean == generalMean)
+                {
+                    Array.Resize(ref studNames, studNames.Length + 1);
+                    studNames[studNames.Length - 1] = stud.name;
+                }
+            }
+            return studNames;
+        }
+
         private string[] SortStudentsByGenMean(Student[] allClass)
+        {
+            NameAndGenMean[] nameAndGenMean = CreateateStudNameAndGenMean(allClass);
+            SortStudByGenMean(ref nameAndGenMean);
+            return ReturnSortedStudByGenMean(nameAndGenMean);
+            
+        }
+
+        private NameAndGenMean[] CreateateStudNameAndGenMean(Student[] allClass)
         {
             NameAndGenMean[] nameAndGenMean = new NameAndGenMean[allClass.Length];
             for (int i = 0; i < allClass.Length; i++)
@@ -84,9 +126,7 @@ namespace CatalogWithClass
                 decimal genMean = CalculateGenMeanForEachStud(allClass[i].subjectAndNotes);
                 nameAndGenMean[i] = new NameAndGenMean(allClass[i].name, genMean);
             }
-            SortStudByGenMean(ref nameAndGenMean);
-            return ReturnSortedStudByGenMean(nameAndGenMean);
-            
+            return nameAndGenMean;
         }
 
         private string[] ReturnSortedStudByGenMean(NameAndGenMean[] nameAndGenMean)
