@@ -16,7 +16,7 @@ namespace CatalogWithClass
             Grades[] bubuGrade = { new Grades("Math", new int[] { 7, 9 }),
                                   new Grades("Sport", new int[] { 5, 7 })};
             Student[] allClass = { cucu, bubu };
-        //    CollectionAssert.AreEqual(new string[] { "Bubu", "Cucu" }, SortStudentsByNameAlpha());
+//            CollectionAssert.AreEqual(new string[] { "Bubu", "Cucu" },allClass. SortStudentsByNameAlpha());
         }
         
 
@@ -47,29 +47,26 @@ namespace CatalogWithClass
         public void SouldReturnAverageForOneSubject()
         {
             Grades mathGrades = new Grades("Math", new int[] { 10, 8 });
-            Assert.AreEqual(9m,CalculateAvrerage(new Grades( new int[] { 10, 8 })));
+            Assert.AreEqual(9m,mathGrades.CalculateAvrerage());
         }
 
-        public decimal CalculateAvrerage(int[] grades)
-        {
-            decimal sum = 0;
-            foreach (var grade in grades)
-            {
-                sum += grade;
-            }
-            return sum / grades.Length;
-        }
         public class Grades
         {
             private string subject;
             private int[] grades;
-            public Grades(string subject)
+            public Grades(string subject, int[] grade)
             {
                 this.subject = subject;
-            }
-            public Grades(int[] grade)
-            {
                 this.grades = grade;
+            }
+            public decimal CalculateAvrerage()
+            {
+                decimal sum = 0;
+                foreach (var grade in grades)
+                {
+                    sum += grade;
+                }
+                return sum / grades.Length;
             }
         }
     }
