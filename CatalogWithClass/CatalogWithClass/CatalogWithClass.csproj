@@ -51,6 +51,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="CatalogWithClass.cs" />
+    <Compile Include="CatalogWithClassTestClass.cs" />
     <Compile Include="StudentTestClass.cs" />
     <Compile Include="Student.cs" />
     <Compile Include="GradesTestClass.cs" />

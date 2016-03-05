@@ -15,6 +15,10 @@ namespace CatalogWithClass
             this.name = name;
             this.grades = grades;
         }
+        public string GetStudentName()
+        {
+            return name;
+        }
         public decimal CalculateGeneralMean()
         {
             decimal sum = 0;
