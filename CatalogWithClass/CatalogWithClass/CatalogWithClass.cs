@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CatalogWithClass
 {
@@ -16,6 +15,27 @@ namespace CatalogWithClass
             Array.Resize(ref allClass, allClass.Length + 1);
             allClass[allClass.Length] = student;
         }
+        public string[] FindStudentsWithSpecificGeneralMean(decimal valueToFind)
+        {
+            string[] result = { };
+            NameAndGenMean[] allStud = new NameAndGenMean[allClass.Length];
+            GroupNameAndGeneralMean(ref allStud);
+            foreach (var stud in allStud)
+            {
+                if (stud.mean == valueToFind)
+                {
+                    AddStudNameToResult(ref result, stud.name);
+                }
+            };
+            return result;
+        }
+
+        private void AddStudNameToResult(ref string[] result, string name)
+        {
+            Array.Resize(ref result, result.Length+1);
+            result[result.Length-1] = name;
+        }
+
         public string[] SortStudentsAlpha()
         {
             string[] nameList = GetStudentNames(allClass);
