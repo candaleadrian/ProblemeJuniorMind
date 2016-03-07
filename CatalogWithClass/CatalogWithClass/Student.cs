@@ -22,6 +22,15 @@
             }
             return sum/grades.Length;
         }
+        public int CountAllTenGrades()
+        {
+            int counter = 0;
+            foreach (var subject in grades)
+            {
+                counter += subject.CountNumberOfTenGradesForEachSubject();
+            }
+            return counter;
+        }
 
     }
 }

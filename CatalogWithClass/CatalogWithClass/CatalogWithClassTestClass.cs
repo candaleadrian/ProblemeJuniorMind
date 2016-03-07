@@ -70,5 +70,22 @@ namespace CatalogWithClass
             string[] expected = { "Tutu" };
             CollectionAssert.AreEqual(expected, allClass.FindStudentsWithSpecificGeneralMean(10));
         }
+        [TestMethod]
+        public void SouldReturnStudentsWithHighestNumberOfTenGrades()
+        {
+            Grades[] cucuGrade = { new Grades("Math", new int[] { 10, 8 }),
+                                  new Grades("Sport", new int[] { 6, 8 })};
+            Student cucu = new Student("Cucu", cucuGrade);
+            Grades[] bubuGrade = { new Grades("Math", new int[] { 7, 9 }),
+                                  new Grades("Sport", new int[] { 10, 10 })};
+            Student bubu = new Student("Bubu", bubuGrade);
+            Grades[] tutuGrade = { new Grades("Math", new int[] { 10, 10 }),
+                                  new Grades("Sport", new int[] { 10, 10 })};
+            Student tutu = new Student("Tutu", tutuGrade);
+            Student[] students = { cucu, bubu, tutu };
+            CatalogWithClass allClass = new CatalogWithClass(students);
+            string[] expected = { "Tutu" };
+            CollectionAssert.AreEqual(expected, allClass.FindStudentsWithTheMostTenGrades());
+        }
     }
 }

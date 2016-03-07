@@ -15,6 +15,30 @@ namespace CatalogWithClass
             Array.Resize(ref allClass, allClass.Length + 1);
             allClass[allClass.Length] = student;
         }
+        public string[] FindStudentsWithTheMostTenGrades()
+        {
+            string[] result = { };
+            int maxNumbOfTenGrades = SearchTheBiggestNumberOfTenGrades();
+            foreach (var stud in allClass)
+            {
+                if (maxNumbOfTenGrades == stud.CountAllTenGrades())
+                    AddStudNameToResult(ref result, stud.GetStudentName());
+            }
+            return result;
+        }
+
+        private int SearchTheBiggestNumberOfTenGrades()
+        {
+            int max=0;
+            foreach (var stud in allClass)
+            {
+                int temp = stud.CountAllTenGrades();
+                if (temp > 0)
+                    max = temp;
+            }
+            return max;
+        }
+
         public string[] FindStudentsWithSpecificGeneralMean(decimal valueToFind)
         {
             string[] result = { };
