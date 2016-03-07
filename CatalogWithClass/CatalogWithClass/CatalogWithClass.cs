@@ -15,6 +15,28 @@ namespace CatalogWithClass
             Array.Resize(ref allClass, allClass.Length + 1);
             allClass[allClass.Length] = student;
         }
+        public string[] FindStudentsWithTheLowestGeneralMean()
+        {
+            string[] result = { };
+            decimal lowestGeneralMean = SearchTheLowestGeneralMean();
+            foreach (var stud in allClass)
+            {
+                if (lowestGeneralMean == stud.CalculateGeneralMean())
+                    AddStudNameToResult(ref result, stud.GetStudentName());
+            }
+            return result;
+        }
+        private decimal SearchTheLowestGeneralMean()
+        {
+            decimal min = 11;
+            foreach (var stud in allClass)
+            {
+                decimal temp = stud.CalculateGeneralMean();
+                if (temp < min)
+                    min = temp;
+            }
+            return min;
+        }
         public string[] FindStudentsWithTheMostTenGrades()
         {
             string[] result = { };
@@ -33,7 +55,7 @@ namespace CatalogWithClass
             foreach (var stud in allClass)
             {
                 int temp = stud.CountAllTenGrades();
-                if (temp > 0)
+                if (temp > max)
                     max = temp;
             }
             return max;
