@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CatalogWithClass
@@ -15,6 +16,23 @@ namespace CatalogWithClass
             Array.Resize(ref allClass, allClass.Length + 1);
             allClass[allClass.Length] = student;
         }
+        public string[] SortStudentsAlpha()
+        {
+            string[] nameList = GetStudentNames(allClass);
+            Array.Sort(nameList);
+            return nameList;
+        }
+
+        private string[] GetStudentNames(Student[] allClass)
+        {
+            string[] result = new string[allClass.Length];
+            for (int i = 0; i < allClass.Length; i++)
+            {
+                result[i] = allClass[i].GetStudentName();
+            }
+            return result;
+        }
+
         public string[] SortStudentsByGenMean()
         {
             NameAndGenMean[] allStud = new NameAndGenMean[allClass.Length];
@@ -23,7 +41,6 @@ namespace CatalogWithClass
             string[] result = CreateSortedNamesArray(allStud);
             return result;
         }
-
         private string[] CreateSortedNamesArray(NameAndGenMean[] allStud)
         {
             string[] result = new string[allStud.Length];
@@ -73,5 +90,6 @@ namespace CatalogWithClass
                 this.mean = mean;
             }
         }
+
     }
 }
