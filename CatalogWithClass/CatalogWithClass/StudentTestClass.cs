@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace CatalogWithClass
+namespace Catalog
 {
     [TestClass]
     public class StudentTestClass

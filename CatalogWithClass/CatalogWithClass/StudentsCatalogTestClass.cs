@@ -1,12 +1,12 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace CatalogWithClass
+namespace Catalog
 {
     [TestClass]
-    public class CatalogWithClassTestClass
+    public class StudentsCatalogTestClass
     {
         [TestMethod]
-        public void SouldReturnStringArrayWithStudentsSortedByGenMean()
+        public void SouldReturnStudentArrayWithStudentsSortedByGenMean()
         {
             Grades[] cucuGrade = { new Grades("Math", new int[] { 10, 8 }),
                                   new Grades("Sport", new int[] { 6, 8 })};
@@ -15,12 +15,12 @@ namespace CatalogWithClass
                                   new Grades("Sport", new int[] { 10, 10 })};
             Student bubu = new Student("Bubu", bubuGrade);
             Student[] students = {cucu,bubu };
-            CatalogWithClass allClass = new CatalogWithClass(students);
-            string[] expected = { "Bubu", "Cucu" };
+            StudentsCatalog allClass = new StudentsCatalog(students);
+            Student[] expected = { bubu, cucu };
             CollectionAssert.AreEqual(expected, allClass.SortStudentsByGenMean());
         }
         [TestMethod]
-        public void SouldCreateAStructWithNamesAndGeneralMean()
+        public void SouldreturnStudentsArraySortedByGeneralMean()
         {
             Grades[] cucuGrade = { new Grades("Math", new int[] { 10, 8 }),
                                   new Grades("Sport", new int[] { 6, 8 })};
@@ -32,12 +32,12 @@ namespace CatalogWithClass
                                   new Grades("Sport", new int[] { 10, 10 })};
             Student tutu = new Student("Tutu", tutuGrade);
             Student[] students = { cucu, bubu, tutu };
-            CatalogWithClass allClass = new CatalogWithClass(students);
-            string[] expected = { "Tutu", "Bubu", "Cucu" };
+            StudentsCatalog allClass = new StudentsCatalog(students);
+            Student[] expected = { tutu, bubu, cucu };
             CollectionAssert.AreEqual(expected, allClass.SortStudentsByGenMean());
         }
         [TestMethod]
-        public void SouldCreateAStructWithNamesSortedAlpha()
+        public void SouldReturnStudentArraySortedAlpha()
         {
             Grades[] cucuGrade = { new Grades("Math", new int[] { 10, 8 }),
                                   new Grades("Sport", new int[] { 6, 8 })};
@@ -49,8 +49,8 @@ namespace CatalogWithClass
                                   new Grades("Sport", new int[] { 10, 10 })};
             Student tutu = new Student("Tutu", tutuGrade);
             Student[] students = { cucu, bubu, tutu };
-            CatalogWithClass allClass = new CatalogWithClass(students);
-            string[] expected = { "Bubu", "Cucu", "Tutu" };
+            StudentsCatalog allClass = new StudentsCatalog(students);
+            Student[] expected = { bubu, cucu, tutu };
             CollectionAssert.AreEqual(expected, allClass.SortStudentsAlpha());
         }
         [TestMethod]
@@ -66,8 +66,8 @@ namespace CatalogWithClass
                                   new Grades("Sport", new int[] { 10, 10 })};
             Student tutu = new Student("Tutu", tutuGrade);
             Student[] students = { cucu, bubu, tutu };
-            CatalogWithClass allClass = new CatalogWithClass(students);
-            string[] expected = { "Tutu" };
+            StudentsCatalog allClass = new StudentsCatalog(students);
+            Student[] expected = { tutu };
             CollectionAssert.AreEqual(expected, allClass.FindStudentsWithSpecificGeneralMean(10));
         }
         [TestMethod]
@@ -83,8 +83,8 @@ namespace CatalogWithClass
                                   new Grades("Sport", new int[] { 10, 10 })};
             Student tutu = new Student("Tutu", tutuGrade);
             Student[] students = { cucu, bubu, tutu };
-            CatalogWithClass allClass = new CatalogWithClass(students);
-            string[] expected = { "Tutu" };
+            StudentsCatalog allClass = new StudentsCatalog(students);
+            Student[] expected = { tutu };
             CollectionAssert.AreEqual(expected, allClass.FindStudentsWithTheMostTenGrades());
         }
         [TestMethod]
@@ -100,8 +100,8 @@ namespace CatalogWithClass
                                   new Grades("Sport", new int[] { 10, 10 })};
             Student tutu = new Student("Tutu", tutuGrade);
             Student[] students = { cucu, bubu, tutu };
-            CatalogWithClass allClass = new CatalogWithClass(students);
-            string[] expected = { "Cucu" };
+            StudentsCatalog allClass = new StudentsCatalog(students);
+            Student[] expected = { cucu };
             CollectionAssert.AreEqual(expected, allClass.FindStudentsWithTheLowestGeneralMean());
         }
     }
