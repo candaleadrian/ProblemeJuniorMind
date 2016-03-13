@@ -30,7 +30,7 @@ namespace Vector
         {
             get
             {
-                throw new NotImplementedException();
+                return counter;
             }
         }
 
