@@ -5,10 +5,11 @@ using System.Collections;
 
 namespace Vector
 {
-    public class Vector : IList<T>
+    public class VectorClass<T> : IList<T>
     {
+        private T[] myList = new T[10];
         private int counter;
-        public Vector()
+        public VectorClass()
         {
             counter = 0;
         }
@@ -16,12 +17,12 @@ namespace Vector
         {
             get
             {
-                throw new NotImplementedException();
+                return myList[index];
             }
 
             set
             {
-                throw new NotImplementedException();
+                myList[index]=value;
             }
         }
 
@@ -41,9 +42,13 @@ namespace Vector
             }
         }
 
-        public void Add(T item)
+        public void Add(T value)
         {
-            throw new NotImplementedException();
+            if (counter < myList.Length)
+            {
+                myList[counter] = value;
+                counter++;
+            }
         }
 
         public void Clear()
