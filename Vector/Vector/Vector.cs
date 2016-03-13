@@ -7,7 +7,7 @@ namespace Vector
 {
     public class VectorClass<T> : IList<T>
     {
-        private T[] myList = new T[10];
+        private T[] myList = new T[1];
         private int counter;
         public VectorClass()
         {

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Vector;
 
 namespace Vector
 {
@@ -15,6 +16,7 @@ namespace Vector
         {
             VectorClass<int> list = new VectorClass<int>();
             list.Add(1);
+            CollectionAssert.AreEqual(new int[] { 1 }, list);
         }
     }
 }
