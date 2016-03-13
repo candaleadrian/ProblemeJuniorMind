@@ -56,9 +56,18 @@ namespace Vector
             counter = 0;
         }
 
-        public bool Contains(T item)
+        public bool Contains(T value)
         {
-            throw new NotImplementedException();
+            bool result = false;
+            for (int i = 0; i < myList.Length; i++)
+            {
+                if (myList[i] == value)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
         }
 
         public void CopyTo(T[] array, int arrayIndex)

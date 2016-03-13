@@ -20,6 +20,14 @@ namespace Vector
             Assert.AreEqual(1, result);
         }
         [TestMethod]
+        public void ShouldCountTheNumberOfElementsForOneStringElement()
+        {
+            VectorClass<string> list = new VectorClass<string>();
+            list.Add("something");
+            int result = list.Count();
+            Assert.AreEqual(1, result);
+        }
+        [TestMethod]
         public void ShouldCountTheNumberOfElementsForTwoElement()
         {
             VectorClass<int> list = new VectorClass<int>();
@@ -37,6 +45,16 @@ namespace Vector
             list.Clear();
             int result = list.Count();
             Assert.AreEqual(0, result);
+        }
+        [TestMethod]
+        public void ShouldTestIfListContainsNumberTwo()
+        {
+            VectorClass<int> list = new VectorClass<int>();
+            list.Add(1);
+            list.Add(2);
+            list.Clear();
+            bool result = list.Contains(2);
+            Assert.IsTrue(result);
         }
     }
 }
