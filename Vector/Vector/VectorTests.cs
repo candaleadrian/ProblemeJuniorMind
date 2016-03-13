@@ -12,12 +12,31 @@ namespace Vector
     public class VectorTests
     {
         [TestMethod]
-        public void ShouldAddANewValueToTheList()
+        public void ShouldCountTheNumberOfElementsForOneElement()
         {
             VectorClass<int> list = new VectorClass<int>();
             list.Add(1);
             int result = list.Count();
             Assert.AreEqual(1, result);
+        }
+        [TestMethod]
+        public void ShouldCountTheNumberOfElementsForTwoElement()
+        {
+            VectorClass<int> list = new VectorClass<int>();
+            list.Add(1);
+            list.Add(2);
+            int result = list.Count();
+            Assert.AreEqual(2, result);
+        }
+        [TestMethod]
+        public void ShouldTestIfClearWorks()
+        {
+            VectorClass<int> list = new VectorClass<int>();
+            list.Add(1);
+            list.Add(2);
+            list.Clear();
+            int result = list.Count();
+            Assert.AreEqual(0, result);
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Vector
 {
     public class VectorClass<T> : IList<T>
     {
-        private T[] myList = new T[1];
+        private T[] myList = new T[10];
         private int counter;
         public VectorClass()
         {
@@ -38,7 +38,7 @@ namespace Vector
         {
             get
             {
-                throw new NotImplementedException();
+                return false;
             }
         }
 
@@ -53,7 +53,7 @@ namespace Vector
 
         public void Clear()
         {
-            throw new NotImplementedException();
+            counter = 0;
         }
 
         public bool Contains(T item)
