@@ -61,7 +61,7 @@ namespace Vector
             bool result = false;
             for (int i = 0; i < myList.Length; i++)
             {
-                if (myList[i] == value)
+                if (myList[i].Equals(value))
                 {
                     result = true;
                     break;
