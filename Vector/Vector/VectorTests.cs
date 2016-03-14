@@ -56,5 +56,46 @@ namespace Vector
             bool result = list.Contains(2);
             Assert.IsTrue(result);
         }
+        [TestMethod]
+        public void ShouldTestCopyToIfAdsValuesToArray()
+        {
+            VectorClass<int> list = new VectorClass<int>();
+            list.Add(1);
+            list.Add(2);
+            int[] toAdd = new int[2];
+            list.CopyTo(toAdd, 0);
+            Assert.AreEqual(1, toAdd[0]);
+        }
+        [TestMethod]
+        public void ShouldTestCopyToIfAdsValuesToArrayStartingFromSecondElement()
+        {
+            VectorClass<int> list = new VectorClass<int>();
+            list.Add(1);
+            list.Add(2);
+            list.Add(3);
+            int[] toAdd = new int[2];
+            list.CopyTo(toAdd, 1);
+            Assert.AreEqual(3, toAdd[1]);
+        }
+        [TestMethod]
+        public void ShouldReturnIndexForElementTwo()
+        {
+            VectorClass<int> list = new VectorClass<int>();
+            list.Add(1);
+            list.Add(2);
+            list.Add(3);
+            int result = list.IndexOf(2);
+            Assert.AreEqual(1, result);
+        }
+        [TestMethod]
+        public void ShouldReturnMinusOneIfElementIsNotContained()
+        {
+            VectorClass<int> list = new VectorClass<int>();
+            list.Add(1);
+            list.Add(2);
+            list.Add(3);
+            int result = list.IndexOf(4);
+            Assert.AreEqual(-1, result);
+        }
     }
 }

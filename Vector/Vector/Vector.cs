@@ -72,7 +72,12 @@ namespace Vector
 
         public void CopyTo(T[] array, int arrayIndex)
         {
-            throw new NotImplementedException();
+            int j = arrayIndex;
+            for (int i = 0; i < array.Length; i++)
+            {
+                array.SetValue(myList[j], i);
+                j++;
+            }
         }
 
         public IEnumerator<T> GetEnumerator()
@@ -80,9 +85,18 @@ namespace Vector
             throw new NotImplementedException();
         }
 
-        public int IndexOf(T item)
+        public int IndexOf(T value)
         {
-            throw new NotImplementedException();
+            int itemIndex = -1 ;
+            for (int i = 0; i < counter; i++)
+            {
+                if (myList[i].Equals(value))
+                {
+                    itemIndex = i;
+                    break;
+                }
+            }
+            return itemIndex;
         }
 
         public void Insert(int index, T item)
