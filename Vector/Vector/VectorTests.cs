@@ -108,5 +108,29 @@ namespace Vector
             int result = list.IndexOf(7);
             Assert.AreEqual(2, result);
         }
+        [TestMethod]
+        public void ShouldRemoveElementAtIndexOneInList()
+        {
+            VectorClass<int> list = new VectorClass<int>();
+            list.Add(1);
+            list.Add(2);
+            list.Add(3);
+            list.Insert(2, 7);
+            list.RemoveAt(1);
+            int result = list.IndexOf(7);
+            Assert.AreEqual(1, result);
+        }
+        [TestMethod]
+        public void ShouldRemoveElementWithValueTwoInList()
+        {
+            VectorClass<int> list = new VectorClass<int>();
+            list.Add(1);
+            list.Add(2);
+            list.Add(3);
+            list.Insert(2, 7);
+            list.Remove(2);
+            int result = list.IndexOf(7);
+            Assert.AreEqual(1, result);
+        }
     }
 }

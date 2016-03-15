@@ -114,12 +114,25 @@ namespace Vector
 
         public bool Remove(T item)
         {
-            throw new NotImplementedException();
+            bool result = false;
+            if (Contains(item))
+            {
+            RemoveAt(IndexOf(item));
+            result = true;
+            }
+            return result;
         }
 
         public void RemoveAt(int index)
         {
-            throw new NotImplementedException();
+            if ((index >= 0) && (index < Count))
+            {
+                for (int i = index; i < Count - 1; i++)
+                {
+                    myList[i] = myList[i + 1];
+                }
+                counter--;
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator()
