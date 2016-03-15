@@ -88,7 +88,7 @@ namespace Vector
         public int IndexOf(T value)
         {
             int itemIndex = -1 ;
-            for (int i = 0; i < counter; i++)
+            for (int i = 0; i < Count; i++)
             {
                 if (myList[i].Equals(value))
                 {
@@ -101,7 +101,15 @@ namespace Vector
 
         public void Insert(int index, T item)
         {
-            throw new NotImplementedException();
+            if ((counter+1 <= myList.Length) && (index<Count) && (index>=0))
+            {
+                counter++;
+                for (int i = Count-1; i > index; i--)
+                {
+                    myList[i] = myList[i - 1];
+                }
+                myList[index] = item;
+            };
         }
 
         public bool Remove(T item)

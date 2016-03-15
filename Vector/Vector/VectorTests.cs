@@ -97,5 +97,16 @@ namespace Vector
             int result = list.IndexOf(4);
             Assert.AreEqual(-1, result);
         }
+        [TestMethod]
+        public void ShouldInsertNewElementInList()
+        {
+            VectorClass<int> list = new VectorClass<int>();
+            list.Add(1);
+            list.Add(2);
+            list.Add(3);
+            list.Insert(2, 7);
+            int result = list.IndexOf(7);
+            Assert.AreEqual(2, result);
+        }
     }
 }
