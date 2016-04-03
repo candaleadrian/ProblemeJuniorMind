@@ -3,9 +3,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Collections;
 
-namespace Vector
+namespace Vector 
 {
-    public class VectorClass<T> : IList<T>
+    public class VectorClass<T> : IList<T>,IEnumerable<T>,IEnumerator
     {
         private T[] myList = new T[10];
         private int counter;
@@ -39,6 +39,30 @@ namespace Vector
             get
             {
                 return false;
+            }
+        }
+
+        public object Current
+        {
+            get
+            {
+                return current;
+            }
+        }
+
+        public T current
+        {
+            get
+            {
+                try
+                {
+                    return myList[counter];
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
             }
         }
 
@@ -82,7 +106,10 @@ namespace Vector
 
         public IEnumerator<T> GetEnumerator()
         {
-            throw new NotImplementedException();
+        for (int i = 0; i < myList.Length; i++)
+        {
+            yield return myList[i];
+        }
         }
 
         public int IndexOf(T value)
@@ -137,7 +164,18 @@ namespace Vector
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return this.GetEnumerator();
+        }
+
+        public bool MoveNext()
+        {
+            counter++;
+            return (counter < myList.Length);
+        }
+
+        public void Reset()
+        {
+            counter = 0;
         }
     }
 }

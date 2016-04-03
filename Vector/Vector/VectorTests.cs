@@ -132,5 +132,27 @@ namespace Vector
             int result = list.IndexOf(7);
             Assert.AreEqual(1, result);
         }
+        [TestMethod]
+        public void ShouldReturnTrueIfCounterMovedNext()
+        {
+            VectorClass<int> list = new VectorClass<int>();
+            list.Add(1);
+            list.Add(2);
+            list.Add(3);
+            list.Insert(2, 7);
+            var result = list.Current;
+            Assert.AreEqual(1, result);
+        }
+        [TestMethod]
+        public void ShouldReturnFirstElementInList()
+        {
+            VectorClass<int> list = new VectorClass<int>();
+            list.Add(1);
+            list.Add(2);
+            list.Add(3);
+            list.Insert(2, 7);
+            var result = list.Current;
+            Assert.AreEqual(1, result);
+        }
     }
 }
