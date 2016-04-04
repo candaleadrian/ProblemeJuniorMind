@@ -7,7 +7,7 @@ namespace Vector
 {
     public class VectorClass<T> : IList<T>,IEnumerable<T>
     {
-        private T[] myList = new T[10];
+        private T[] myList = new T[2];
         private int counter;
         public VectorClass()
         {
@@ -45,6 +45,10 @@ namespace Vector
 
         public void Add(T value)
         {
+            if (counter >= myList.Length)
+            {
+                Array.Resize(ref myList,myList.Length*2);
+            }
             if (counter < myList.Length)
             {
                 myList[counter] = value;
