@@ -132,5 +132,19 @@ namespace Vector
             int result = list.IndexOf(7);
             Assert.AreEqual(1, result);
         }
+        [TestMethod]
+        public void ShouldTestIEnumerable()
+        {
+            VectorClass<int> list = new VectorClass<int>();
+            list.Add(1);
+            list.Add(2);
+            list.Add(3);
+            list.Insert(2, 7);
+            list.Remove(2);
+            IEnumerator<int> enumerator =  list.GetEnumerator();
+            bool b = enumerator.MoveNext();
+            int result = enumerator.Current;
+            Assert.AreEqual(1, result);
+        }
     }
 }
