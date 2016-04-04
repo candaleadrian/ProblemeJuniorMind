@@ -3,9 +3,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Collections;
 
-namespace LinkedListd
+
+namespace LinkedList
 {
-    public class LinkedListd<T>
+    public class LinkedList<T>
     {
         private class Node
         {
@@ -15,7 +16,7 @@ namespace LinkedListd
         }
         private Node guard = new Node();
         private int counter;
-        public void LinkedList()
+        public LinkedList()
         {
             guard.next = guard;
             guard.previous = guard;
@@ -28,7 +29,16 @@ namespace LinkedListd
                 return counter;
             }
         }
-             
+        public void Add(T item)
+        {
+            Node node = new Node();
+            node.value = item;
+            node.next = guard;
+            node.previous = guard.previous;
+            node.previous.next = node;
+            guard.previous = node;
+            counter++;
+        }
         
     }
     
