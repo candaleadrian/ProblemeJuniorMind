@@ -10,8 +10,11 @@ namespace LinkedList
     public class LinkedListTest
     {
         [Fact]
-        public void TestMethod1()
+        public void ShouldReturnZeroForAnEmptyList()
         {
+            LinkedList<int> myList = new LinkedList<int>();
+            int result = myList.Count;
+            Assert.Equal(0, result);
         }
     }
 }
