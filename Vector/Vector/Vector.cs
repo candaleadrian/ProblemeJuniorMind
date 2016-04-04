@@ -5,7 +5,7 @@ using System.Collections;
 
 namespace Vector 
 {
-    public class VectorClass<T> : IList<T>,IEnumerable<T>,IEnumerator
+    public class VectorClass<T> : IList<T>,IEnumerable<T>
     {
         private T[] myList = new T[10];
         private int counter;
@@ -42,29 +42,6 @@ namespace Vector
             }
         }
 
-        public object Current
-        {
-            get
-            {
-                return current;
-            }
-        }
-
-        public T current
-        {
-            get
-            {
-                try
-                {
-                    return myList[counter];
-                }
-                catch (Exception)
-                {
-
-                    throw;
-                }
-            }
-        }
 
         public void Add(T value)
         {
@@ -167,15 +144,5 @@ namespace Vector
             return this.GetEnumerator();
         }
 
-        public bool MoveNext()
-        {
-            counter++;
-            return (counter < myList.Length);
-        }
-
-        public void Reset()
-        {
-            counter = 0;
-        }
     }
 }
