@@ -45,14 +45,19 @@ namespace Vector
 
         public void Add(T value)
         {
-            if (counter >= myList.Length)
-            {
-                Array.Resize(ref myList,myList.Length*2);
-            }
+            DoubleListLengthIfNeeded();
             if (counter < myList.Length)
             {
                 myList[counter] = value;
                 counter++;
+            }
+        }
+
+        private void DoubleListLengthIfNeeded()
+        {
+            if (counter >= myList.Length)
+            {
+                Array.Resize(ref myList, myList.Length * 2);
             }
         }
 
@@ -109,6 +114,7 @@ namespace Vector
 
         public void Insert(int index, T item)
         {
+            DoubleListLengthIfNeeded();
             if ((counter+1 <= myList.Length) && (index<Count) && (index>=0))
             {
                 counter++;

@@ -146,5 +146,15 @@ namespace Vector
             int result = enumerator.Current;
             Assert.AreEqual(1, result);
         }
+        [TestMethod]
+        public void ShouldIncreaseListLengthForInsert()
+        {
+            VectorClass<int> list = new VectorClass<int>();
+            list.Add(1);
+            list.Add(2);
+            list.Insert(1, 7);
+            int result = list.IndexOf(7);
+            Assert.AreEqual(1, result);
+        }
     }
 }
