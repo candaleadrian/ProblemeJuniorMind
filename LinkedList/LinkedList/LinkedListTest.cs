@@ -70,12 +70,12 @@ namespace LinkedList
         public void ShouldReturnAnArrayWithElementsFromListStartingFromOne()
         {
             LinkedList<int> myList = new LinkedList<int>();
-            myList.Add(0);
+            myList.Add(3);
             myList.Add(4);
             myList.Add(7);
             int[] result = new int[2];
             myList.CopyTo(result, 1);
-            int[] expected = { 4, 7 };
+            int[] expected = { 0, 3 };
             Assert.Equal(expected, result);
         }
     }

@@ -60,18 +60,13 @@ namespace LinkedList
         }
         public void CopyTo(T[] array,int index)
         {
-            int j = 0;
-            int i = 0;
+            int j = index;
             Node tmp = guard.next;
-            while (!tmp.Equals(guard))
+            while (!tmp.Equals(guard) && index < array.Length && j<array.Length)
             {
-                if (i >= index)
-                {
-                    array.SetValue(tmp.value, j);
-                    j++;
-                }
+                array.SetValue(tmp.value, j);
+                j++;
                 tmp = tmp.next;
-                i++;
             }
         }
     }
