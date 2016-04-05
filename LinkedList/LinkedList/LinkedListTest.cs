@@ -44,5 +44,15 @@ namespace LinkedList
             int result = myList.Count;
             Assert.Equal(0, result);
         }
+        [Fact]
+        public void ShouldReturnTrueIfListConteinsElement()
+        {
+            LinkedList<int> myList = new LinkedList<int>();
+            myList.Add(0);
+            myList.Add(4);
+            myList.Add(7);
+            bool result = myList.Conteins(4);
+            Assert.True(result);
+        }
     }
 }

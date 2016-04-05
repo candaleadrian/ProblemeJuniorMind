@@ -43,6 +43,21 @@ namespace LinkedList
         {
             counter = 0;
         }
+        public bool Conteins(T item)
+        {
+            bool result = false;
+            Node tmp = guard.next;
+            while (!tmp.Equals(guard))
+            {
+                if (tmp.value.Equals(item))
+                {
+                    result = true;
+                    break;
+                }
+                tmp = tmp.next;
+            }
+            return result;
+        }
     }
     
 }
