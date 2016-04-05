@@ -54,5 +54,29 @@ namespace LinkedList
             bool result = myList.Conteins(4);
             Assert.True(result);
         }
+        [Fact]
+        public void ShouldReturnAnArrayWithElementsFromList()
+        {
+            LinkedList<int> myList = new LinkedList<int>();
+            myList.Add(0);
+            myList.Add(4);
+            myList.Add(7);
+            int[] result = new int[3];
+            myList.CopyTo(result,0);
+            int[] expected = { 0, 4, 7 };
+            Assert.Equal(expected,result);
+        }
+        [Fact]
+        public void ShouldReturnAnArrayWithElementsFromListStartingFromOne()
+        {
+            LinkedList<int> myList = new LinkedList<int>();
+            myList.Add(0);
+            myList.Add(4);
+            myList.Add(7);
+            int[] result = new int[2];
+            myList.CopyTo(result, 1);
+            int[] expected = { 4, 7 };
+            Assert.Equal(expected, result);
+        }
     }
 }

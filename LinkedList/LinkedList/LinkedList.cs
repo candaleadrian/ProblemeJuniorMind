@@ -58,6 +58,22 @@ namespace LinkedList
             }
             return result;
         }
+        public void CopyTo(T[] array,int index)
+        {
+            int j = 0;
+            int i = 0;
+            Node tmp = guard.next;
+            while (!tmp.Equals(guard))
+            {
+                if (i >= index)
+                {
+                    array.SetValue(tmp.value, j);
+                    j++;
+                }
+                tmp = tmp.next;
+                i++;
+            }
+        }
     }
     
 }
