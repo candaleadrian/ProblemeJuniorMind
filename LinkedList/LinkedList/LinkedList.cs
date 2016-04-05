@@ -39,7 +39,10 @@ namespace LinkedList
             guard.previous = node;
             counter++;
         }
-        
+        public void Clear()
+        {
+            counter = 0;
+        }
     }
     
 }

@@ -34,5 +34,15 @@ namespace LinkedList
             int result = myList.Count;
             Assert.Equal(2, result);
         }
+        [Fact]
+        public void ShouldReturnZeroAfterClear()
+        {
+            LinkedList<int> myList = new LinkedList<int>();
+            myList.Add(0);
+            myList.Add(4);
+            myList.Clear();
+            int result = myList.Count;
+            Assert.Equal(0, result);
+        }
     }
 }
