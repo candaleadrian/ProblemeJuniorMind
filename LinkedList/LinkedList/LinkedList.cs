@@ -69,6 +69,21 @@ namespace LinkedList
                 tmp = tmp.next;
             }
         }
+        public void Remove(T item)
+        {
+            Node tmp = guard.next;
+            while (!tmp.Equals(guard))
+            {
+                if (tmp.value.Equals(item))
+                {
+                    tmp.previous.next=tmp.next;
+                    tmp.next.previous = tmp.previous;
+                    break;
+                }
+                tmp = tmp.next;
+            }
+
+        }
     }
     
 }
