@@ -100,10 +100,25 @@ namespace LinkedList
             myList.Add(4);
             myList.Add(7);
             myList.Remove(4);
-            int[] expected = { 0,4, 7 };
+            int[] expected = { 0, 4, 7 };
             int[] result = new int[3];
             myList.CopyTo(result, 0);
             Assert.Equal(expected, result);
+        }
+        [Fact]
+        public void ShouldTestEnumerator()
+        {
+            LinkedList<int> myList = new LinkedList<int>();
+            myList.Add(8);
+            myList.Add(4);
+            myList.Add(4);
+            myList.Add(7);
+            myList.Remove(4);
+            IEnumerator<int> enumerator = myList.GetEnumerator();
+            bool b = enumerator.MoveNext();
+            int result = enumerator.Current;
+        //    enumerator.CopyTo(result, 0);
+            Assert.Equal(8,result );
         }
     }
 }

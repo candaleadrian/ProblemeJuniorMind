@@ -6,7 +6,7 @@ using System.Collections;
 
 namespace LinkedList
 {
-    public class LinkedList<T>
+    public class LinkedList<T> : IEnumerable<T>
     {
         private class Node
         {
@@ -84,6 +84,22 @@ namespace LinkedList
             }
 
         }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            Node tmp = guard.next;
+            while (!tmp.Equals(guard))
+            {
+                yield return tmp.value;
+                tmp = tmp.next;
+            }
+        }
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
+        }
     }
-    
+
 }
+
+
