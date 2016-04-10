@@ -5,17 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Dictionary
+namespace DictionaryProgram
 {
     public class DictionaryTests
     {
         [Fact]
-        public void ShouldoSomething()
+        public void ShouldoReturnNullForCounter()
         {
-            int x = 1;
-            int y = 2;
-            
-            Assert.Equal(x, y);
+            Dictionary<int> dictList = new Dictionary<int>();
+            int expected = 0;
+            Assert.Equal(expected, dictList.Count);
         }
     }
 }
