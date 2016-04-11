@@ -12,9 +12,10 @@ namespace DictionaryProgram
         [Fact]
         public void ShouldoReturnNullForCounter()
         {
-            DictionaryClass<int> dictList = new DictionaryClass<int>();
-            int expected = 0;
-            Assert.Equal(expected, 0);
+            DictionaryClass<int, string> dictList = new DictionaryClass<int, string> ();
+            int result = dictList.Count;
+            int expected = -1;
+            Assert.Equal(expected, result);
         }
     }
 }
