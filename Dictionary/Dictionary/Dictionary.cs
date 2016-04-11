@@ -7,16 +7,21 @@ namespace DictionaryProgram
 {
     public class DictionaryClass<TKey, TValue> : IDictionary<TKey, TValue>
     {
-        private int[] hash = new int[10];
         private int counter = -1;
-        private struct DictionryElement
-        {            
+        private int[] hash = new int[10];
+        public DictData[] dictList = new DictData[10];
+        public struct DictData
+        {
             public TKey key;
-            public TValue value;
-            public int hashCode;
-            public int privious;
+            private TValue value;
+            private int previous;
+            public DictData(TKey key, TValue value,int previous)
+            {
+                this.key = key;
+                this.value = value;
+                this.previous = previous;
+            }
         }
-
         public ICollection<TKey> Keys
         {
             get
@@ -64,12 +69,20 @@ namespace DictionaryProgram
 
         public bool ContainsKey(TKey key)
         {
-            throw new NotImplementedException();
+            bool result = false;
+            for (int i = 0; i <= counter; i++)
+            {
+                if (dictList[i].key.Equals(key))
+                    result = true;
+            };
+            return result;
         }
 
         public void Add(TKey key, TValue value)
         {
-            throw new NotImplementedException();
+            int previous = 0;
+            counter++;
+            dictList[counter] = new DictData(key,value,previous);
         }
 
         public bool Remove(TKey key)
@@ -89,7 +102,7 @@ namespace DictionaryProgram
 
         public void Clear()
         {
-            throw new NotImplementedException();
+            counter = -1;
         }
 
         public bool Contains(KeyValuePair<TKey, TValue> item)
