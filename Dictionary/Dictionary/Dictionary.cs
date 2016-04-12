@@ -9,7 +9,7 @@ namespace DictionaryProgram
     {
         private int counter = -1;
         private int[] hashList = new int[10];
-        private int hash = -1;
+  //      private int hash = -1;
         public DictData[] dictList = new DictData[10];
         public struct DictData
         {
@@ -78,15 +78,23 @@ namespace DictionaryProgram
             };
             return result;
         }
-
+        public int ReturnH(TKey key)
+        {
+            return key.GetHashCode()%dictList.Length;
+        }
         public void Add(TKey key, TValue value)
         {
             int previous = 0;
-            if (!ContainsKey(key))
-            {
-                hash++;
-            }
+            int h = ReturnH(key);
             counter++;
+            if (hashList[h] == 0)
+            {
+                hashList[h]= counter;
+            }
+            else
+            {
+                previous = hashList[h];
+            }
             dictList[counter] = new DictData(key,value,previous);
         }
 

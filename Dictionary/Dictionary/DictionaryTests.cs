@@ -44,5 +44,13 @@ namespace DictionaryProgram
             bool result = dictList.ContainsKey("dog");
             Assert.False(result);
         }
+        [Fact]
+        public void CheckH()
+        {
+            DictionaryClass<string, int> dictList = new DictionaryClass<string, int>();
+            dictList.Add("dogs", 7);
+            int result = dictList.ReturnH("pppt");
+            Assert.True(result<10);
+        }
     }
 }
