@@ -8,7 +8,8 @@ namespace DictionaryProgram
     public class DictionaryClass<TKey, TValue> : IDictionary<TKey, TValue>
     {
         private int counter = -1;
-        private int[] hash = new int[10];
+        private int[] hashList = new int[10];
+        private int hash = -1;
         public DictData[] dictList = new DictData[10];
         public struct DictData
         {
@@ -81,6 +82,10 @@ namespace DictionaryProgram
         public void Add(TKey key, TValue value)
         {
             int previous = 0;
+            if (!ContainsKey(key))
+            {
+                hash++;
+            }
             counter++;
             dictList[counter] = new DictData(key,value,previous);
         }
