@@ -71,16 +71,13 @@ namespace DictionaryProgram
         public bool ContainsKey(TKey key)
         {
             bool result = false;
-            for (int i = 0; i <= counter; i++)
-            {
-                if (dictList[i].key.Equals(key))
+            if (hashList[ReturnH(key)] != 0)
                     result = true;
-            };
             return result;
         }
         public int ReturnH(TKey key)
         {
-            return key.GetHashCode()%dictList.Length;
+            return Math.Abs(key.GetHashCode() % dictList.Length);
         }
         public void Add(TKey key, TValue value)
         {

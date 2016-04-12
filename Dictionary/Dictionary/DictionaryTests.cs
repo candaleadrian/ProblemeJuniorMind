@@ -32,7 +32,7 @@ namespace DictionaryProgram
             DictionaryClass<string, int> dictList = new DictionaryClass<string, int>();
             dictList.Add("dogs", 7);
             dictList.Add("cats", 15);
-            bool result = dictList.ContainsKey("dogs");
+            bool result = dictList.ContainsKey("cats");
             Assert.True(result);
         }
         [Fact]
@@ -49,7 +49,7 @@ namespace DictionaryProgram
         {
             DictionaryClass<string, int> dictList = new DictionaryClass<string, int>();
             dictList.Add("dogs", 7);
-            int result = dictList.ReturnH("pppt");
+            int result = Math.Abs( dictList.ReturnH("dogs"));
             Assert.True(result<10);
         }
     }
