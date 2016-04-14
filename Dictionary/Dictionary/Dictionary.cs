@@ -14,7 +14,7 @@ namespace DictionaryProgram
         {
             public TKey key;
             private TValue value;
-            private int previous;
+            public int previous;
             public DictData(TKey key, TValue value,int previous)
             {
                 this.key = key;
@@ -71,13 +71,14 @@ namespace DictionaryProgram
         {
             bool result = false;
             int tmp = hashList[CreateHash(key)];
-            if (tmp != -1)
+            do
             {
                 if (dictList[tmp].key.Equals(key))
                 {
                     result = true;
                 }
-            }
+                tmp = dictList[tmp].previous;
+            } while (tmp >= 0); //&& dictList[tmp].previous != -1);
             return result;
         }
         public int CreateHash(TKey key)

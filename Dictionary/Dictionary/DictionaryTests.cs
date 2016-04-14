@@ -49,8 +49,19 @@ namespace DictionaryProgram
         {
             DictionaryClass<string, int> dictList = new DictionaryClass<string, int>();
             dictList.Add("dogs", 7);
-            int result = Math.Abs( dictList.CreateHash("dogs"));
-            Assert.True(result<10);
+            int result1 = Math.Abs( dictList.CreateHash("dogs"));
+            int result2 = Math.Abs(dictList.CreateHash("dog"));
+            Assert.True(result1==result2);
+        }
+        [Fact]
+        public void ShouldCheckIfContainsKeyWorksForDictElWithTheSameHash()
+        {
+            DictionaryClass<string, int> dictList = new DictionaryClass<string, int>();
+            dictList.Add("dogs", 7);
+            dictList.Add("cats", 15);
+            dictList.Add("dog", 1);
+            bool result = dictList.ContainsKey("dog");
+            Assert.False(result);
         }
     }
 }
