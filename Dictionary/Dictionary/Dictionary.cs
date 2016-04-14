@@ -7,9 +7,8 @@ namespace DictionaryProgram
 {
     public class DictionaryClass<TKey, TValue> : IDictionary<TKey, TValue>
     {
-        private int counter = -1;
-        private int[] hashList = new int[10];
-  //      private int hash = -1;
+        private int counter = -1;        
+        private int[] hashList = { -1,-1, -1, -1, -1, -1, -1, -1, -1, -1};
         public DictData[] dictList = new DictData[10];
         public struct DictData
         {
@@ -71,20 +70,26 @@ namespace DictionaryProgram
         public bool ContainsKey(TKey key)
         {
             bool result = false;
-            if (hashList[ReturnH(key)] != 0)
+            int tmp = hashList[CreateHash(key)];
+            if (tmp != -1)
+            {
+                if (dictList[tmp].key.Equals(key))
+                {
                     result = true;
+                }
+            }
             return result;
         }
-        public int ReturnH(TKey key)
+        public int CreateHash(TKey key)
         {
             return Math.Abs(key.GetHashCode() % dictList.Length);
         }
         public void Add(TKey key, TValue value)
         {
-            int previous = 0;
-            int h = ReturnH(key);
+            int previous = -1;
+            int h = CreateHash(key);
             counter++;
-            if (hashList[h] == 0)
+            if (hashList[h] == -1)
             {
                 hashList[h]= counter;
             }
