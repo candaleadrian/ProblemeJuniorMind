@@ -5,16 +5,16 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DictionaryProgram
 {
-    public class DictionaryClass<TKey, TValue> : IDictionary<TKey, TValue>
+    public class Dictionary<TKey, TValue> : IDictionary<TKey, TValue>
     {
         private int counter;
-        private int?[] hashList;
-        private DictData[] dictList;
-        public DictionaryClass()
+        private int?[] bucket;
+        private DictData[] elements;
+        public Dictionary()
         {
             counter = 0;
-            hashList = new int?[10];
-            dictList = new DictData[10];
+            bucket = new int?[10];
+            elements = new DictData[10];
         }
 
         private struct DictData
@@ -65,7 +65,7 @@ namespace DictionaryProgram
         {
             get
             {
-                throw new NotImplementedException();
+                return ValueOfKey(key);
             }
 
             set
@@ -76,29 +76,37 @@ namespace DictionaryProgram
 
         public bool ContainsKey(TKey key)
         {
-            if (hashList[CreateHash(key)].HasValue)
-            {
-                var tmp = hashList[CreateHash(key)];
-                do
-                {
-                    if (dictList[tmp.Value].key.Equals(key))
-                        return true;                    
-                    tmp = dictList[tmp.Value].previous;
-                } while (tmp != null);
-            }
+            if (!ValueOfKey(key).Equals(default(TValue)))
+                return true;
             return false;
         }
+
+        private TValue ValueOfKey(TKey key)
+        {
+            if (bucket[CreateHash(key)].HasValue)
+            {
+                var tmp = bucket[CreateHash(key)];
+                do
+                {
+                    if (elements[tmp.Value].key.Equals(key))
+                          return elements[tmp.Value].value;                    
+                        tmp = elements[tmp.Value].previous;
+                } while (tmp != null);
+            }
+            return default(TValue);
+        }
+
         public int CreateHash(TKey key)
         {
-            return Math.Abs(key.GetHashCode() % dictList.Length);
+            return Math.Abs(key.GetHashCode() % bucket.Length);
         }
         public void Add(TKey key, TValue value)
         {
-            int h = CreateHash(key);
-            int? previous = hashList[h];
-            if (!hashList[h].HasValue)
-                hashList[h] = counter;
-            dictList[counter] = new DictData(key,value,previous);
+            int hash = CreateHash(key);
+            int? previous = bucket[hash];
+            if (!bucket[hash].HasValue)
+                bucket[hash] = counter;
+            elements[counter] = new DictData(key,value,previous);
             counter++;
         }
 
