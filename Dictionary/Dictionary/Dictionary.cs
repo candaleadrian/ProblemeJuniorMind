@@ -7,15 +7,22 @@ namespace DictionaryProgram
 {
     public class DictionaryClass<TKey, TValue> : IDictionary<TKey, TValue>
     {
-        private int counter = -1;        
-        private int[] hashList = { -1,-1, -1, -1, -1, -1, -1, -1, -1, -1};
-        public DictData[] dictList = new DictData[10];
-        public struct DictData
+        private int counter;
+        private int?[] hashList;
+        private DictData[] dictList;
+        public DictionaryClass()
+        {
+            counter = 0;
+            hashList = new int?[10];
+            dictList = new DictData[10];
+        }
+
+        private struct DictData
         {
             public TKey key;
-            private TValue value;
-            public int previous;
-            public DictData(TKey key, TValue value,int previous)
+            public TValue value;
+            public int? previous;
+            public DictData(TKey key, TValue value,int? previous)
             {
                 this.key = key;
                 this.value = value;
@@ -69,17 +76,17 @@ namespace DictionaryProgram
 
         public bool ContainsKey(TKey key)
         {
-            bool result = false;
-            int tmp = hashList[CreateHash(key)];
-            do
+            if (hashList[CreateHash(key)].HasValue)
             {
-                if (dictList[tmp].key.Equals(key))
+                var tmp = hashList[CreateHash(key)];
+                do
                 {
-                    result = true;
-                }
-                tmp = dictList[tmp].previous;
-            } while (tmp >= 0); //&& dictList[tmp].previous != -1);
-            return result;
+                    if (dictList[tmp.Value].key.Equals(key))
+                        return true;                    
+                    tmp = dictList[tmp.Value].previous;
+                } while (tmp != null);
+            }
+            return false;
         }
         public int CreateHash(TKey key)
         {
@@ -87,18 +94,12 @@ namespace DictionaryProgram
         }
         public void Add(TKey key, TValue value)
         {
-            int previous = -1;
             int h = CreateHash(key);
-            counter++;
-            if (hashList[h] == -1)
-            {
-                hashList[h]= counter;
-            }
-            else
-            {
-                previous = hashList[h];
-            }
+            int? previous = hashList[h];
+            if (!hashList[h].HasValue)
+                hashList[h] = counter;
             dictList[counter] = new DictData(key,value,previous);
+            counter++;
         }
 
         public bool Remove(TKey key)

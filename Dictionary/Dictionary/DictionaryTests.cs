@@ -14,7 +14,7 @@ namespace DictionaryProgram
         {
             DictionaryClass<int, string> dictList = new DictionaryClass<int, string>();
             int result = dictList.Count;
-            int expected = -1;
+            int expected = 0;
             Assert.Equal(expected, result);
         }
         [Fact]
@@ -23,7 +23,7 @@ namespace DictionaryProgram
             DictionaryClass<string, int> dictList = new DictionaryClass<string, int>();
             dictList.Add("dogs", 7);
             int result = dictList.Count;
-            int expected = 0;
+            int expected = 1;
             Assert.Equal(expected, result);
         }
         [Fact]
