@@ -73,5 +73,26 @@ namespace DictionaryProgram
             int result = dictList["cats"];
             Assert.Equal(15, result);
         }
+        [Fact]
+        public void ShouldReturnTrueAfterREmovingOneElement()
+        {
+            var dictList = new Dictionary<string, int>();
+            dictList.Add("dogs", 7);
+            dictList.Add("cats", 15);
+            dictList.Add("dog", 1);
+            bool result = dictList.Remove("cats");
+            Assert.True(result);
+        }
+        [Fact]
+        public void ShouldCheckIfElementIsRemovedFromDictionary()
+        {
+            var dictList = new Dictionary<string, int>();
+            dictList.Add("dogs", 7);
+            dictList.Add("cats", 15);
+            dictList.Add("dog", 1);
+            dictList.Remove("cats");
+            bool result = dictList.ContainsKey("cats");
+            Assert.False(result);
+        }
     }
 }

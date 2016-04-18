@@ -65,7 +65,7 @@ namespace DictionaryProgram
         {
             get
             {
-                return ValueOfKey(key);
+               return elements[ValueOfKey(key)].value;
             }
 
             set
@@ -76,12 +76,12 @@ namespace DictionaryProgram
 
         public bool ContainsKey(TKey key)
         {
-            if (!ValueOfKey(key).Equals(default(TValue)))
+            if (ValueOfKey(key)>=0)
                 return true;
             return false;
         }
 
-        private TValue ValueOfKey(TKey key)
+        private int ValueOfKey(TKey key)
         {
             if (bucket[CreateHash(key)].HasValue)
             {
@@ -89,11 +89,11 @@ namespace DictionaryProgram
                 do
                 {
                     if (elements[tmp.Value].key.Equals(key))
-                          return elements[tmp.Value].value;                    
+                          return tmp.Value;                    
                         tmp = elements[tmp.Value].previous;
                 } while (tmp != null);
             }
-            return default(TValue);
+            return -1;
         }
 
         public int CreateHash(TKey key)
@@ -112,7 +112,16 @@ namespace DictionaryProgram
 
         public bool Remove(TKey key)
         {
-            throw new NotImplementedException();
+            int index = ValueOfKey(key);
+            if (index<0)
+                return false;
+            while (index>=0 && index<elements.Length-1)
+            {
+                elements[index] = elements[index + 1];
+                index++;
+            };
+            Array.Resize(ref elements, elements.Length - 1);
+            return true;
         }
 
         public bool TryGetValue(TKey key, out TValue value)
