@@ -65,7 +65,7 @@ namespace DictionaryProgram
         {
             get
             {
-               return elements[ValueOfKey(key)].value;
+               return elements[ReturnElementsIndexForTheKey(key)].value;
             }
 
             set
@@ -76,12 +76,12 @@ namespace DictionaryProgram
 
         public bool ContainsKey(TKey key)
         {
-            if (ValueOfKey(key)>=0)
+            if (ReturnElementsIndexForTheKey(key)>=0)
                 return true;
             return false;
         }
 
-        private int ValueOfKey(TKey key)
+        private int ReturnElementsIndexForTheKey(TKey key)
         {
             if (bucket[CreateHash(key)].HasValue)
             {
@@ -112,15 +112,18 @@ namespace DictionaryProgram
 
         public bool Remove(TKey key)
         {
-            int index = ValueOfKey(key);
+            int index = ReturnElementsIndexForTheKey(key);
             if (index<0)
                 return false;
-            while (index>=0 && index<elements.Length-1)
+            int hash = CreateHash(key);
+            if (elements[bucket[hash].Value].key.Equals(key))
             {
-                elements[index] = elements[index + 1];
-                index++;
-            };
-            Array.Resize(ref elements, elements.Length - 1);
+                if (elements[bucket[hash].Value].previous==null)
+                {
+                    elements[bucket[hash].Value] = new DictData();
+                    bucket[hash] = null;
+                }
+            }
             return true;
         }
 

@@ -94,5 +94,16 @@ namespace DictionaryProgram
             bool result = dictList.ContainsKey("cats");
             Assert.False(result);
         }
+        [Fact]
+        public void ShouldCheckIfLastElementIsRemovedFromDictionary()
+        {
+            var dictList = new Dictionary<string, int>();
+            dictList.Add("dogs", 7);
+            dictList.Add("cats", 15);
+            dictList.Add("dog", 1);
+            dictList.Remove("dog");
+            bool result = dictList.ContainsKey("dog");
+            Assert.False(result);
+        }
     }
 }
