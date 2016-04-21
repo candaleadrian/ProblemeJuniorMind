@@ -83,9 +83,10 @@ namespace DictionaryProgram
 
         private int ReturnElementsIndexForTheKey(TKey key)
         {
-            if (bucket[CreateHash(key)].HasValue)
+            var index = CreateHash(key);
+            if (bucket[index].HasValue)
             {
-                var tmp = bucket[CreateHash(key)];
+                var tmp = bucket[index];
                 do
                 {
                     if (elements[tmp.Value].key.Equals(key))
@@ -104,10 +105,25 @@ namespace DictionaryProgram
         {
             int hash = CreateHash(key);
             int? previous = bucket[hash];
-            if (!bucket[hash].HasValue)
-                bucket[hash] = counter;
-            elements[counter] = new DictData(key,value,previous);
-            counter++;
+            int index = ReturnElementsFirstEmptyIndex();
+            if (index >= 0)
+            {
+                elements[index] = new DictData(key, value, previous);
+                bucket[hash] = index;
+                counter++;
+            }
+        }
+
+        private int ReturnElementsFirstEmptyIndex()
+        {
+            for (int i = 0; i < elements.Length; i++)
+            {
+                if (elements[i].key == null)
+                {
+                    return i;
+                }
+            }
+            return -1;
         }
 
         public bool Remove(TKey key)
@@ -116,15 +132,26 @@ namespace DictionaryProgram
             if (index<0)
                 return false;
             int hash = CreateHash(key);
-            if (elements[bucket[hash].Value].key.Equals(key))
+            var tmp = elements[bucket[hash].Value];
+            do
             {
-                if (elements[bucket[hash].Value].previous==null)
+                if (tmp.key.Equals(key))
                 {
-                    elements[bucket[hash].Value] = new DictData();
-                    bucket[hash] = null;
+                    if (tmp.previous != null)
+                    {
+                        bucket[hash] = tmp.previous.Value;
+                    }
+                    else
+                    {
+                        elements[bucket[hash].Value] = new DictData();
+                        bucket[hash] = null;
+                        return true;
+                    }
+
                 }
-            }
-            return true;
+                tmp = elements[tmp.previous.Value];
+            } while (tmp.previous != null);
+        return true;
         }
 
         public bool TryGetValue(TKey key, out TValue value)

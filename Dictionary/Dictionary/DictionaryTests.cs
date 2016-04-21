@@ -61,7 +61,7 @@ namespace DictionaryProgram
             dictList.Add("cats", 15);
             dictList.Add("dog", 1);
             bool result = dictList.ContainsKey("dog");
-            Assert.False(result);
+            Assert.True(result);
         }
         [Fact]
         public void ShouldReturnValueForAKey()
@@ -104,6 +104,17 @@ namespace DictionaryProgram
             dictList.Remove("dog");
             bool result = dictList.ContainsKey("dog");
             Assert.False(result);
+        }
+        [Fact]
+        public void ShouldCheckIfFirstElementIsRemovedFromDictionary()
+        {
+            var dictList = new Dictionary<string, int>();
+            dictList.Add("dogs", 7);
+            dictList.Add("cats", 15);
+            dictList.Add("dog", 1);
+            dictList.Remove("dogs");
+            bool result = dictList.ContainsKey("dog");
+            Assert.True(result);
         }
     }
 }
