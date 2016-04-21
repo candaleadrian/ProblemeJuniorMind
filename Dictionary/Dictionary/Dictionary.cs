@@ -145,6 +145,7 @@ namespace DictionaryProgram
                     {
                         elements[bucket[hash].Value] = new DictData();
                         bucket[hash] = null;
+                        counter--;
                         return true;
                     }
 
