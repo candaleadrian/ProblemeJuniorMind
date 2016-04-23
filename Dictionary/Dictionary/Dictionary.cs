@@ -10,6 +10,7 @@ namespace DictionaryProgram
         private int counter;
         private int?[] bucket;
         private DictData[] elements;
+        private int? freeIndex;
         public Dictionary()
         {
             counter = 0;
@@ -133,22 +134,33 @@ namespace DictionaryProgram
                 return false;
             int hash = CreateHash(key);
             var tmp = elements[bucket[hash].Value];
+            DictData lastTmp = new DictData();
             do
             {
                 if (tmp.key.Equals(key))
                 {
-                    if (tmp.previous != null)
+                    freeIndex = index;
+                    counter--;
+                    if (lastTmp.key.Equals(null) && tmp.previous != null)
                     {
-                        bucket[hash] = tmp.previous.Value;
-                    }
-                    else
-                    {
-                        elements[bucket[hash].Value] = new DictData();
                         bucket[hash] = null;
-                        counter--;
-                        return true;
                     }
-
+                    if (!lastTmp.key.Equals(null))
+                    {
+                        lastTmp.previous = tmp.previous;
+                    }
+                    //if (tmp.previous != null)
+                    //{
+                    //    if (bucket[hash]==index && )
+                    //  //  bucket[hash] = tmp.previous.Value;
+                    //}
+                    //else
+                    //{
+                    //    elements[bucket[hash].Value] = new DictData();
+                    //    bucket[hash] = null;
+                    //    counter--;
+                    //    return true;
+                    //}                
                 }
                 tmp = elements[tmp.previous.Value];
             } while (tmp.previous != null);
