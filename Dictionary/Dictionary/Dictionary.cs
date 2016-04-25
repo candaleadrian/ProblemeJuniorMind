@@ -117,6 +117,12 @@ namespace DictionaryProgram
 
         private int ReturnElementsFirstEmptyIndex()
         {
+            if (freeIndex!=null)
+            {
+                int? tmp = freeIndex;
+                freeIndex = elements[freeIndex.Value].previous.Value;
+                return tmp.Value;
+            }
             for (int i = 0; i < elements.Length; i++)
             {
                 if (elements[i].key == null)
@@ -134,37 +140,28 @@ namespace DictionaryProgram
                 return false;
             int hash = CreateHash(key);
             var tmp = elements[bucket[hash].Value];
-            DictData lastTmp = new DictData();
             do
             {
+            int? previous = tmp.previous;
                 if (tmp.key.Equals(key))
                 {
-                    freeIndex = index;
-                    counter--;
-                    if (lastTmp.key.Equals(null) && tmp.previous != null)
+                    if (tmp.previous == null)
                     {
                         bucket[hash] = null;
+                        return true;
                     }
-                    if (!lastTmp.key.Equals(null))
+                    else
                     {
-                        lastTmp.previous = tmp.previous;
+                        bucket[hash] = tmp.previous;
+                        elements[tmp.previous.Value].previous = previous.Value;
                     }
-                    //if (tmp.previous != null)
-                    //{
-                    //    if (bucket[hash]==index && )
-                    //  //  bucket[hash] = tmp.previous.Value;
-                    //}
-                    //else
-                    //{
-                    //    elements[bucket[hash].Value] = new DictData();
-                    //    bucket[hash] = null;
-                    //    counter--;
-                    //    return true;
-                    //}                
+                    tmp.previous = freeIndex;
+                    freeIndex = index;
+                    counter--;
                 }
                 tmp = elements[tmp.previous.Value];
             } while (tmp.previous != null);
-        return true;
+            return true;
         }
 
         public bool TryGetValue(TKey key, out TValue value)
