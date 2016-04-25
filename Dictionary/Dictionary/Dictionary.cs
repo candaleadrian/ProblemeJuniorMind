@@ -149,7 +149,8 @@ namespace DictionaryProgram
                         bucket[hash] = null;
                         return true;
                     }
-                    bucket[hash] = tmp.previous;
+                    if (bucket[hash]==index)
+                        bucket[hash] = tmp.previous;
                     elements[index].previous = freeIndex;
                     freeIndex = index;
                 }
