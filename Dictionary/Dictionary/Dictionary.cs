@@ -139,10 +139,9 @@ namespace DictionaryProgram
             if (index<0)
                 return false;
             int hash = CreateHash(key);
-            var tmp = elements[bucket[hash].Value];
+            DictData tmp = elements[bucket[hash].Value];
             do
             {
-            int? previous = tmp.previous;
                 if (tmp.key.Equals(key))
                 {
                     if (tmp.previous == null)
@@ -150,14 +149,13 @@ namespace DictionaryProgram
                         bucket[hash] = null;
                         return true;
                     }
-                    else
-                    {
-                        bucket[hash] = tmp.previous;
-                        elements[tmp.previous.Value].previous = previous.Value;
-                    }
-                    tmp.previous = freeIndex;
+                    bucket[hash] = tmp.previous;
+                    elements[index].previous = freeIndex;
                     freeIndex = index;
-                    counter--;
+                }
+                if (tmp.previous==index)
+                {
+                    elements[ReturnElementsIndexForTheKey(tmp.key)].previous = elements[tmp.previous.Value].previous;
                 }
                 tmp = elements[tmp.previous.Value];
             } while (tmp.previous != null);
