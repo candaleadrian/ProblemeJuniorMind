@@ -120,7 +120,7 @@ namespace DictionaryProgram
             if (freeIndex!=null)
             {
                 int? tmp = freeIndex;
-                freeIndex = elements[freeIndex.Value].previous.Value;
+                freeIndex = elements[freeIndex.Value].previous;
                 return tmp.Value;
             }
             for (int i = 0; i < elements.Length; i++)
@@ -144,7 +144,7 @@ namespace DictionaryProgram
             {
                 if (tmp.key.Equals(key))
                 {
-                    if (tmp.previous == null)
+                    if (tmp.previous == null && bucket[hash] == index )
                     {
                         bucket[hash] = null;
                         return true;
@@ -153,14 +153,20 @@ namespace DictionaryProgram
                         bucket[hash] = tmp.previous;
                     elements[index].previous = freeIndex;
                     freeIndex = index;
+                    return true;
                 }
                 if (tmp.previous==index)
                 {
-                    elements[ReturnElementsIndexForTheKey(tmp.key)].previous = elements[tmp.previous.Value].previous;
+                    CorrectElementPreviousIFPreviousIsRemoved(tmp);
                 }
                 tmp = elements[tmp.previous.Value];
-            } while (tmp.previous != null);
+            } while (freeIndex != index);
             return true;
+        }
+
+        private void CorrectElementPreviousIFPreviousIsRemoved(DictData tmp)
+        {
+            elements[ReturnElementsIndexForTheKey(tmp.key)].previous = elements[tmp.previous.Value].previous;
         }
 
         public bool TryGetValue(TKey key, out TValue value)
