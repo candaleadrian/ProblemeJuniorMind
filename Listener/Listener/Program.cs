@@ -55,7 +55,7 @@ class MyTcpListener
                     data = data.ToUpper();
 
                     //byte[] msg = System.Text.Encoding.ASCII.GetBytes(data);
-                    byte[] msg = System.Text.Encoding.ASCII.GetBytes("<html><body><h1>Merge?</h1></body></html>");
+                    byte[] msg = System.Text.Encoding.ASCII.GetBytes("<html><body><h1>Merge?</h1><img src='http://ichef.bbci.co.uk/news/976/cpsprodpb/1572B/production/_88615878_976x1024n0037151.jpg'/></body></html>");
 
                     // Send back a response.
                     stream.Write(msg, 0, msg.Length);
