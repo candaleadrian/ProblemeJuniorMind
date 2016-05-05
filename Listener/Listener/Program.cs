@@ -24,7 +24,7 @@ class MyTcpListener
             server.Start();
 
             // Buffer for reading data
-            Byte[] bytes = new Byte[256];
+            Byte[] bytes = new Byte[1026];
             String data = null;
 
             // Enter the listening loop.
@@ -55,7 +55,12 @@ class MyTcpListener
                     data = data.ToUpper();
 
                     //byte[] msg = System.Text.Encoding.ASCII.GetBytes(data);
-                    byte[] msg = System.Text.Encoding.ASCII.GetBytes("<html><body><h1>Merge?</h1><img src='http://ichef.bbci.co.uk/news/976/cpsprodpb/1572B/production/_88615878_976x1024n0037151.jpg'/></body></html>");
+                    string html = "<html><body><h1>Merge?</h1><img src='http://ichef.bbci.co.uk/news/976/cpsprodpb/1572B/production/_88615878_976x1024n0037151.jpg'/></body></html>";
+                    string header = "HTTP / 1.1 200 OK\r\n" +
+                        "Content-Length:" + html.Length + "\r\n" +
+                        "Connection: clone\r\n" +
+                        "\r\n";
+                    byte[] msg = System.Text.Encoding.ASCII.GetBytes(header+html);
 
                     // Send back a response.
                     stream.Write(msg, 0, msg.Length);
