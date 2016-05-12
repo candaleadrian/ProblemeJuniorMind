@@ -17,13 +17,13 @@ namespace WebApp.Controllers
         }
          
         // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{id}/{id2}")]
+        public string Get(int id, int id2)
         {
             double probability = 1;
             for (int i = 0; i < id; i++)
             {
-                probability = probability * (id - i) / (49 - i);
+                probability = probability * (id - i) / (id2 - i);
             }
             return probability.ToString();
         }
