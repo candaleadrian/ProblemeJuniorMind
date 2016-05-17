@@ -10,6 +10,7 @@ namespace WebApp.Controllers
     [Route("mainpage.html/[controller]")]
     public class ValuesController : Controller
     {
+
         // GET: api/values
         [HttpGet]
         public IEnumerable<string> Get()
@@ -21,12 +22,9 @@ namespace WebApp.Controllers
         [HttpGet("{id}/{id2}")]
         public string Get(int id, int id2)
         {
-            double probability = 1;
-            for (int i = 0; i < id; i++)
-            {
-                probability = probability * (id - i) / (id2 - i);
-            }
-            return probability.ToString();
+            
+            pasword.PasswordOptions tmp = new pasword.PasswordOptions(8,1,1,1,true,true);
+            return pasword.GeneratePassword(tmp);
         }
 
         // POST api/values

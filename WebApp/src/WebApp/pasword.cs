@@ -7,7 +7,7 @@ namespace WebApp
 {
     public class pasword
     {
-        string GeneratePassword(PasswordOptions Options)
+        public string GeneratePassword(PasswordOptions Options)
         {
             string password = string.Empty;
             password += ReturnRandomSymbolsStringKnowingLength(Options.symbols, Options.ambiguous);
@@ -84,6 +84,15 @@ namespace WebApp
             public int symbols;
             public bool similar;
             public bool ambiguous;
+            public PasswordOptions(int length, int upperCaseCharacters, int numbers, int symbols, bool similar, bool ambiguous)
+            {
+                this.length = length;
+                this.upperCaseCharacters = upperCaseCharacters;
+                this.numbers = numbers;
+                this.symbols = symbols;
+                this.similar = similar;
+                this.ambiguous = ambiguous;
+            }
         }
     }    
 }

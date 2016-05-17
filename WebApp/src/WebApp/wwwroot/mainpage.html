@@ -19,6 +19,13 @@
         <input type="checkbox" name="Similar" value="Yes"> Dont use similar caracters<br>
         <input type="checkbox" name="Ambigous" value="Yes"> Use ambiguous caracters<br>
         <input type="submit">
-   </form>
+
+    </form>
+    <p id="demo"></p>
+    <script>
+        var myElement = document.getElementsByName("paswLength");
+        document.getElementById("demo").innerHTML =
+        "The text from the intro paragraph is " + myElement.innerHTML;
+    </script>
 </body>
 </html>
