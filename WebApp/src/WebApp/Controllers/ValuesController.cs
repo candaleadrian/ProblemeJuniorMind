@@ -6,7 +6,8 @@ using Microsoft.AspNet.Mvc;
 
 namespace WebApp.Controllers
 {
-    [Route("api/[controller]")]
+  //  [Route("api/[controller]")]
+    [Route("mainpage.html/[controller]")]
     public class ValuesController : Controller
     {
         // GET: api/values
