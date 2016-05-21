@@ -6,8 +6,7 @@ using Microsoft.AspNet.Mvc;
 
 namespace WebApp.Controllers
 {
-  //  [Route("api/[controller]")]
-    [Route("mainpage.html/[controller]")]
+    [Route("api/[controller]")]
     public class ValuesController : Controller
     {
 
@@ -19,12 +18,12 @@ namespace WebApp.Controllers
         }
          
         // GET api/values/5
-        [HttpGet("{id}/{id2}")]
+        [HttpGet("{id}")]
         public string Get(int id, int id2)
         {
             
-            pasword.PasswordOptions tmp = new pasword.PasswordOptions(8,1,1,1,true,true);
-            return pasword.GeneratePassword(tmp);
+            Pasword.PasswordOptions tmp = new Pasword.PasswordOptions(8,1,1,1,true,true);
+            return Pasword.GeneratePassword(tmp);
         }
 
         // POST api/values

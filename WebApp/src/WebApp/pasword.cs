@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace WebApp
 {
-    public class pasword
+    public class Pasword
     {
-        public string GeneratePassword(PasswordOptions Options)
+        public static string GeneratePassword(PasswordOptions Options)
         {
             string password = string.Empty;
             password += ReturnRandomSymbolsStringKnowingLength(Options.symbols, Options.ambiguous);
@@ -17,7 +17,7 @@ namespace WebApp
             password = ShuffleString(password);
             return password;
         }
-        private string ShuffleString(string password)
+        private static string ShuffleString(string password)
         {
             char[] array = password.ToCharArray();
             for (int i = 0; i < array.Length * random.Next(array.Length, array.Length * 10); i++)
@@ -30,7 +30,7 @@ namespace WebApp
             }
             return new string(array);
         }
-        private bool CheckIfCharIsContaindInSimilarString(char charToCheck, string stringToCheck)
+        private static bool CheckIfCharIsContaindInSimilarString(char charToCheck, string stringToCheck)
         {
             foreach (char item in stringToCheck)
             {
@@ -44,7 +44,7 @@ namespace WebApp
             char[] array = letter.ToCharArray();
             return array[0];
         }
-        private string ReturnRandomSymbolsStringKnowingLength(int length, bool ambiguous)
+        private static string ReturnRandomSymbolsStringKnowingLength(int length, bool ambiguous)
         {
             string password = string.Empty;
             string symbols = "!@#$%^&*()_+{}[]()/\'~,;.<>"+'"';
@@ -61,7 +61,7 @@ namespace WebApp
             }
             return password;
         }
-        private string GenerateRandomString(int length, int minRange, int maxRange, bool similar)
+        private static string GenerateRandomString(int length, int minRange, int maxRange, bool similar)
         {
             string password = string.Empty;
             for (int i = 0; i < length; i++)
@@ -75,7 +75,7 @@ namespace WebApp
             }
             return password;
         }
-        public Random random = new Random();
+        public static Random random = new Random();
         public struct PasswordOptions
         {
             public int length;
