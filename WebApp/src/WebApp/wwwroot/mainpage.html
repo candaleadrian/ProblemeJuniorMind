@@ -9,43 +9,43 @@
 <body>
     <form >
         Pasword length:<br>
-        <input type="number" id="passL" name="passwLength"><br>
-        <!--<input type="number" id="passL" onchange="GetPassLength()" name="passwLength"><br>-->
+        <input type="number" id="passL"><br>
         Number of pasword upper case leters:<br>
-        <input type="number" name="uppCase"><br>
+        <input type="number" id="uppCase"><br>
         Number of numbers characters:<br>
-        <input type="number" name="numbers"><br>
+        <input type="number" id="numbers"><br>
         Number of symbols:<br>
-        <input type="number" name="symbNum"><br>
+        <input type="number" id="symbNum"><br>
         <input type="checkbox" name="Similar" value="Yes"> Dont use similar caracters<br>
         <input type="checkbox" name="Ambigous" value="Yes"> Use ambiguous caracters<br>
         <button onclick="test()">Submit</button>        
 
     </form>
 
-    <p id="demo"></p>
+        <p id="demo"></p>
 
     <script>
         function test() {
             var length = document.getElementById("passL").value;
+            var upp = document.getElementById("uppCase").value;
+            var nr = document.getElementById("numbers").value;
+            var symb = document.getElementById("symbNum").value;
             console.log(length);
-        }
+            console.log(upp);
+            console.log(nr);
+            console.log(symb);
 
-    </script>
-
-    <!--<script>
-        function GetPassLength() {
             var xhttp = new XMLHttpRequest();
-            var tmp = 
-            console.log(xhttp);
             xhttp.onreadystatechange = function () {
                 if (xhttp.readyState == 4 && xhttp.status == 200) {
                     document.getElementById("demo").innerHTML = xhttp.responseText;
                 }
             };
-            xhttp.open("GET", "api/value/5", true);
+            xhttp.open("GET", "api/values/length", true);
             xhttp.send();
+
         }
-    </script>-->
+
+    </script>
 </body>
 </html>
