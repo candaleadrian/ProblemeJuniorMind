@@ -19,7 +19,7 @@ namespace WebApp.Controllers
          
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id, int id2)
+        public string Get(int id)
         {
             
             Pasword.PasswordOptions tmp = new Pasword.PasswordOptions(8,1,1,1,true,true);

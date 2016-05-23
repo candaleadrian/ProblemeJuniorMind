@@ -7,9 +7,10 @@
     <title>Functioneaza?</title>
 </head>
 <body>
-    <form>
+    <form >
         Pasword length:<br>
-        <input type="number" name="paswLength"><br>
+        <input type="number" id="passL" name="passwLength"><br>
+        <!--<input type="number" id="passL" onchange="GetPassLength()" name="passwLength"><br>-->
         Number of pasword upper case leters:<br>
         <input type="number" name="uppCase"><br>
         Number of numbers characters:<br>
@@ -18,14 +19,33 @@
         <input type="number" name="symbNum"><br>
         <input type="checkbox" name="Similar" value="Yes"> Dont use similar caracters<br>
         <input type="checkbox" name="Ambigous" value="Yes"> Use ambiguous caracters<br>
-        <input type="submit">
+        <button onclick="test()">Submit</button>        
 
     </form>
+
     <p id="demo"></p>
+
     <script>
-        var myElement = document.getElementsByName("paswLength");
-        document.getElementById("demo").innerHTML =
-        "The text from the intro paragraph is " + myElement.innerHTML;
+        function test() {
+            var length = document.getElementById("passL").value;
+            console.log(length);
+        }
+
     </script>
+
+    <!--<script>
+        function GetPassLength() {
+            var xhttp = new XMLHttpRequest();
+            var tmp = 
+            console.log(xhttp);
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState == 4 && xhttp.status == 200) {
+                    document.getElementById("demo").innerHTML = xhttp.responseText;
+                }
+            };
+            xhttp.open("GET", "api/value/5", true);
+            xhttp.send();
+        }
+    </script>-->
 </body>
 </html>
