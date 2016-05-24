@@ -22,6 +22,12 @@
 
     </form>
 
+
+    <p><b>Status:</b> <span id="A1"></span></p>
+    <p><b>Status text:</b> <span id="A2"></span></p>
+    <p><b>Response:</b> <span id="A3"></span></p>
+
+
         <p id="demo"></p>
 
     <script>
@@ -40,10 +46,17 @@
             xhttp.onreadystatechange = function () {
                 if (xhttp.readyState == 4 && xhttp.status == 200) {
                     document.getElementById("demo").innerHTML = xhttp.responseText;
+                    console.log("testtesttest");
+
+
+                    document.getElementById('A1').innerHTML = xhttp.status;
+                    document.getElementById('A2').innerHTML = xhttp.statusText;
+                    document.getElementById('A3').innerHTML = xhttp.responseText;
 
                 }
+                console.log("test");
             };
-            xhttp.open("GET", "api/values/" + length, true);
+            xhttp.open("GET", "http://localhost:50575/api/values/" + length, true);
             xhttp.send();
             console.log(xhttp.responseText);
 
