@@ -19,7 +19,7 @@
         <input type="checkbox" name="Similar" value="Yes"> Dont use similar caracters<br>
         <input type="checkbox" name="Ambigous" value="Yes"> Use ambiguous caracters<br>
     </form>
-    <form action="api/values/" onsubmit="test()">
+    <form onsubmit="test()">
         <input type="submit" id="subm" value="Submit">
     </form>
 
@@ -33,7 +33,7 @@
 
     <script>
         function test() {
-            document.getElementById("subm").addEventListener(onclick, function (event) {
+            document.getElementById("subm").addEventListener("click", function (event) {
                 event.preventDefault()
             });
             var length = document.getElementById("passL").value;
@@ -62,7 +62,7 @@
             };
             xhttp.open("GET", "http://localhost:50575/api/values/" + length, true);
             xhttp.send();
-            console.log(xhttp.responseText);
+            console.log("ar trebui sa fie :" + xhttp.responseText);
 
         }
 
