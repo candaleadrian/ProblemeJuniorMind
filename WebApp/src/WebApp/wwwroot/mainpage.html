@@ -18,8 +18,9 @@
         <input type="number" id="symbNum"><br>
         <input type="checkbox" name="Similar" value="Yes"> Dont use similar caracters<br>
         <input type="checkbox" name="Ambigous" value="Yes"> Use ambiguous caracters<br>
-        <button onclick="test()">Submit</button>        
-
+    </form>
+    <form action="api/values/" onsubmit="test()">
+        <input type="submit" id="subm" value="Submit">
     </form>
 
 
@@ -32,6 +33,9 @@
 
     <script>
         function test() {
+            document.getElementById("subm").addEventListener(onclick, function (event) {
+                event.preventDefault()
+            });
             var length = document.getElementById("passL").value;
             var upp = document.getElementById("uppCase").value;
             var nr = document.getElementById("numbers").value;
