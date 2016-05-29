@@ -9,20 +9,20 @@
 <body>
     <form >
         Pasword length:<br>
-        <input type="number" id="passL"><br>
+        <input type="number" id="passL" value="8"><br>
         Number of pasword upper case leters:<br>
-        <input type="number" id="uppCase"><br>
+        <input type="number" id="uppCase" value="0"><br>
         Number of numbers characters:<br>
-        <input type="number" id="numbers"><br>
+        <input type="number" id="numbers" value="0"><br>
         Number of symbols:<br>
-        <input type="number" id="symbNum"><br>
-        <input type="checkbox" name="Similar" value="Yes"> Dont use similar caracters<br>
-        <input type="checkbox" name="Ambigous" value="Yes"> Use ambiguous caracters<br>
+        <input type="number" id="symbNum" value="0"><br>
+        <input type="checkbox" id="simi" name="Similar"> Dont use similar caracters<br>
+        <input type="checkbox" name="Ambigous"> Use ambiguous caracters<br>
     </form>
     <form onsubmit="test(event)">
         <input type="submit" id="subm" value="Submit">
     </form>
-        <p Password is:></p>
+        <p> Password is:</p>
         <p id="demo"></p>
 
     <script>
@@ -32,24 +32,16 @@
             var upp = document.getElementById("uppCase").value;
             var nr = document.getElementById("numbers").value;
             var symb = document.getElementById("symbNum").value;
-            console.log(length);
-            console.log(upp);
-            console.log(nr);
-            console.log(symb);
-            console.log("api/values/" + length + "/" + upp + "/");
-
+            var sim = document.getElementById("simi").checked;
+            console.log(sim);
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
                 if (xhttp.readyState == 4 && xhttp.status == 200) {
                     document.getElementById("demo").innerHTML = xhttp.responseText;
-                    console.log("testtesttest");
                 }
-                console.log("test");
             };
-            xhttp.open("GET", "http://localhost:50575/api/values/" + length + "/" + upp, true);
+            xhttp.open("GET", "http://localhost:50575/api/values/" + length + "/" + upp + "/" + nr + "/"+ symb + "/" + sim, true);
             xhttp.send();
-            console.log("ar trebui sa fie :" + xhttp.responseText);
-
         }
 
     </script>
