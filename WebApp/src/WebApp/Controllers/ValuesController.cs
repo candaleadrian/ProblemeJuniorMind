@@ -18,11 +18,11 @@ namespace WebApp.Controllers
         }
          
         // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{length}/{upp}")]
+        public string Get(int length,int upp)
         {
             
-            Pasword.PasswordOptions tmp = new Pasword.PasswordOptions(8,1,1,1,true,true);
+            Pasword.PasswordOptions tmp = new Pasword.PasswordOptions(length, upp,1,1,true,true);
             return Pasword.GeneratePassword(tmp);
         }
 

@@ -19,23 +19,15 @@
         <input type="checkbox" name="Similar" value="Yes"> Dont use similar caracters<br>
         <input type="checkbox" name="Ambigous" value="Yes"> Use ambiguous caracters<br>
     </form>
-    <form onsubmit="test()">
+    <form onsubmit="test(event)">
         <input type="submit" id="subm" value="Submit">
     </form>
-
-
-    <p><b>Status:</b> <span id="A1"></span></p>
-    <p><b>Status text:</b> <span id="A2"></span></p>
-    <p><b>Response:</b> <span id="A3"></span></p>
-
-
+        <p Password is:></p>
         <p id="demo"></p>
 
     <script>
-        function test() {
-            document.getElementById("subm").addEventListener("click", function (event) {
-                event.preventDefault()
-            });
+        function test(event) {
+            event.preventDefault()           
             var length = document.getElementById("passL").value;
             var upp = document.getElementById("uppCase").value;
             var nr = document.getElementById("numbers").value;
@@ -44,23 +36,17 @@
             console.log(upp);
             console.log(nr);
             console.log(symb);
-            console.log("api/values/" + length);
+            console.log("api/values/" + length + "/" + upp + "/");
 
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
                 if (xhttp.readyState == 4 && xhttp.status == 200) {
                     document.getElementById("demo").innerHTML = xhttp.responseText;
                     console.log("testtesttest");
-
-
-                    document.getElementById('A1').innerHTML = xhttp.status;
-                    document.getElementById('A2').innerHTML = xhttp.statusText;
-                    document.getElementById('A3').innerHTML = xhttp.responseText;
-
                 }
                 console.log("test");
             };
-            xhttp.open("GET", "http://localhost:50575/api/values/" + length, true);
+            xhttp.open("GET", "http://localhost:50575/api/values/" + length + "/" + upp, true);
             xhttp.send();
             console.log("ar trebui sa fie :" + xhttp.responseText);
 
