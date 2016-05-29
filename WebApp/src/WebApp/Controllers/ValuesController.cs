@@ -18,14 +18,10 @@ namespace WebApp.Controllers
         }
          
         // GET api/values/5
-        [HttpGet("{length}/{upp}/{nr}/{symb}/{sim}")]
-        public string Get(int length,int upp, int nr, int symb, int sim)
+        [HttpGet("{length}/{upp}/{nr}/{symb}/{sim}/{amb}")]
+        public string Get(int length,int upp, int nr, int symb, bool sim, bool amb)
         {
-            bool simBool = false;
-            if (sim != 0)
-                simBool = true;
-
-            Pasword.PasswordOptions tmp = new Pasword.PasswordOptions(length, upp, nr, symb,simBool,true);
+             Pasword.PasswordOptions tmp = new Pasword.PasswordOptions(length, upp, nr, symb,sim, amb);
             return Pasword.GeneratePassword(tmp);
         }
 
