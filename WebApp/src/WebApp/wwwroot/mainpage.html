@@ -16,7 +16,7 @@
         <input type="number" id="numbers" value="0"><br>
         Number of symbols:<br>
         <input type="number" id="symbNum" value="0"><br>
-        <input type="checkbox" id="simi" name="Similar"> Dont use similar caracters<br>
+        <input type="checkbox" id="simi" value="0" name="Similar"> Dont use similar caracters<br>
         <input type="checkbox" name="Ambigous"> Use ambiguous caracters<br>
     </form>
     <form onsubmit="test(event)">
@@ -32,7 +32,7 @@
             var upp = document.getElementById("uppCase").value;
             var nr = document.getElementById("numbers").value;
             var symb = document.getElementById("symbNum").value;
-            var sim = document.getElementById("simi").checked;
+            var sim = document.getElementById("simi").value;
             console.log(sim);
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
