@@ -16,19 +16,20 @@ namespace WebApp.Controllers
         {
             return new string[] { "value1", "value2" };
         }
-         
+
         // GET api/values/5
         [HttpGet("{length}/{upp}/{nr}/{symb}/{sim}/{amb}")]
-        public string Get(int length,int upp, int nr, int symb, bool sim, bool amb)
+        public string Get(int length, int upp, int nr, int symb, bool sim, bool amb)
         {
-             Pasword.PasswordOptions tmp = new Pasword.PasswordOptions(length, upp, nr, symb,sim, amb);
+            Pasword.PasswordOptions tmp = new Pasword.PasswordOptions(length, upp, nr, symb, sim, amb);
             return Pasword.GeneratePassword(tmp);
         }
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public string Post([FromBody] Pasword.PasswordOptions data)
         {
+            return Pasword.GeneratePassword(data);
         }
 
         // PUT api/values/5

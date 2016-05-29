@@ -27,21 +27,25 @@
 
     <script>
         function test(event) {
-            event.preventDefault()           
-            var length = document.getElementById("passL").value;
-            var upp = document.getElementById("uppCase").value;
-            var nr = document.getElementById("numbers").value;
-            var symb = document.getElementById("symbNum").value;
-            var sim = document.getElementById("simi").checked;
-            var amb = document.getElementById("ambiguous").checked;
+            event.preventDefault()
+            const data = {
+                "length" : document.getElementById("passL").value,
+                "upp" : document.getElementById("uppCase").value,
+                "nr" : document.getElementById("numbers").value,
+                "symb" : document.getElementById("symbNum").value,
+                "sim" : document.getElementById("simi").checked,
+                "amb" : document.getElementById("ambiguous").checked
+            }
+            
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
                 if (xhttp.readyState == 4 && xhttp.status == 200) {
                     document.getElementById("demo").innerHTML = xhttp.responseText;
                 }
             };
-            xhttp.open("GET", "http://localhost:50575/api/values/" + length + "/" + upp + "/" + nr + "/"+ symb + "/" + sim + "/" + amb, true);
-            xhttp.send();
+            xhttp.open("POST", "api/values", true);
+            xhttp.setRequestHeader("Content-Type", "application/json");
+            xhttp.send(JSON.stringify(data));
         }
 
     </script>
