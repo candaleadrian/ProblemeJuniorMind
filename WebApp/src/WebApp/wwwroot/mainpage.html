@@ -5,37 +5,48 @@
 <head>
     <meta charset="utf-8" />
     <title>PasswordGenerator</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js">
+    </script>
     <style>
         body {
-            background-color:aqua
+            background-color: aqua;
         }
-        input[type=number], select{
-            width:50%;
-            padding-top: 10px;
-                       
 
+        input[type=number], select {
+            width: 50%;
+            padding-top: 10px;
         }
-        input[type=submit], select{
-            background-color:blue;
-            width:50%;
-            padding-top:15px;
-            font-size:x-large;
-            color:brown;
+
+        input[type=submit], select {
+            background-color: blue;
+            width: 50%;
+            font-size: x-large;
+            color: brown;
         }
+
         #Input {
-            padding-left:35%;
+            padding-left: 35%;
         }
+
         #passw {
-            padding-left:35%;
-            font-size:x-large;
-            color:black;
+            padding-left: 35%;
+            font-size: x-large;
+            color: black;
         }
+
         #demo {
-            padding-left:35%;
-            font-size:xx-large;
-            color:red;
+            padding-left: 35%;
+            font-size: xx-large;
+            color: red;
         }
     </style>
+    <script>
+        $(document).ready(function () {
+            $("#subm").click(function () {
+               $("form").hide();
+            });
+        });
+    </script>
 </head>
 <body>
     <form onsubmit="test(event)" id="Input">
@@ -54,29 +65,29 @@
         <p id="passw"> Your password is:</p>
         <p id="demo"></p>
 
-    <script>
-        function test(event) {
-            event.preventDefault()
-            const data = {
-                "length" : document.getElementById("passL").value,
-                "upperCaseCharacters": document.getElementById("uppCase").value,
-                "numbers": document.getElementById("numbers").value,
-                "symbols": document.getElementById("symbNum").value,
-                "similar": document.getElementById("simi").checked,
-                "ambiguous": document.getElementById("ambiguous").checked
-            }
-            
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (xhttp.readyState == 4 && xhttp.status == 200) {
-                    document.getElementById("demo").innerHTML = xhttp.responseText;
+        <script>
+            function test(event) {
+                event.preventDefault()
+                const data = {
+                    "length": document.getElementById("passL").value,
+                    "upperCaseCharacters": document.getElementById("uppCase").value,
+                    "numbers": document.getElementById("numbers").value,
+                    "symbols": document.getElementById("symbNum").value,
+                    "similar": document.getElementById("simi").checked,
+                    "ambiguous": document.getElementById("ambiguous").checked
                 }
-            };
-            xhttp.open("POST", "api/values", true);
-            xhttp.setRequestHeader("Content-Type", "application/json");
-            xhttp.send(JSON.stringify(data));
-        }
 
-    </script>
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (xhttp.readyState == 4 && xhttp.status == 200) {
+                        document.getElementById("demo").innerHTML = xhttp.responseText;
+                    }
+                };
+                xhttp.open("POST", "api/values", true);
+                xhttp.setRequestHeader("Content-Type", "application/json");
+                xhttp.send(JSON.stringify(data));
+            }
+
+        </script>
 </body>
 </html>
