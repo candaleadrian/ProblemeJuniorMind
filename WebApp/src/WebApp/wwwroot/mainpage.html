@@ -65,7 +65,7 @@
         <p id="passw"> Your password is:</p>
         <p id="demo"></p>
 
-        <script>
+    <script>
             function test(event) {
                 event.preventDefault()
                 const data = {
@@ -77,17 +77,27 @@
                     "ambiguous": document.getElementById("ambiguous").checked
                 }
 
-                var xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function () {
-                    if (xhttp.readyState == 4 && xhttp.status == 200) {
-                        document.getElementById("demo").innerHTML = xhttp.responseText;
-                    }
-                };
-                xhttp.open("POST", "api/values", true);
-                xhttp.setRequestHeader("Content-Type", "application/json");
-                xhttp.send(JSON.stringify(data));
+                $(document).ready(function () {
+                    $("#subm").click(function () {
+                        $.post("api/values","data",
+                        function (data, status) {
+                            alert("Data: " + data + "\nStatus: " + status);
+                        });
+                    });
+                });
+
+
+                //    var xhttp = new XMLHttpRequest();
+                //    xhttp.onreadystatechange = function () {
+                //        if (xhttp.readyState == 4 && xhttp.status == 200) {
+                //            document.getElementById("demo").innerHTML = xhttp.responseText;
+                //        }
+                //    };
+                //    xhttp.open("POST", "api/values", true);
+                //    xhttp.setRequestHeader("Content-Type", "application/json");
+                //    xhttp.send(JSON.stringify(data));
             }
 
-        </script>
+    </script>
 </body>
 </html>
