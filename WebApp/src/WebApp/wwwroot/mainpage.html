@@ -43,13 +43,13 @@
     <script>
         $(document).ready(function () {
             $("#subm").click(function () {
-               $("form").hide();
+                $("form").hide();
             });
         });
     </script>
 </head>
 <body>
-    <form  id="Input">
+    <form onsubmit="test(event)" id="Input">
         Pasword length:<br>
         <input type="number" id="passL" value="8"><br>
         Number of pasword upper case leters:<br>
@@ -62,41 +62,49 @@
         <input type="checkbox" id="ambiguous"> Use ambiguous caracters<br>
         <input type="submit" id="subm" value="Submit">
     </form>
-        <p id="passw"> Your password is:</p>
-        <p id="demo"></p>
+    <p id="passw"> Your password is:</p>
+    <p id="demo"></p>
 
     <script>
-     //       function test(event) {
-     //           event.preventDefault()
-                const data = {
-                    "length": document.getElementById("passL").value,
-                    "upperCaseCharacters": document.getElementById("uppCase").value,
-                    "numbers": document.getElementById("numbers").value,
-                    "symbols": document.getElementById("symbNum").value,
-                    "similar": document.getElementById("simi").checked,
-                    "ambiguous": document.getElementById("ambiguous").checked
-                }
+        function test(event) {
+            event.preventDefault()
+            const data = {
+                "length": document.getElementById("passL").value,
+                "upperCaseCharacters": document.getElementById("uppCase").value,
+                "numbers": document.getElementById("numbers").value,
+                "symbols": document.getElementById("symbNum").value,
+                "similar": document.getElementById("simi").checked,
+                "ambiguous": document.getElementById("ambiguous").checked
+            }
 
-                $(document).ready(function () {
-                    $("#subm").click(function () {
-                        $.post("api/values","data",
-                        function (data, status) {
-                            alert("Data: " + data + "\nStatus: " + status);
-                        });
+            $(document).ready(function () {
+                $("#subm").click(function () {
+                    $.ajax({
+                        url: "api/values",
+                        type: "POST",
+                   //     data: JSON.stringify(data),
+                        data: JSON.stringify(data),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success:
+                        function (result) {
+                            $("#demo").html(result);
+                        }
                     });
                 });
+            });
 
 
-                //    var xhttp = new XMLHttpRequest();
-                //    xhttp.onreadystatechange = function () {
-                //        if (xhttp.readyState == 4 && xhttp.status == 200) {
-                //            document.getElementById("demo").innerHTML = xhttp.responseText;
-                //        }
-                //    };
-                //    xhttp.open("POST", "api/values", true);
-                //    xhttp.setRequestHeader("Content-Type", "application/json");
-                //    xhttp.send(JSON.stringify(data));
-        //    }
+            //    var xhttp = new XMLHttpRequest();
+            //    xhttp.onreadystatechange = function () {
+            //        if (xhttp.readyState == 4 && xhttp.status == 200) {
+            //            document.getElementById("demo").innerHTML = xhttp.responseText;
+            //        }
+            //    };
+            //    xhttp.open("POST", "api/values", true);
+            //    xhttp.setRequestHeader("Content-Type", "application/json");
+            //    xhttp.send(JSON.stringify(data));
+        }
 
     </script>
 </body>
