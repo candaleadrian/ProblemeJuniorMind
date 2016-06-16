@@ -88,6 +88,9 @@
                         success:
                         function (result) {
                             $("#demo").html(result);
+                        },
+                        error: function (msg) {
+                            console.log("Error: " + msg);
                         }
                     });
                 });
