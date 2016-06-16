@@ -7,6 +7,9 @@
     <title>PasswordGenerator</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js">
     </script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js">
+    </script>
+
     <style>
         body {
             background-color: aqua;
@@ -49,19 +52,23 @@
     </script>
 </head>
 <body>
-    <form onsubmit="test(event)" id="Input">
-        Pasword length:<br>
-        <input type="number" id="passL" value="8"><br>
-        Number of pasword upper case leters:<br>
-        <input type="number" id="uppCase" value="0"><br>
-        Number of numbers characters:<br>
-        <input type="number" id="numbers" value="0"><br>
-        Number of symbols:<br>
-        <input type="number" id="symbNum" value="0"><br>
-        <input type="checkbox" id="simi" name="Similar"> Dont use similar caracters<br>
-        <input type="checkbox" id="ambiguous"> Use ambiguous caracters<br>
-        <input type="submit" id="subm" value="Submit">
-    </form>
+    <div ng-app="">
+        <form onsubmit="test(event)" id="Input">
+            Pasword length:<br>
+            <input type="number" id="passL" value="8" ng-model="n"><br>
+            Number of pasword upper case leters:<br>
+            <input type="number" id="uppCase" value="0" ng-model="u"><br>
+            Number of numbers characters:<br>
+            <input type="number" id="numbers" value="0"><br>
+            Number of symbols:<br>
+            <input type="number" id="symbNum" value="0"><br>
+            <input type="checkbox" id="simi" name="Similar"> Dont use similar caracters<br>
+            <input type="checkbox" id="ambiguous"> Use ambiguous caracters<br>
+            <input type="submit" id="subm" value="Submit">
+            <p>Your Password will have {{n}} small leters {{u}} big leters </p>
+
+        </form>
+    </div>
     <p id="passw"> Your password is:</p>
     <p id="demo"></p>
 
@@ -77,14 +84,11 @@
                 "ambiguous": document.getElementById("ambiguous").checked
             }
 
-            //       $(document).ready(function () {
-            //          $("#subm").click(function () {
-            $.ajax({
+             $.ajax({
                 url: "api/values",
                 type: "POST",
                 data: JSON.stringify(data),
                 contentType: "application/json; charset=utf-8",
-                dataType: "json",
                 success:
                 function (result) {
                     $("#demo").html(result);
@@ -93,8 +97,6 @@
                     console.log("Error: " + msg);
                 }
             });
-            //     });
-            //  });
         }
 
     </script>
