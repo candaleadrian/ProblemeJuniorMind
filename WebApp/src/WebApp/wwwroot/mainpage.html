@@ -80,81 +80,11 @@
     <div id="test">Acest text ar trebui sa fie schimbat de REACT</div>
 
     <script type="text/babel">
-        var ContactItem = React.createClass({
-        propTypes: {
-        length: React.PropTypes.string.isRequired,
-        },
-
-        render: function() {
-        return (
-        React.createElement('li', {className: 'ContactItem'},
-        React.createElement('h2', {className: 'ContactItem-length'}, this.props.length),
-        )
-        );
-        },
-        });
-
-        var ContactForm = React.createClass({
-        propTypes: {
-        value: React.PropTypes.object.isRequired,
-        onChange: React.PropTypes.func.isRequired,
-        },
-
-        render: function() {
-        var oldContact = this.props.value;
-        var onChange = this.props.onChange;
-
-        return (
-        React.createElement('form', {className: 'ContactForm'},
-        React.createElement('input', {
-        type: 'text',
-        placeholder: 'Length (required)',
-        value: this.props.value.length,
-        onChange: function(e) {
-        onChange(Object.assign({}, oldContact, {length: e.target.value}));
-        },
-        }),
-        React.createElement('button', {type: 'submit'}, "New Password Options")
-        )
-        );
-        },
-        });
-
-        var ContactView = React.createClass({
-        propTypes: {
-        passwOption: React.PropTypes.array.isRequired,
-        newPasswOption: React.PropTypes.object.isRequired,
-        },
-
-        render: function() {
-        var contactItemElements = this.props.passwOption
-        .filter(function(contact) { return contact.email; })
-        .map(function(contact) { return React.createElement(ContactItem, contact); });
-
-        return (
-        React.createElement('div', {className: 'ContactView'},
-        React.createElement('h1', {className: 'ContactView-title'}, "Password Length"),
-        React.createElement('ul', {className: 'ContactView-list'}, contactItemElements),
-        React.createElement(ContactForm, {
-        value: this.props.newPasswOption,
-        onChange: function(contact) { console.log(contact); },
-        })
-        )
-        );
-        },
-        });
-
-        var passwOption = [
-        {key: 1, length: "8"},
-        ];
-
-        var newPasswOption = {length: ""};
-
         ReactDOM.render(
-        React.createElement(ContactView, {
-        passwOption: passwOption,
-        newPasswOption: newPasswOption,
-        }),
+        <form onsubmit="test(event)">
+            <p>Password Length</p>
+             <input type="number" defaultValue="8" />,
+        </form>,
         document.getElementById('demo2')
         );
     </script>
