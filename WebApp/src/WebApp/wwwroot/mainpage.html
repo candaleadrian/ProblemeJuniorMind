@@ -80,12 +80,24 @@
     <div id="test">Acest text ar trebui sa fie schimbat de REACT</div>
 
     <script type="text/babel">
+        var Linput = React.createClass({
+            getInitialState: function(){
+                return: {passL:"8"};
+            }
+            handleChange: function(e){
+                this.setState({passL:e.target.value});
+            }
+            render: function(){
+                return
+                  <div>
+                      <p>Password Length</p>
+                      <input id="passL" type="number" defaultValue="8" />,
+                </div>;
+            }
+        });
         ReactDOM.render(
-        <form onsubmit="test(event)">
-            <p>Password Length</p>
-             <input type="number" defaultValue="8" />,
-        </form>,
-        document.getElementById('demo2')
+        <Linput />,
+         document.getElementById('demo2')
         );
     </script>
 
