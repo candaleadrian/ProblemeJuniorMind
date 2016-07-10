@@ -82,17 +82,16 @@
     <script type="text/babel">
         var Linput = React.createClass({
             getInitialState: function(){
-                return: {passL:"8"};
-            }
+                return {passL:"8"};
+            },
             handleChange: function(e){
                 this.setState({passL:e.target.value});
-            }
+            },
             render: function(){
-                return
+                return (
                   <div>
-                      <p>Password Length</p>
-                      <input id="passL" type="number" defaultValue="8" />,
-                </div>;
+                      <input id="passL" type="number" defaultValue="8" /> Pasword Length
+                  </div>);
             }
         });
         ReactDOM.render(
