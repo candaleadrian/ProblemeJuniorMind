@@ -86,11 +86,12 @@
             },
             handleChange: function(e){
                 this.setState({passL:e.target.value});
+                console.log(e.target.value);
             },
             render: function(){
                 return (
                   <div>
-                      <input id="passL" type="number" defaultValue="8" /> Pasword Length
+                      <input id="passL" type="number" defaultValue="8" onChange={this.handleChange} />Pasword Length
                   </div>);
             }
         });
