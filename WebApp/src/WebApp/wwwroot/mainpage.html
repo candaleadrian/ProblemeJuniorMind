@@ -77,22 +77,52 @@
     <p id="passw"> Your password is:</p>
     <p id="demo"></p>
     <div id="demo2"></div>
-    <div id="test">Acest text ar trebui sa fie schimbat de REACT</div>
+    <div id="password">Acest text ar trebui sa fie schimbat de REACT</div>
+    <div id="container"></div>
+
 
     <script type="text/babel">
-            var passL = "";
+        var passLe = "8";
+        var capital = "0";
+        var data = {
+            "length": passLe,
+            "upperCaseCharacters": capital
+        }
+        var p = "XXX";
         var Linput = React.createClass({
-            handleChange: function(e){
-                this.setState({passL:e.target.value});
-                passL = e.target.value;
+            handleChange1: function(e){
+                this.setState({passLe:e.target.value});
+                passLe = e.target.value;
+                console.log(e.target.value);
+            },
+            handleChange2: function(e){
+                this.setState({passLe:e.target.value});
+                capital = e.target.value;
                 console.log(e.target.value);
             },
             render: function(){
                 return (
                   <div>
-                      <input type="number" defaultValue="8" onChange={this.handleChange} /> <p>Password Length is {passL}</p>
+                      <input type="number" defaultValue="8" onChange={this.handleChange1} />
+                      <input type="number" defaultValue="0" onChange={this.handleChange2} />
+                      <p>Password Length is {passLe} leters, number of big leters is {capital}</p> 
+                      <p>Password is {p}</p>
+            $.ajax({
+                type: 'POST',
+                url: 'api/values',
+                data: data
+            })
+            .done(function(result) {
+                p = "kkfkf";
+                ReactDOM.render(
+                <h1>bla bla</h1>,
+                document.getElementById('container')
+                );
+
+            })
                   </div>);
-            }
+            },
+
         });
         const demo2 = document.getElementById('demo2');
         ReactDOM.render(<Linput />,demo2);
@@ -129,7 +159,7 @@
     <script type="text/babel">
         ReactDOM.render(
         <h1>Hello, world!</h1>,
-        document.getElementById('test')
+        document.getElementById('password')
         );
     </script>
 </body>
