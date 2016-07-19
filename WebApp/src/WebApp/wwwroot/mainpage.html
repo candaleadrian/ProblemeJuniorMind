@@ -82,8 +82,8 @@
 
 
     <script type="text/babel">
-        var passLe = "8";
-        var capital = "0";
+        var passLe = 8;
+        var capital = 0;
         var data = {
             "length": passLe,
             "upperCaseCharacters": capital
@@ -108,6 +108,7 @@
                       <p>Password Length is {passLe} leters, number of big leters is {capital}</p> 
                       <p>Password is {p}</p>
                   </div>);
+
             $.ajax({
                 type: 'POST',
                 url: 'api/values',
@@ -119,7 +120,6 @@
                 <h1>bla bla</h1>,
                 document.getElementById('container')
                 );
-
             })
             },
 

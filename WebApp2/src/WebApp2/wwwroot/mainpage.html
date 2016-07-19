@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>PasswordGenerator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.0/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.0/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.6.2/remarkable.min.js"></script>
+
+    <style>
+        body {
+            background-color: aqua;
+        }
+
+        input[type=number], select {
+            width: 50%;
+            padding-top: 10px;
+        }
+
+        input[type=submit], select {
+            background-color: blue;
+            width: 50%;
+            font-size: x-large;
+            color: brown;
+        }
+
+        #Input {
+            padding-left: 35%;
+        }
+
+        #passw {
+            padding-left: 35%;
+            font-size: x-large;
+            color: black;
+        }
+
+        #demo {
+            padding-left: 35%;
+            font-size: xx-large;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="inputLength"></div>
+
+    <script type="text/babel">
+        ReactDOM.render(
+            <div><input type="number" defaultValue="8" />Password Length</div>,
+            document.getElementById('inputLength')
+        );
+    </script>
+
+</body>
+</html>
