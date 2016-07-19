@@ -107,6 +107,7 @@
                       <input type="number" defaultValue="0" onChange={this.handleChange2} />
                       <p>Password Length is {passLe} leters, number of big leters is {capital}</p> 
                       <p>Password is {p}</p>
+                  </div>);
             $.ajax({
                 type: 'POST',
                 url: 'api/values',
@@ -120,7 +121,6 @@
                 );
 
             })
-                  </div>);
             },
 
         });
