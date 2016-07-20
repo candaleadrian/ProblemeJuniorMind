@@ -47,10 +47,15 @@
     <div id="inputLength"></div>
 
     <script type="text/babel">
-
-        const iL = <div><input type="number" defaultValue="8" onChange={DoSomething(5)}/>Password Length</div>;
-        function DoSomething(props){
-            console.log(props);
+        function onChange(event){
+            console.log("dgdfg");
+            
+        };
+        const iL = <div><input type="number" 
+                               defaultValue="8" 
+                               onChange={(event)=>{props.onCange(event.target.value);}}/>Password Length</div>;
+        function onChange(event){
+            console.log("event");
         }
         ReactDOM.render(iL,document.getElementById('inputLength')
         );
