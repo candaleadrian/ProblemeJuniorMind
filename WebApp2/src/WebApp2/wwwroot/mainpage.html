@@ -47,13 +47,12 @@
     <div id="inputLength"></div>
 
     <script type="text/babel">
-        const iL = <div><input type="number" defaultValue="8" onChange={DoSomething()}/>Password Length</div>;
-        DoSomething : function() {
-            console.log("value");
-         };
-        ReactDOM.render(
-            iL,
-            document.getElementById('inputLength')
+
+        const iL = <div><input type="number" defaultValue="8" onChange={DoSomething(5)}/>Password Length</div>;
+        function DoSomething(props){
+            console.log(props);
+        }
+        ReactDOM.render(iL,document.getElementById('inputLength')
         );
     </script>
 
