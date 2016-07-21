@@ -47,18 +47,38 @@
     <div id="inputLength"></div>
 
     <script type="text/babel">
-        function onChange(event){
-            console.log("dgdfg");
+        const data = {length:18,
+                      numbers:2}
+
+        var InputText = React.createClass({
+            getInitialState: function() {
+                return {
+                    length: this.props.data.length,
+                    numbers: this.props.data.numbers
+                };
+            },
             
-        };
-        const iL = <div><input type="number" 
-                               defaultValue="8" 
-                               onChange={(event)=>{props.onCange(event.target.value);}}/>Password Length</div>;
-        function onChange(event){
-            console.log("event");
-        }
-        ReactDOM.render(iL,document.getElementById('inputLength')
-        );
+            myFn: function(v){
+                console.log(v);
+                this.setState({
+                    length: v
+                });
+            },
+            
+            render: function () {
+                return (
+        <div>
+            <input type="number"
+                   defaultValue={this.state.length}
+                   onChange={(event) => { this.myFn(event.target.value)}}
+                    />Password Length {this.props.data.length}
+        </div>
+                );
+            }
+        });
+        
+
+        ReactDOM.render(<InputText data={data}/>,document.getElementById('inputLength'));
     </script>
 
 </body>
