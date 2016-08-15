@@ -5,13 +5,17 @@
     <title></title>
 </head>
 <body>
-    <canvas id="myCanvas" width="400" height="400"></canvas>
+    <canvas id="myCanvas" width="400" height="400"></canvas><br>
+    <button onclick="down()">Down</button>
+
     <script>
       var canvas = document.getElementById('myCanvas');
       var context = canvas.getContext('2d');
       var verticalLine = canvas.getContext('2d');
       var horizontalLine = canvas.getContext('2d');
       var circle = canvas.getContext('2d');
+      var xPos = 50;
+      var yPos = 50;
 
       verticalLine.beginPath();
       verticalLine.moveTo(100, 0);
@@ -44,16 +48,28 @@
       horizontalLine.stroke();
 
       circle.beginPath();
-      circle.arc(50, 50, 40, 0, 180);
+      circle.arc(xPos, yPos, 40, 0, 180);
       circle.fillStyle = 'green';
       circle.fill();
       circle.stroke();
+
 
       context.beginPath();
       context.rect(0, 0, 400, 400);
       context.lineWidth = 7;
       context.strokeStyle = 'black';
       context.stroke();
+
+      function down() {
+          context.clearRect(xPos - 43, yPos - 43, xPos + 40, yPos + 40);
+          circle.beginPath();
+          yPos += 100;
+          circle.arc(xPos, yPos, 40, 0, 180);
+          circle.lineWidth = 1;
+          circle.fillStyle = 'green';
+          circle.fill();
+          circle.stroke();
+      }
     </script>
 
 </body>
