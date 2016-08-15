@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <canvas id="myCanvas" width="400" height="400"></canvas>
+    <script>
+      var canvas = document.getElementById('myCanvas');
+      var context = canvas.getContext('2d');
+      var verticalLine = canvas.getContext('2d');
+      var horizontalLine = canvas.getContext('2d');
+
+      verticalLine.beginPath();
+      verticalLine.moveTo(100, 0);
+      verticalLine.lineTo(100, 400);
+      verticalLine.stroke();
+
+      verticalLine.beginPath();
+      verticalLine.moveTo(200, 0);
+      verticalLine.lineTo(200, 400);
+      verticalLine.stroke();
+
+      verticalLine.beginPath();
+      verticalLine.moveTo(300, 0);
+      verticalLine.lineTo(300, 400);
+      verticalLine.stroke();
+
+      horizontalLine.beginPath();
+      horizontalLine.moveTo(0, 100);
+      horizontalLine.lineTo(400, 100);
+      horizontalLine.stroke();
+
+      horizontalLine.beginPath();
+      horizontalLine.moveTo(0, 200);
+      horizontalLine.lineTo(400, 200);
+      horizontalLine.stroke();
+
+      horizontalLine.beginPath();
+      horizontalLine.moveTo(0, 300);
+      horizontalLine.lineTo(400, 300);
+      horizontalLine.stroke();
+
+
+      context.beginPath();
+      context.rect(0, 0, 400, 400);
+      context.lineWidth = 7;
+      context.strokeStyle = 'black';
+      context.stroke();
+    </script>
+
+</body>
+</html>
