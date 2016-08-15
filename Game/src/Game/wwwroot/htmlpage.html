@@ -11,6 +11,7 @@
       var context = canvas.getContext('2d');
       var verticalLine = canvas.getContext('2d');
       var horizontalLine = canvas.getContext('2d');
+      var circle = canvas.getContext('2d');
 
       verticalLine.beginPath();
       verticalLine.moveTo(100, 0);
@@ -42,6 +43,11 @@
       horizontalLine.lineTo(400, 300);
       horizontalLine.stroke();
 
+      circle.beginPath();
+      circle.arc(50, 50, 40, 0, 180);
+      circle.fillStyle = 'green';
+      circle.fill();
+      circle.stroke();
 
       context.beginPath();
       context.rect(0, 0, 400, 400);
