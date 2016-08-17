@@ -7,6 +7,9 @@
 <body>
     <canvas id="myCanvas" width="400" height="400"></canvas><br>
     <button onclick="down()">Down</button>
+    <button onclick="up()">Up</button>
+    <button onclick="right()">Right</button>
+    <button onclick="left()">Left</button>
 
     <script>
       var canvas = document.getElementById('myCanvas');
@@ -61,9 +64,39 @@
       context.stroke();
 
       function down() {
-          context.clearRect(xPos - 43, yPos - 43, xPos + 40, yPos + 40);
+          context.clearRect(xPos - 41, yPos - 41, xPos + 41, yPos + 41);
           circle.beginPath();
           yPos += 100;
+          circle.arc(xPos, yPos, 40, 0, 180);
+          circle.lineWidth = 1;
+          circle.fillStyle = 'green';
+          circle.fill();
+          circle.stroke();
+      }
+      function up() {
+          context.clearRect(xPos - 41, yPos - 41, xPos + 41, yPos + 41);
+          circle.beginPath();
+          yPos -= 100;
+          circle.arc(xPos, yPos, 40, 0, 180);
+          circle.lineWidth = 1;
+          circle.fillStyle = 'green';
+          circle.fill();
+          circle.stroke();
+      }
+      function right() {
+          context.clearRect(xPos - 41, yPos - 41, xPos + 41, yPos + 41);
+          circle.beginPath();
+          xPos += 100;
+          circle.arc(xPos, yPos, 40, 0, 180);
+          circle.lineWidth = 1;
+          circle.fillStyle = 'green';
+          circle.fill();
+          circle.stroke();
+      }
+      function left() {
+          context.clearRect(xPos - 41, yPos - 41, xPos + 41, yPos + 41);
+          circle.beginPath();
+          xPos -= 100;
           circle.arc(xPos, yPos, 40, 0, 180);
           circle.lineWidth = 1;
           circle.fillStyle = 'green';
