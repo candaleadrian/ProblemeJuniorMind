@@ -5,113 +5,18 @@
     <title></title>
 </head>
 <body>
-    <canvas id="myCanvas" width="400" height="400"></canvas><br>
+    <canvas id="myCanvas" width="300" height="200"></canvas><br>
+
+    <script src="drawBoard.js"></script>
+
     <button onclick="down()">Down</button>
     <button onclick="up()">Up</button>
     <button onclick="right()">Right</button>
     <button onclick="left()">Left</button>
 
+
     <script>
-
-      var canvas = document.getElementById('myCanvas');
-      var context = canvas.getContext('2d');
-      var verticalLine = canvas.getContext('2d');
-      var horizontalLine = canvas.getContext('2d');
-      var circle = canvas.getContext('2d');
-      var xPos = 50;
-      var yPos = 50;
-
-      verticalLine.beginPath();
-      verticalLine.moveTo(100, 0);
-      verticalLine.lineTo(100, 400);
-      verticalLine.stroke();
-
-      verticalLine.beginPath();
-      verticalLine.moveTo(200, 0);
-      verticalLine.lineTo(200, 400);
-      verticalLine.stroke();
-
-      verticalLine.beginPath();
-      verticalLine.moveTo(300, 0);
-      verticalLine.lineTo(300, 400);
-      verticalLine.stroke();
-
-      horizontalLine.beginPath();
-      horizontalLine.moveTo(0, 100);
-      horizontalLine.lineTo(400, 100);
-      horizontalLine.stroke();
-
-      horizontalLine.beginPath();
-      horizontalLine.moveTo(0, 200);
-      horizontalLine.lineTo(400, 200);
-      horizontalLine.stroke();
-
-      horizontalLine.beginPath();
-      horizontalLine.moveTo(0, 300);
-      horizontalLine.lineTo(400, 300);
-      horizontalLine.stroke();
-
-      circle.beginPath();
-      circle.arc(xPos, yPos, 40, 0, 180);
-      circle.fillStyle = 'green';
-      circle.fill();
-      circle.stroke();
-
-
-      context.beginPath();
-      context.rect(0, 0, 400, 400);
-      context.lineWidth = 7;
-      context.strokeStyle = 'black';
-      context.stroke();
-
-      function down() {
-          context.clearRect(xPos - 41, yPos - 41, xPos + 41, yPos + 41);
-          console.log("Clear coordinates " + (xPos - 41) + " " + (yPos - 41) + " " + (xPos + 41) + " " + (yPos + 41));
-          circle.beginPath();
-          yPos += 100;
-          console.log(yPos);
-          circle.arc(xPos, yPos, 40, 0, 180);
-          circle.lineWidth = 1;
-          circle.fillStyle = 'green';
-          circle.fill();
-          circle.stroke();
-      }
-      function up() {
-          context.clearRect(xPos - 41, yPos - 41, xPos + 41, yPos + 41);
-          console.log("Clear coordinates " + (xPos - 41) + " " + (yPos - 41) + " " + (xPos + 41) + " " + (yPos + 41));
-          circle.beginPath();
-          yPos -= 100;
-          console.log(yPos);
-          circle.arc(xPos, yPos, 40, 0, 180);
-          circle.lineWidth = 1;
-          circle.fillStyle = 'green';
-          circle.fill();
-          circle.stroke();
-      }
-      function right() {
-          context.clearRect(xPos - 41, yPos - 41, xPos + 41, yPos + 41);
-          console.log("Clear coordinates " + (xPos - 41) + " " + (yPos - 41) + " " + (xPos + 41) + " " + (yPos + 41));
-          circle.beginPath();
-          xPos += 100;
-          console.log(xPos);
-          circle.arc(xPos, yPos, 40, 0, 180);
-          circle.lineWidth = 1;
-          circle.fillStyle = 'green';
-          circle.fill();
-          circle.stroke();
-      }
-      function left() {
-          context.clearRect(xPos - 41, yPos - 41, xPos + 41, yPos + 41);
-          console.log("Clear coordinates " + (xPos - 41) + " " + (yPos - 41) + " " + (xPos + 41) + " " + (yPos + 41));
-          circle.beginPath();
-          xPos -= 100;
-          console.log(xPos);
-          circle.arc(xPos, yPos, 40, 0, 180);
-          circle.lineWidth = 1;
-          circle.fillStyle = 'green';
-          circle.fill();
-          circle.stroke();
-      }
+        drawCanvas();
     </script>
 
 </body>
