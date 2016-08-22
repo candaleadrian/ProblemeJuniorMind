@@ -3,8 +3,8 @@ var canvas = document.getElementById('myCanvas');
 var context = canvas.getContext('2d');
 let hLength = 300;
 let vLength = 200;
-let rows = 3;
-let columns = 3;
+let rows = 11;
+let columns = 9;
 let hStep = hLength / columns;
 console.log("Pasul orizontal " + hStep);
 let vStep = vLength / rows;
@@ -36,6 +36,7 @@ function drawCanvas() {
         end.x = 0;
         start.x = 0;
     }
+    drowFigurin(figPos);
 }
 function drowFigurin(figPos) {
     context.beginPath();
@@ -44,53 +45,20 @@ function drowFigurin(figPos) {
     context.fill();
     context.stroke();
 }
-drowFigurin(figPos);   
 function move(direction) {
-    context.clearRect(xPos - 41, yPos - 41, xPos + 41, yPos + 41);
-    console.log("Clear coordinates " + (xPos - 41) + " " + (yPos - 41) + " " + (xPos + 41) + " " + (yPos + 41));
-    circle.beginPath();
-    yPos += 100;
-    console.log(yPos);
-    circle.arc(xPos, yPos, 40, 0, 180);
-    circle.lineWidth = 1;
-    circle.fillStyle = 'green';
-    circle.fill();
-    circle.stroke();
+    context.clearRect(figPos.x-radius, figPos.y-radius, figPos.x+radius, figPos.y+radius);
+    if (direction == "d" && figPos.y + vStep < vLength) {
+        figPos.y += vStep;
+    }
+    if (direction == "u" && 0 < figPos.y - vStep) {
+        figPos.y -= vStep;
+    }
+    if (direction == "r" && figPos.x + hStep < hLength) {
+        figPos.x += hStep;
+    }
+    if (direction == "l" && 0 < figPos.x - hStep) {
+        figPos.x -= hStep;
+    }
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    drawCanvas();
 }
-    //function up() {
-    //    context.clearRect(xPos - 41, yPos - 41, xPos + 41, yPos + 41);
-    //    console.log("Clear coordinates " + (xPos - 41) + " " + (yPos - 41) + " " + (xPos + 41) + " " + (yPos + 41));
-    //    circle.beginPath();
-    //    yPos -= 100;
-    //    console.log(yPos);
-    //    circle.arc(xPos, yPos, 40, 0, 180);
-    //    circle.lineWidth = 1;
-    //    circle.fillStyle = 'green';
-    //    circle.fill();
-    //    circle.stroke();
-    //}
-    //function right() {
-    //    context.clearRect(xPos - 41, yPos - 41, xPos + 41, yPos + 41);
-    //    console.log("Clear coordinates " + (xPos - 41) + " " + (yPos - 41) + " " + (xPos + 41) + " " + (yPos + 41));
-    //    circle.beginPath();
-    //    xPos += 100;
-    //    console.log(xPos);
-    //    circle.arc(xPos, yPos, 40, 0, 180);
-    //    circle.lineWidth = 1;
-    //    circle.fillStyle = 'green';
-    //    circle.fill();
-    //    circle.stroke();
-    //}
-    //function left() {
-    //    context.clearRect(xPos - 41, yPos - 41, xPos + 41, yPos + 41);
-    //    console.log("Clear coordinates " + (xPos - 41) + " " + (yPos - 41) + " " + (xPos + 41) + " " + (yPos + 41));
-    //    circle.beginPath();
-    //    xPos -= 100;
-    //    console.log(xPos);
-    //    circle.arc(xPos, yPos, 40, 0, 180);
-    //    circle.lineWidth = 1;
-    //    circle.fillStyle = 'green';
-    //    circle.fill();
-    //    circle.stroke();
-    //}
-
