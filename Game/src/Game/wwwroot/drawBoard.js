@@ -3,12 +3,10 @@ var canvas = document.getElementById('myCanvas');
 var context = canvas.getContext('2d');
 let hLength = 300;
 let vLength = 200;
-let rows = 11;
-let columns = 9;
+let rows = 19;
+let columns = 15;
 let hStep = hLength / columns;
-console.log("Pasul orizontal " + hStep);
 let vStep = vLength / rows;
-console.log("Pasul vertical " + vStep);
 let radius = hStep / 2 * 0.8;
 if (hStep>vStep) {
     radius = vStep/2*0.8;
@@ -29,7 +27,6 @@ function drawCanvas() {
         for (let j = 0; j < columns; j++) {
             end.x += hStep;
             drawRectangle(start, end);
-            console.log("La i=" + i + " si j=" + j + " start = " + start.x + " "+ start.y + " end = " + end.x + " "+ end.y);
             start.x += hStep;
         }
         start.y += vStep;
