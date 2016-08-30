@@ -1,6 +1,21 @@
 ﻿
 var canvas = document.getElementById('myCanvas');
 var context = canvas.getContext('2d');
+
+const board = function (width, height, thickness) {
+    const start = { x: thickness / 2, y: thickness / 2 };
+    const end = { x: width - thickness, y: height - thickness };
+    drawRectangle(start, end, thickness);
+}
+function drawRectangle(start, end,thickness) {
+    context.beginPath();
+    context.rect(start.x, start.y, end.x, end.y);
+    context.lineWidth = thickness;
+    context.strokeStyle = 'gray';
+    context.stroke();
+}
+
+
 let hLength = 300;
 let vLength = 200;
 let rows = 19;
@@ -43,7 +58,6 @@ function drowFigurin(figPos) {
     context.stroke();
 }
 function move(direction) {
-    context.clearRect(figPos.x-radius, figPos.y-radius, figPos.x+radius, figPos.y+radius);
     if (direction == "d" && figPos.y + vStep < vLength) {
         figPos.y += vStep;
     }
