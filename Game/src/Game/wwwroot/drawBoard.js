@@ -1,6 +1,9 @@
 ﻿
 var canvas = document.getElementById('myCanvas');
 var context = canvas.getContext('2d');
+context.translate(120, 0);
+context.scale(0.8, 0.55);
+context.rotate(Math.PI / 4);
 
 const board = function (width, height, thickness) {
     const start = { x: thickness / 2, y: thickness / 2 };
@@ -49,6 +52,7 @@ function drawCanvas() {
         start.x = 0;
     }
     drowFigurin(figPos);
+    board(hLength, vLength, 3);
 }
 function drowFigurin(figPos) {
     context.beginPath();
