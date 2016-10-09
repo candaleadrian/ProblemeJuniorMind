@@ -10,10 +10,10 @@ const board = function (width, height, thickness) {
     const end = { x: width - thickness, y: height - thickness };
     drawRectangle(start, end, thickness);
 }
-function drawRectangle(start, end,thickness) {
+function drawRectangle(startT, endT,thicknessT) {
     context.beginPath();
-    context.rect(start.x, start.y, end.x, end.y);
-    context.lineWidth = thickness;
+    context.rect(startT.x, startT.y, endT.x, endT.y);
+    context.lineWidth = thicknessT;
     context.strokeStyle = 'gray';
     context.stroke();
 }
@@ -21,8 +21,8 @@ function drawRectangle(start, end,thickness) {
 
 let hLength = 300;
 let vLength = 200;
-let rows = 19;
-let columns = 15;
+let rows = 2;
+let columns = 3;
 let hStep = hLength / columns;
 let vStep = vLength / rows;
 let radius = hStep / 2 * 0.8;
@@ -33,18 +33,11 @@ let figPos = { x: hStep / 2, y: vStep / 2 };
 function drawCanvas() {
     let start = { x: 0, y: 0 };
     let end = { x: 0, y: 0 };
-    function drawRectangle(start, height) {
-        context.beginPath();
-        context.rect(start.x, start.y, height.x, height.y);
-        context.lineWidth = 1;
-        context.strokeStyle = 'gray';
-        context.stroke();
-    }
     for (let i = 0; i < rows; i++) {
         end.y += vStep;
         for (let j = 0; j < columns; j++) {
             end.x += hStep;
-            drawRectangle(start, end);
+            drawRectangle(start, end, 1);
             start.x += hStep;
         }
         start.y += vStep;
