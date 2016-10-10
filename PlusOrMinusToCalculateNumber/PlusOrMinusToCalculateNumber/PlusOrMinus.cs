@@ -22,21 +22,37 @@ namespace PlusOrMinusToCalculateNumber
             int number = 1;
             Assert.AreEqual("2+1+0", CalculateCombination(range, number));
         }
-        public string[] ReturnAllVariants(int range, int number)
+        [TestMethod]
+        public void ShoulReturnZeroPlusOnePlusThreePlusFourForRangeThreeAndNumberOne()
         {
-            CalculateCombination(range, number);
-            return new string[0];
+            int range = 2;
+            int number = 1;
+            Assert.AreEqual("2+1+0", CalculateCombination(range, number));
         }
+        [TestMethod]
+        public void ShoulReturnTwoMinusOnePlusZeroAndNumberOne()
+        {
+            int range = 2;
+            int number = 1;
+            Assert.AreEqual("2-1-0", CalculateCombination(range, number));
+        }
+        //public string[] ReturnAllVariants(int range, int number)
+        //{
+        //    CalculateCombination(range, number);
+        //    return new string[0];
+        //}
 
         public string CalculateCombination(int range, int number)
         {
             string result = string.Empty;
-            if (range == 1)
+            int range2 = range;
+            if (range == 0)
             {
-                return "1+0";
+                return result + "0";
             }
-            result += range + "+";
-            return result += CalculateCombination(range - 1, number);
+            result = range + "-" + CalculateCombination(range-1, number);
+            result = range + "+" + CalculateCombination(range2-1, number);
+           return result;
         }
     }
 }
