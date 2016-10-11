@@ -9,50 +9,46 @@ namespace PlusOrMinusToCalculateNumber
     public class PlusOrMinus
     {
         [TestMethod]
-        public void ShoulReturnZeroPlusOneForRangeOneAndNumberOne()
+        public void ShoulReturnOne()
         {
-            int range = 1;
-            int number = 1;
-            Assert.AreEqual("1+0", CalculateCombination(range, number));
+            Assert.AreEqual(1, GetNumber(7));
         }
         [TestMethod]
-        public void ShoulReturnZeroPlusOnePlusThreeForRangeTwoAndNumberOne()
+        public void ShoulReturnPlus()
         {
-            int range = 2;
-            int number = 1;
-            Assert.AreEqual("2+1+0", CalculateCombination(range, number));
+            Assert.AreEqual(1, GetNumber(7));
         }
-        [TestMethod]
-        public void ShoulReturnZeroPlusOnePlusThreePlusFourForRangeThreeAndNumberOne()
+        int counterNr = 0;
+        int counterSign = -1;
+        public int GetNumber(int number)
         {
-            int range = 2;
-            int number = 1;
-            Assert.AreEqual("2+1+0", CalculateCombination(range, number));
+            counterNr += 1;
+            if (counterNr > number)
+                return -1;
+            return counterNr;
         }
-        [TestMethod]
-        public void ShoulReturnTwoMinusOnePlusZeroAndNumberOne()
+        public string GetSign()
         {
-            int range = 2;
-            int number = 1;
-            Assert.AreEqual("2-1-0", CalculateCombination(range, number));
+            string[] op = new string[0];
+            int[] numbers = {1, 2};
+            string[] operation = {"+","-"};
+            op = Combine(numbers, operation);
+            return op[0];
         }
-        //public string[] ReturnAllVariants(int range, int number)
-        //{
-        //    CalculateCombination(range, number);
-        //    return new string[0];
-        //}
 
-        public string CalculateCombination(int range, int number)
+        public string[] Combine(int[] numbers, string[] operation)
         {
-            string result = string.Empty;
-            int range2 = range;
-            if (range == 0)
+            string[] result = new string[0];
+            string tmp = string.Empty;
+            for (int i = 0; i < numbers.Length; i++)
             {
-                return result + "0";
+                tmp += numbers[i];
+                for (int j = 0; j < operation.Length; j++)
+                {
+                    tmp += operation[j];
+                }
             }
-            result = range + "-" + CalculateCombination(range-1, number);
-            result = range + "+" + CalculateCombination(range2-1, number);
-           return result;
+            return result;
         }
     }
 }
