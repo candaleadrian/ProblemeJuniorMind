@@ -9,37 +9,32 @@ namespace PlusOrMinusToCalculateNumber
     public class PlusOrMinus
     {
         [TestMethod]
-        public void ShoulReturnOne()
+        public void ShoulReturnZeroPlusOneForRangeOneAndNumberOne()
         {
-            Assert.AreEqual("1+2", Combine(new int[] {1,2}));
+            int range = 1;
+            int number = 1;
+            Assert.AreEqual("1+0", CalculateCombination(range, number));
         }
-        
-        int counterNr = 0;
-        int counterSign = -1;
-        public string Combine(int[] numbers)
+        [TestMethod]
+        public void ShoulReturnZeroPlusOnePlusThreeForRangeTwoAndNumberOne()
         {
-            string result = string.Empty;
-            int opNr = numbers.Length;
-            while (counterSign < 0)
-            {
-                for (int i = 0; i < opNr; i++)
-                {
-                    result += numbers[i] + GetOperation();
-                }
-            }
-            return result;
+            int range = 2;
+            int number = 1;
+            Assert.AreEqual("2+1+0", CalculateCombination(range, number));
+        }
+        public string[] ReturnAllVariants(int range, int number)
+        {
+            CalculateCombination(range, number);
+            return new string[0];
         }
 
-        private string GetOperation()
+        public string CalculateCombination(int range, int number)
         {
-            counterSign = 1;
-            string[] operation = { "+", "-" };
-            while (counterSign == 1)
+            if (range == 1)
             {
-            if (counterNr == 0)
-                return "+";
+                return "1+0";
             }
-            throw new NotImplementedException();
+            return range + "+" + CalculateCombination(range - 1, number);
         }
     }
 }
