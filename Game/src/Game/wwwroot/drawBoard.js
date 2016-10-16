@@ -34,9 +34,9 @@ function drawCanvas() {
     let start = { x: 0, y: 0 };
     let end = { x: 0, y: 0 };
     for (let i = 0; i < rows; i++) {
-        end.y += vStep;
+        end.y = vStep;
         for (let j = 0; j < columns; j++) {
-            end.x += hStep;
+            end.x = hStep;
             drawRectangle(start, end, 1);
             start.x += hStep;
         }
